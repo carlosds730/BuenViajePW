@@ -1,0 +1,83 @@
+{% extends 'noticia_en.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+{% block title %}
+    <title>Buen Viaje a Cuba - Events</title>
+{% endblock %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">{{ mes_actual.2 }}</li>
+        </ol>
+        <div class="title_containter">
+            <div class="dropdown dropdown_mine">
+                <button class="btn default-btn dropdown-toggle" data-toggle="dropdown">Select month
+                </button>
+                <ul class="dropdown-menu ">
+                    {% for value in months %}
+                        <li><a tabindex="-1" href="/eventos/{{ value.0 }}/#go_here">{{ value.2 }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h2 style="text-align: center; margin-bottom: 17px">Events in {{ mes_actual.2 }}</h2>
+        </div>
+        <div class="eventos">
+            {% for x in eventos %}
+                <div class="evento">
+                    <h4>{{ x.en_titulo }}</h4>
+
+                    <p><strong>Date: </strong> {{ x.get_fecha_en }} </p>
+
+                    <p><strong>Province: </strong>{{ x.provincia }}</p>
+                    {% if x.en_sede %}
+                        <p><strong>Place: </strong>{{ x.en_sede }}</p>
+                    {% endif %}
+                    {% if x.en_receptivo %}
+                        <p><strong>Receptive: </strong>{{ x.en_receptivo }}</p>
+                    {% endif %}
+                    {% if x.en_comite %}
+                        <p><strong>Committee: </strong>{{ x.en_comite }}</p>
+                    {% endif %}
+                    {% if x.telefono and x.fax %}
+                        <p><strong>Tel: </strong>{{ x.telefono }}, <strong>Fax: </strong>{{ x.fax }}</p>
+                    {% elif x.telefono and not x.fax %}
+                        <p><strong>Tel: </strong>{{ x.telefono }}</p>
+                    {% elif x.fax and not x.telefono %}
+                        <p><strong>Fax: </strong>{{ x.fax }}</p>
+                    {% endif %}
+                    {% if x.email %}
+                        <p><strong>Email: </strong>
+                            {% for correo in x.fix_comma_email %}
+                                {% if forloop.last %}
+                                    <a href="mailto:{{ correo }}">{{ correo }}</a>
+                                {% else %}
+                                    <a href="mailto:{{ correo }}">{{ correo }}</a>,
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if x.web %}
+                        <p><strong>Web: </strong>
+                            {% for web in x.fix_comma_web %}
+                                {% if forloop.last %}
+                                    <a href="http://{{ web }}" target="_blank">{{ web }}</a>
+                                {% else %}
+                                    <a href="http://{{ web }}" target="_blank">{{ web }}</a>,
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

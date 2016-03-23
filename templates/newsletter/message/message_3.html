@@ -1,0 +1,409 @@
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Newsletter email template</title>
+</head>
+
+<body bgcolor="#8d8e90">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#8d8e90">
+    <tr>
+        <td>
+            <table width="635" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF" align="center">
+                <tr>
+                    <td colspan="5">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="537" align="center"><a href="http://yourlink" target="_blank"><img
+                                        src="{% static "images/girasol_sized.jpg" %}" width="49" height="49" border="0" alt="" style="  padding-right: 15px;">
+                                    <img
+                                        src="{% static "images/texto.jpg" %}" width="362" height="44" border="0" alt=""/></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    {% thumbnail main_article.image "600x250" as image %}
+                        <td colspan="5" align="center"><a href="http://yourlink" target="_blank"><img style="border:7px solid #FFF; box-shadow:  5px 5px 5px #CCCCCC; vertical-align:top" src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}"/>
+                        </a>
+                        </td>
+                    {% endthumbnail %}
+                </tr>
+                <tr height="10"></tr>
+                <tr>
+                    <td colspan="5">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="27">&nbsp;</td>
+                                <td width="454" align="left" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" height="10px">
+                                        <tr>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" valign="top">
+                                                <table width="99%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td width="95%" height="422">
+                                                            <table width="103%" border="0" cellspacing="0"
+                                                                   cellpadding="0">
+                                                                <tr>
+                                                                    <td height="28" align="left" valign="middle"
+                                                                            ><span
+                                                                            style="font-family: 'Myriad Pro', 'Myriad Pro Cond', 'Myriad Pro Light', 'Myriad Pro Light Cond'; color: #1D3C8E; font-size: 17px; text-align: center;"><strong><em>Toma
+                                                                        36: el año de Fernando Pérez (II)</em></strong></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" valign="top"><span
+                                                                            style="font-family: Verdana; color: #000000; font-size: 12px; line-height: 21px">He
+                                                                        visto Fernando Pérez en cada película cubana de
+                                                                        esta edición: Clandestinos en Vestido de novia,
+                                                                        Madrigal en Fátima, Madagascar en Venecia…
+                                                                        Incluso en Venecia, ese filme piloto, ese
+                                                                        caballo de Troya en tierras del nuevo cine, cuya
+                                                                        simplicidad ¿esquiva? la espada de Damocles del
+                                                                        cine cubano post 90: la marca-país, los
+                                                                        personajes-nación que el público
+                                                                        reclama.... </span> <span
+                                                                            style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px"><a
+                                                                            href="http://yourlink"
+                                                                            style="color:#05bcda; text-decoration:none"><strong><em>Leer
+                                                                        más</em></strong></a></span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0"
+                                                                               cellpadding="0">
+                                                                            <tr>
+                                                                                <td height="10"
+                                                                                    style="border-bottom:1px solid #d0d1d3"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="10"></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0"
+                                                                               cellpadding="0">
+                                                                            <tr>
+                                                                                <td width="33%"><img
+                                                                                        src="images/17316fc2f494669bd94f32de33f28a9c.jpg"
+                                                                                        alt=""
+                                                                                        width="121" height="120"
+                                                                                        style="border:5px solid #FFF; box-shadow:  5px 5px 5px #CCCCCC; vertical-align:top"/>
+                                                                                </td>
+                                                                                <td width="67%" align="left"
+                                                                                    valign="top"><strong><em
+                                                                                        style="font-family: 'Myriad Pro', 'Myriad Pro Cond', 'Myriad Pro Light', 'Myriad Pro Light Cond'; font-size: 17px; color: #1D3C8E; text-align: left; font-style: normal; font-weight: bold;">Yissy
+                                                                                    García y Banda Ancha: gestionar la
+                                                                                    música desde la
+                                                                                    tecnología</em></strong><br/>
+                                                                                    <font
+                                                                                            style="font-family: Verdana; color: #000000; font-size: 12px; line-height: 21px">La
+                                                                                        reconocida jazzista Yissy García
+                                                                                        lanzó recientemente una campaña
+                                                                                        de financiamiento en la
+                                                                                        plataforma online Verkami, con
+                                                                                        el propósito de sacar
+                                                                                        la...... </font><font
+                                                                                            style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px"><a
+                                                                                            href="http://yourlink"
+                                                                                            style="color:#05bcda; text-decoration:none"><strong><em>
+                                                                                        Leer
+                                                                                        más</em></strong></a></font>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0"
+                                                                               cellpadding="0">
+                                                                            <tr>
+                                                                                <td height="10"
+                                                                                    style="border-bottom:1px solid #d0d1d3"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="10"></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0"
+                                                                               cellpadding="0">
+                                                                            <tr>
+                                                                                <td width="33%"
+                                                                                    style="vertical-align:middle"><img
+                                                                                        style="border:5px solid #FFF; box-shadow:  5px 5px 5px #CCCCCC;"
+                                                                                        src="images/b15ae4c3a726e676ae02ae8d5673470f.jpg"
+                                                                                        alt=""
+                                                                                        width="85" height="130"/></td>
+                                                                                <td width="67%" align="left"
+                                                                                    valign="top"><strong><em
+                                                                                        style="font-family: 'Myriad Pro', 'Myriad Pro Cond', 'Myriad Pro Light', 'Myriad Pro Light Cond'; font-size: 17px; color: #1D3C8E; text-align: left; font-style: normal; font-weight: bold;">Promoción
+                                                                                    de la inversión extranjera y la
+                                                                                    nueva cartera de negocios en Cuba
+                                                                                    (IV) </em></strong><br/>
+                                                                                    <font
+                                                                                            style="font-family: Verdana; color: #000000; font-size: 12px; line-height: 21px">Entre
+                                                                                        los proyectos de mayores
+                                                                                        perspectivas para captar nuevas
+                                                                                        inversiones extranjeras en Cuba
+                                                                                        se encuentran los vinculados a
+                                                                                        la industria biotecnológica y
+                                                                                        médico-farmacéutica,... </font><font
+                                                                                            style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px"><a
+                                                                                            href="http://yourlink"
+                                                                                            style="color:#05bcda; text-decoration:none"><strong><em>
+                                                                                        Leer
+                                                                                        más</em></strong></a></font>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0"
+                                                                               cellpadding="0">
+                                                                            <tr>
+                                                                                <td height="10"
+                                                                                    style="border-bottom:1px solid #d0d1d3"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="10"></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table width="100%" border="0" cellspacing="0"
+                                                                               cellpadding="0">
+                                                                            <tr>
+                                                                                <td width="33%"
+                                                                                    style="vertical-align:middle"><img
+                                                                                        style="border:5px solid #FFF; box-shadow:  5px 5px 5px #CCCCCC;"
+                                                                                        src="images/ba497a3077990cc3cf230437ed3dae9f.jpg"
+                                                                                        alt=""
+                                                                                        width="121" height="76"/></td>
+                                                                              <td width="67%" align="left"
+                                                                                    valign="top"><strong><em
+                                                                                        style="font-family: 'Myriad Pro', 'Myriad Pro Cond', 'Myriad Pro Light', 'Myriad Pro Light Cond'; font-size: 17px; color: #1D3C8E; text-align: left; font-style: normal; font-weight: bold;">Moreno Fraginals, la historia y el (in)genio</em></strong><br/>
+                                                                                  <font
+                                                                                            style="font-family: Verdana; color: #000000; font-size: 12px; line-height: 21px">Hace 50 años veía la luz uno de los textos más relevantes dentro de la historiografía cubana. Con la publicación de El ingenio, complejo económico-social cubano del azúcar, Manuel Moreno Fraginals no solo mostraba la posibilidad de restar silencios a la memoria de un país sino también ..... </font><font
+                                                                                            style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px"><a
+                                                                                            href="http://yourlink"
+                                                                                            style="color:#05bcda; text-decoration:none"><strong><em>
+                                                                                      Leer
+                                                                                      más</em></strong></a></font>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                        <td width="5%" style="border-right:1px solid #95989a">&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td colspan="2" align="left" valign="top">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td width="82%" align="left" valign="top">
+                                              <table width="98%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="27" align="center" style="font-family: 'Myriad Pro', 'Myriad Pro Cond', 'Myriad Pro Light', 'Myriad Pro Light Cond'; color: #1D3C8E;"><strong>Publicidades</strong></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="195" style="vertical-align:middle"><img style="padding-left:10px"
+                                                                src="images/airfrance.jpg" alt=""
+                                                                width="129" height="192"
+                                                                border="0"/></td>
+                                                </tr>
+                                                    <tr>
+                                                        <td align="center" valign="middle"><font
+                                                                style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px; text-align:center"><a
+                                                                href="http://yourlink"
+                                                                style="color: #05bcda; text-decoration: none; font-size: 9px; text-align: center"><strong><em>Link</em></strong></a></font>
+                                                        </td>
+                                                    </tr>
+                                              </table>
+                                                <table width="100%" border="0" cellspacing="0"
+                                                       cellpadding="0">
+                                                    <!--<tr>
+                                                        <td height="10"
+                                                            style="border-bottom:1px solid #d0d1d3"></td>
+                                                    </tr>-->
+                                                    <tr>
+                                                        <td height="10"></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="99%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="7"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="185" style="vertical-align:top"><img style="padding-left:10px"
+                                                                src="images/SolMelia.jpg" alt=""
+                                                                width="129" height="192"
+                                                                border="0"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" valign="middle"><font
+                                                                style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px"><a
+                                                                href="http://yourlink"
+                                                                style="color: #05bcda; text-decoration: none; font-size: 9px;"><strong><em>Link</em></strong></a></font>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table width="100%" border="0" cellspacing="0"
+                                                       cellpadding="0">
+                                                    <!--<tr>
+                                                        <td height="10"
+                                                            style="border-bottom:1px solid #d0d1d3"></td>
+                                                    </tr>-->
+                                                    <tr>
+                                                        <td height="10"></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="99%" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="7"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td height="185" style="vertical-align:top"><img style="padding-left:10px"
+                                                                src="images/superclubs.jpg" alt=""
+                                                                width="129" height="192"
+                                                                border="0"/></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center" valign="middle"><font
+                                                                style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px"><a
+                                                                href="http://yourlink"
+                                                                style="color: #05bcda; text-decoration: none; font-size: 9px;"><strong><em>Link</em></strong></a></font>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td width="5%">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                            	<td></td>
+                                <td height="1" style="border-bottom:3px solid #d0d1d3; vertical-align:top"></td>
+                                <td width="143" height="3" style="border-bottom:3px solid #d0d1d3; vertical-align:top"></td>
+                                <td width="11" height="7">
+                                	</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr width="100%">
+
+                </tr>
+                <tr height="50">
+                    <td width="5%">&nbsp;</td>
+                    <td width="41%" style="vertical-align:middle">
+                        <img style="" src="{% static "images/rochotels.jpg"%}" alt="" width="259" height="52"/>
+                    </td>
+                    <td width="10%">&nbsp;</td>
+                    <td width="41%"><span style="vertical-align:middle"><img style="" src="images/barcelo.jpg" alt="" width="79" height="52"/></span></td>
+                    <td width="3%">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="5" height="17" style="vertical-align:middle"><img src="images/PROMO-GREEN2_07.jpg" width="598" height="7" style="display:block" border="0"
+                             alt=""/></td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="13%" align="center">&nbsp;</td>
+                                <td width="14%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><a
+                                        href="http://yourlink" style="color:#010203; text-decoration:none"></a></font>
+                                </td>
+                                <td width="2%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><strong>|</strong></font>
+                                </td>
+                                <td width="9%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><a
+                                        href="http://yourlink" style="color:#010203; text-decoration:none"><strong>CONTÁCTENOS</strong></a></font>
+                                </td>
+                                <td width="2%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><strong>|</strong></font>
+                                </td>
+                                <td width="10%" align="center">&nbsp;</td>
+                                <td width="2%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><strong>|</strong></font>
+                                </td>
+                                <td width="11%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><a
+                                        href="http://yourlink" style="color:#010203; text-decoration:none"></a></font>
+                                </td>
+                                <td width="2%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><strong>|</strong></font>
+                                </td>
+                                <td width="17%" align="center"><font
+                                        style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#010203; font-size:9px; text-transform:uppercase"><a
+                                        href="http://yourlink" style="color:#010203; text-decoration:none"><strong>SÍGUENOS</strong></a></font>
+                                </td>
+                                <td width="4%" align="right"><a href="https://www.facebook.com/" target="_blank"><img
+                                        src="{% static "images/PROMO-GREEN2_09_01.jpg"%}" alt="facebook" width="22" height="19"
+                                        border="0"/></a></td>
+                                <td width="5%" align="center"><a href="https://twitter.com/" target="_blank"><img
+                                        src="images/PROMO-GREEN2_09_02.jpg" alt="twitter" width="23" height="19"
+                                        border="0"/></a></td>
+                                <td width="4%" align="right"><a href="http://www.linkedin.com/" target="_blank"><img
+                                        src="images/PROMO-GREEN2_09_03.jpg" alt="linkedin" width="20" height="19"
+                                        border="0"/></a></td>
+                                <td width="5%">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="5" align="center"><font
+                            style="font-family:'Myriad Pro', Helvetica, Arial, sans-serif; color:#231f20; font-size:8px; text-align:center"><strong>Poner
+                        aquí la dirección<a href="http://yourlink"
+                                            style="color:#010203; text-decoration:none"></a></strong></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">&nbsp;</td>
+                </tr>
+            </table>
+      </td>
+    </tr>
+</table>
+</body>
+</html>

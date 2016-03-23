@@ -1,0 +1,62 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>Buen Viaje a Cuba - Tiempo Libre</title>
+{% endblock %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Inicio</a></li>
+            <li class="active">Tiempo Libre</li>
+        </ol>
+        <div class="eventos">
+            {% for x in actividades %}
+                {% if forloop.last %}
+                    <div class="evento tiempolibre_excusion media wow fadeInDown single_page_content" style="border-bottom: 0px">
+                        <div class="tiempolibre_excusion_titulo">
+                            <img id="tiempolibre_excusion_logo{{ x.pk }}" src="">
+                            <h4>{{ x.titulo }}</h4>
+                        </div>
+                        <div class="excursion_img_holder">
+                            <img id="tiempolibre_excusion_img{{ x.pk }}" src="">
+                        </div>
+                        <div class="tiempolibre_excusion_texto">
+                            {{ x.texto | safe }}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="evento tiempolibre_excusion media wow fadeInDown single_page_content">
+                        <div class="tiempolibre_excusion_titulo">
+                            <img id="tiempolibre_excusion_logo{{ x.pk }}" src="">
+                            <h4>{{ x.titulo }}</h4>
+                        </div>
+                        <div class="excursion_img_holder">
+                            <img id="tiempolibre_excusion_img{{ x.pk }}" src="">
+                        </div>
+                        <div class="tiempolibre_excusion_texto">
+                            {{ x.texto | safe }}
+                        </div>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            {% for x in actividades %}
+                uploadSomePics();
+                document.getElementById("tiempolibre_excusion_logo{{ x.pk }}").setAttribute("src", "{{ x.to_show_logo }}");
+                document.getElementById("tiempolibre_excusion_img{{ x.pk }}").setAttribute("src", "{{ x.to_show }}");
+            {% endfor %}
+            {#DONE: Fix this online#}
+            uploadSomePics();
+
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "admin/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'Buen Viaje' %}{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">{% trans 'Buen Viaje a Cuba' %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

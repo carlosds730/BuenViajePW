@@ -1,0 +1,164 @@
+{% extends 'noticia_en.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>Buen Viaje a Cuba - Latest editions</title>
+{% endblock %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/?language = en">Home</a></li>
+            <li class="active">Latest editions</li>
+        </ol>
+        <div class="title_containter">
+            <div class="dropdown dropdown_mine">
+                <button class="btn default-btn dropdown-toggle" data-toggle="dropdown">Select year
+                </button>
+                <ul class="dropdown-menu ">
+                    {% for value in anhos %}
+                        <li><a tabindex="-1" href="/old_revistas/&anho={{ value }}#go_here">{{ value }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h2 style="text-align: center; margin-bottom: 17px">Issues of {{ anho }}</h2>
+        </div>
+        <div class="revistas">
+            <div class="revista">
+                {% if revistas.0 %}
+                    <img class="revista_portada" src="{{ fotos.0 }}" alt="portada Buen Viaje a Cuba">
+                    <div class="ediciones">
+                        <h5><strong>Issue No.1</strong></h5>
+                        {% for rev in revistas.0 %}
+                            <h6><a href="{{ rev.url.url }}">{{ rev.idioma }}</a></h6>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <img class="revista_portada" src="{% static 'img/no_revista/no_revista_img_esp.jpg' %}" alt="Portada Cover Buen Viaje a Cuba">
+                    <div class="ediciones">
+                        <h5><strong>Issue No.1</strong></h5>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="revista">
+                {% if revistas.1 %}
+                    <img class="revista_portada" src="{{ fotos.1 }}" alt="Portada Cover Buen Viaje a Cuba">
+
+                    <div class="ediciones">
+                        <h5><strong>Issue No.2</strong></h5>
+                        {% for rev in revistas.1 %}
+                            <h6><a href="{{ rev.url.url }}">{{ rev.idioma }}</a></h6>
+                        {% endfor %}
+                    </div>
+                {% else %}
+
+                    <img class="revista_portada" src="{% static 'img/no_revista/no_revista_img_esp.jpg' %}" alt="Portada Cover Buen Viaje a Cuba">
+                    <div class="ediciones">
+                        <h5><strong>Issue No.2</strong></h5>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="revista">
+                {% if revistas.2 %}
+                    <img class="revista_portada" src="{{ fotos.2 }}" alt="Portada Cover Buen Viaje a Cuba">
+                    <div class="ediciones">
+                        <h5><strong>Issue No.3</strong></h5>
+                        {% for rev in revistas.2 %}
+                            <h6><a href="{{ rev.url.url }}">{{ rev.idioma }}</a></h6>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <img class="revista_portada" src="{% static 'img/no_revista/no_revista_img_esp.jpg' %}" alt="Portada Cover Buen Viaje a Cuba">
+                    <div class="ediciones">
+                        <h5><strong>Issue No.3</strong></h5>
+
+                    </div>
+                {% endif %}
+            </div>
+            <div class="revista">
+                {% if revistas.3 %}
+                    <img class="revista_portada" src="{{ fotos.3 }}" alt="Portada Cover Buen Viaje a Cuba">
+                    <div class="ediciones">
+                        <h5><strong>Issue No.4</strong></h5>
+                        {% for rev in revistas.3 %}
+                            <h6><a href="{{ rev.url.url }}">{{ rev.idioma }}</a></h6>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <img class="revista_portada" src="{% static 'img/no_revista/no_revista_img_esp.jpg' %}" alt="Portada Cover Buen Viaje a Cuba">
+                    <div class="ediciones">
+                        <h5><strong>Issue No.4</strong></h5>
+
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="revistas">
+            <div class="revista_especial_holder">
+                {% if revistas_es.0 %}
+                    <div class="revista_especial">
+                        <img class="revista_portada" src="{{ fotos_es.0 }}" alt="Portada Cover Buen Viaje a Cuba">
+                    </div>
+                    <div class="ediciones">
+                        <div class="ediciones">
+                            <h5><strong>Russian Special Edition Issue No.1</strong></h5>
+                            {% for rev in revistas_es.0 %}
+                                <h6><a href="{{ rev.url.url }}">{{ rev.idioma }}</a></h6>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="revista_especial">
+                        <img class="revista_portada" src="{% static 'img/no_revista/no_revista_img_esp.jpg' %}" alt="Portada Cover Buen Viaje a Cuba">
+                    </div>
+                    <div class="ediciones">
+                        <h5><strong>Russian Special Edition Issue No.1</strong></h5>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="revista_especial_holder">
+                {% if revistas_es.1 %}
+                    <div class="revista_especial">
+                        <img class="revista_portada" src="{{ fotos_es.1 }}" alt="Portada Cover Buen Viaje a Cuba">
+                    </div>
+                    <div class="ediciones">
+                        <div class="ediciones">
+                            <h5><strong>Russian Special Edition Issue No.2</strong></h5>
+                            {% for rev in revistas_es.1 %}
+                                <h6><a href="{{ rev.url.url }}">{{ rev.idioma }}</a></h6>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="revista_especial">
+                        <img class="revista_portada" src="{% static 'img/no_revista/no_revista_img_esp.jpg' %}" alt="Portada Cover Buen Viaje a Cuba">
+                    </div>
+                    <div class="ediciones">
+                        <h5><strong>Russian Special Edition Issue No.2</strong></h5>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block first_content %}
+    <div class="single_sidebar wow fadeInDown " style="margin-bottom: 4%; text-align: center">
+        <h2><span>Last edition</span></h2>
+        <a href="{{ last_revista.url.url }}" class="sideAdd last_edition" style="width: 100%; text-align: center">
+            <img src="{{ last_revista.get_small_thumbnail }}" alt="img">
+        </a>
+        <strong><a href="{{ last_revista.url.url }}"><p>Issue {{ last_revista.numero }} Year {{ last_revista.anho }}</p></a></strong>
+        <a href="/old_revistas/#go_here">Latest editions</a>
+    </div>
+
+
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

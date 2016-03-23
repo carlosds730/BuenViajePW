@@ -1,0 +1,472 @@
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Newsletter</title>
+</head>
+
+<body>
+<table width="98%" border="0" align="center" cellpadding="0px" cellspacing="0px"
+       style="mso-table-lspace:0px; mso-table-rspace:0px">
+    <tr>
+        <td>
+            <table width="799" border="0" cellpadding="0px" align="center" cellspacing="0px"
+                   style="box-shadow:0px 0px 10px 10px #b4b4b4; border-spacing:0px; mso-table-lspace:0px; mso-table-rspace:0px">
+            <tr>
+                <td height="163" colspan="5" style="border-spacing:0px; vertical-align:top"><img
+                        src={% static "img/cabezal completo.jpg" %} width="799" height="154" alt="logo buen viaje"/>
+                </td>
+            </tr>
+                <tr>
+                    <td width="16" rowspan="7">&nbsp;</td>
+                    <td width="760" style="vertical-align:top">
+                        <table width="771" border="0" cellspacing="0" cellpadding="0"
+                               style="border-bottom:1px solid #4382c3">
+                            <tr>
+                                <td height="33" colspan="4"
+                                    style="border-bottom:1px solid #4382c3; font-family: Helvetica; font-size:14px; color:#4382c3; font-weight:bold; vertical-align:middle">
+                                    {% if message.articles.all.0 %}
+                                        {{ message.articles.all.0.title }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td width="13">&nbsp;</td>
+                                <td width="17">&nbsp;</td>
+                                <td width="155"
+                                    style="font-family:Helvetica;font-size:14px;font-weight:bold; color:#4382c3">
+                                    Publicidad
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="161" rowspan="3" align="center"
+                                    style="border-bottom:1px solid #4382c3;vertical-align:middle">
+                                    {% if message.articles.all.0 %}
+                                        {% with message.articles.all.0 as article %}
+                                            {% with article.get_width_top as article_img %}
+                                                <img style="border: 5px solid #FFF; box-shadow:5px 5px 5px 0px #b4b4b4"
+                                                     src="{{ article_img.0.url }}" width="{{ article_img.1 }}"
+                                                     height="{{ article_img.2 }}">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td height="10" align="center">&nbsp;</td>
+                                <td colspan="2" align="center">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td height="570px" colspan="2" rowspan="11"
+                                    style="vertical-align:top ; border-left:1px solid #4382c3; text-align:right">
+                                    {% if message.publicities.all.0 %}
+                                        {% with message.publicities.all.0 as publi %}
+                                            {% thumbnail publi.image '153x560' as image %}
+                                                <a href={{ publi.url }}><img style="border:1px solid #4382c3" src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="Publicidad de {{ publi.title }}" ></a>
+                                            {% endthumbnail %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; border-right:1px solid #4382c3; vertical-align:middle">&nbsp;
+                                    
+                                </td>
+                                <td width="11" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; vertical-align:top">
+
+                                </td>
+                                <td width="400" valign="top"
+                                    style="vertical-align:top; font-family:Helvetica; font-size:12px; font-weight:normal;line-height:16.8pt;">
+                                    {% if message.articles.all.0 %}
+                                        {% with message.articles.all.0 as article %}
+                                            {{ article.text }}...
+                                            <a style="font-family:Helvetica;font-style: italic;font-size:12px; font-weight:normal;color:#4382c3"
+                                               href="{{ article.url }}"><span
+                                                    style="color: #4382c3">Leer más</span></a>
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td rowspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height="14" style="border-bottom:1px solid #4382c3; vertical-align:top"></td>
+                            </tr>
+                            <tr>
+                                <td height="33" colspan="4"
+                                    style="border-bottom:1px solid #4382c3; font-family: Helvetica; font-size:14px; color:#4382c3; font-weight:bold; vertical-align:middle">
+                                    {% if message.articles.all.1 %}
+                                        {{ message.articles.all.1.title }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr style="vertical-align:top">
+                               <td width="161" rowspan="3" align="center"
+                                    style="border-bottom:1px solid #4382c3;vertical-align:middle">
+                                    {% if message.articles.all.1 %}
+                                        {% with message.articles.all.1 as article %}
+                                            {% with article.get_width_top as article_img %}
+                                                <img style="border: 5px solid #FFF; box-shadow:5px 5px 5px 0px #b4b4b4"
+                                                     src="{{ article_img.0.url }}" width="{{ article_img.1 }}"
+                                                     height="{{ article_img.2 }}">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td height="10" align="center">&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
+                                <td rowspan="3">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="14" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; border-right:1px solid #4382c3; vertical-align:middle">&nbsp;
+                                    
+                                </td>
+                                <td width="11" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; vertical-align:top">
+
+                                </td>
+                                <td width="400" valign="top"
+                                    style="vertical-align:top; font-family:Helvetica; font-size:12px; font-weight:normal;line-height:16.8pt;">
+                                    {% if message.articles.all.1 %}
+                                        {% with message.articles.all.1 as article %}
+                                            {{ article.text }}...
+                                            <a style="font-family:Helvetica;font-style: italic;font-size:12px; font-weight:normal;color:#4382c3"
+                                               href="{{ article.url }}"><span
+                                                    style="color: #4382c3">Leer más</span></a>
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="14" style="border-bottom:1px solid #4382c3; vertical-align:top">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height="33" colspan="4"
+                                    style="border-bottom:1px solid #4382c3; font-family: Helvetica; font-size:14px; color:#4382c3; font-weight:bold; vertical-align:middle">
+                                    {% if message.articles.all.2 %}
+                                        {{ message.articles.all.2.title }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr style="vertical-align:top">
+                               <td width="161" rowspan="3" align="center"
+                                    style="vertical-align:middle">
+                                    {% if message.articles.all.2 %}
+                                        {% with message.articles.all.2 as article %}
+                                            {% with article.get_width_top as article_img %}
+                                                <img style="border: 5px solid #FFF; box-shadow:5px 5px 5px 0px #b4b4b4"
+                                                     src="{{ article_img.0.url }}" width="{{ article_img.1 }}"
+                                                     height="{{ article_img.2 }}">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td height="10" align="center">&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
+                                <td rowspan="3">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="14" rowspan="2" align="center"
+                                    style=" border-right:1px solid #4382c3; vertical-align:middle">&nbsp;
+                                </td>
+                                <td width="11" rowspan="2" align="center"
+                                    style=" vertical-align:top">&nbsp;
+                                </td>
+                                <td width="400" valign="top"
+                                    style="vertical-align:top; font-family:Helvetica; font-size:12px; font-weight:normal;line-height:16.8pt;">
+                                    {% if message.articles.all.2 %}
+                                        {% with message.articles.all.2 as article %}
+                                            {{ article.text }}...
+                                            <a style="font-family:Helvetica;font-style: italic;font-size:12px; font-weight:normal;color:#4382c3"
+                                               href="{{ article.url }}"><span
+                                                    style="color: #4382c3">Leer más</span></a>
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="14">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="19" rowspan="9">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td height="10px" style="vertical-align:top">
+                        <table width="771" cellspacing="0" cellpadding="0"
+                               style="border-top:10px solid #FFFFFF; border-bottom:10px solid #FFFFFF; mso-table-bspace:0pt; mso-table-uspace:0pt">
+                            <tr style="background-color:#4382c3">
+                                <td height="21px" width="22">&nbsp;</td>
+                                <td height="21px"
+                                    style="font-family:Helvetica;font-size:14px;font-weight:bold; color:#FFF;"
+                                    width="747">Publicidad
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="771" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td style="vertical-align:middle ; background-color: #4382c3; text-align: center" width="771" height="98"
+                                    align="center">
+                                    {% if message.publicities.all.1 %}
+                                        {% with message.publicities.all.1 as publi %}
+                                            {% thumbnail publi.image '769x96' as image %}
+                                                <a href={{ publi.url }}><img style="border:1px solid #4382c3" src="{{ image.url }}" width="769" height="96" alt="Publicidad de {{ publi.title }}" ></a>
+                                            {% endthumbnail %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="771" border="0" cellspacing="0" cellpadding="0"
+                               style="border-bottom:1px solid #4382c3">
+                            <tr>
+                                <td height="33" colspan="4"
+                                    style="border-bottom:1px solid #4382c3; font-family: Helvetica; font-size:14px; color:#4382c3; font-weight:bold; vertical-align:middle">
+                                    {% if message.articles.all.3 %}
+                                        {{ message.articles.all.3.title }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td width="13">&nbsp;</td>
+                                <td width="17">&nbsp;</td>
+                                <td width="155"
+                                    style="font-family:Helvetica;font-size:14px;font-weight:bold; color:#4382c3">
+                                    Publicidad
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="161" rowspan="3" align="center"
+                                    style="border-bottom:1px solid #4382c3;vertical-align:middle">
+                                    {% if message.articles.all.3 %}
+                                        {% with message.articles.all.3 as article %}
+                                            {% with article.get_width_top as article_img %}
+                                                <img style="border: 5px solid #FFF; box-shadow:5px 5px 5px 0px #b4b4b4"
+                                                     src="{{ article_img.0.url }}" width="{{ article_img.1 }}"
+                                                     height="{{ article_img.2 }}">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td height="10" align="center">&nbsp;</td>
+                                <td colspan="2" align="center">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td height="570px" colspan="2" rowspan="11"
+                                    style="vertical-align:top ; border-left:1px solid #4382c3; text-align:right">
+                                    {% if message.publicities.all.2 %}
+                                        {% with message.publicities.all.2 as publi %}
+                                            {% thumbnail publi.image '153x560' as image %}
+                                                <a href={{ publi.url }}><img style="border:1px solid #4382c3" src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt= "Publicidad de {{ publi.title }}"></a>
+                                            {% endthumbnail %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="14" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; border-right:1px solid #4382c3; vertical-align:middle">&nbsp;
+
+                                </td>
+                                <td width="11" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; vertical-align:top">
+
+                                </td>
+                                <td width="400" valign="top"
+                                    style="vertical-align:top; font-family:Helvetica; font-size:12px; font-weight:normal;line-height:16.8pt;">
+                                    {% if message.articles.all.3 %}
+                                        {% with message.articles.all.3 as article %}
+                                            {{ article.text }}...
+                                            <a style="font-family:Helvetica;font-style: italic;font-size:12px; font-weight:normal;color:#4382c3"
+                                               href="{{ article.url }}"><span
+                                                    style="color: #4382c3">Leer más</span></a>
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td rowspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height="14" style="border-bottom:1px solid #4382c3; vertical-align:top"></td>
+                            </tr>
+                            <tr>
+                                <td height="33" colspan="4"
+                                    style="border-bottom:1px solid #4382c3; font-family: Helvetica; font-size:14px; color:#4382c3; font-weight:bold; vertical-align:middle">
+                                    {% if message.articles.all.4 %}
+                                        {{ message.articles.all.4.title }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr style="vertical-align:top">
+                               <td width="161" rowspan="3" align="center"
+                                    style="border-bottom:1px solid #4382c3;vertical-align:middle">
+                                    {% if message.articles.all.4 %}
+                                        {% with message.articles.all.4 as article %}
+                                            {% with article.get_width_top as article_img %}
+                                                <img style="border: 5px solid #FFF; box-shadow:5px 5px 5px 0px #b4b4b4"
+                                                     src="{{ article_img.0.url }}" width="{{ article_img.1 }}"
+                                                     height="{{ article_img.2 }}">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td height="10" align="center">&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
+                                <td rowspan="3">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="14" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; border-right:1px solid #4382c3; vertical-align:middle">&nbsp;
+
+                                </td>
+                                <td width="11" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; vertical-align:top">
+
+                                </td>
+                                <td width="400" valign="top"
+                                    style="vertical-align:top; font-family:Helvetica; font-size:12px; font-weight:normal;line-height:16.8pt;">
+                                    {% if message.articles.all.4 %}
+                                        {% with message.articles.all.4 as article %}
+                                            {{ article.text }}...
+                                            <a style="font-family:Helvetica;font-style: italic;font-size:12px; font-weight:normal;color:#4382c3"
+                                               href="{{ article.url }}"><span
+                                                    style="color: #4382c3">Leer más</span></a>
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="14" style="border-bottom:1px solid #4382c3; vertical-align:top">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height="33" colspan="4"
+                                    style="border-bottom:1px solid #4382c3; font-family: Helvetica; font-size:14px; color:#4382c3; font-weight:bold; vertical-align:middle">
+                                    {% if message.articles.all.5 %}
+                                        {{ message.articles.all.5.title }}
+                                    {% else %}
+                                        &nbsp;
+                                    {% endif %}
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr style="vertical-align:top">
+                               <td width="161" rowspan="3" align="center"
+                                    style="vertical-align:middle">
+                                    {% if message.articles.all.5 %}
+                                        {% with message.articles.all.5 as article %}
+                                            {% with article.get_width_top as article_img %}
+                                                <img style="border: 5px solid #FFF; box-shadow:5px 5px 5px 0px #b4b4b4"
+                                                     src="{{ article_img.0.url }}" width="{{ article_img.1 }}"
+                                                     height="{{ article_img.2 }}">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td height="10" align="center">&nbsp;</td>
+                                <td colspan="2">&nbsp;</td>
+                                <td rowspan="3">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td width="14" rowspan="2" align="center"
+                                    style=" border-right:1px solid #4382c3; vertical-align:middle">&nbsp;
+                                </td>
+                                <td width="11" rowspan="2" align="center"
+                                    style=" vertical-align:top">&nbsp;
+                                </td>
+                                <td width="400" valign="top"
+                                    style="vertical-align:top; font-family:Helvetica; font-size:12px; font-weight:normal;line-height:16.8pt;">
+                                    {% if message.articles.all.5 %}
+                                        {% with message.articles.all.5 as article %}
+                                            {{ article.text }}...
+                                            <a style="font-family:Helvetica;font-style: italic;font-size:12px; font-weight:normal;color:#4382c3"
+                                               href="{{ article.url }}"><span
+                                                    style="color: #4382c3">Leer más</span></a>
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="14">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="771" cellspacing="0" cellpadding="0"
+                               style="border-top:10px solid #FFFFFF; border-bottom:10px solid #FFFFFF; mso-table-bspace:0pt; mso-table-uspace:0pt">
+                            <tr style="background-color:#4382c3">
+                                <td height="21px" width="22">&nbsp;</td>
+                                <td height="21px"
+                                    style="font-family:Helvetica;font-size:14px;font-weight:bold; color:#FFF;"
+                                    width="747">Publicidad
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="771" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td style="vertical-align:middle ; background-color: #4382c3; text-align: center" width="377" height="98"
+                                    align="center" valign="middle">
+                                    {% if message.publicities.all.3 %}
+                                        {% with message.publicities.all.3 as publi %}
+                                            {% thumbnail publi.image '375x96' as image %}
+                                                <a href={{ publi.url }}><img style="border:1px solid #4382c3" src="{{ image.url }}" width="375" height="96" alt= "Publicidad de {{ publi.title }}"></a>
+                                            {% endthumbnail %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                                <td width="17">&nbsp;</td>
+                                <td style="vertical-align:middle ; background-color: #4382c3; text-align: center"
+                                    width="377" height="98" align="center" valign="middle">
+                                    {% if message.publicities.all.4 %}
+                                        {% with message.publicities.all.4 as publi %}
+                                            {% thumbnail publi.image '375x96' as image %}
+                                                <a href={{ publi.url }}><img style="border:1px solid #4382c3" src="{{ image.url }}" width="375" height="96" alt= "Publicidad de {{ publi.title }}"></a>
+                                            {% endthumbnail %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr height="71px" >
+                    <td height="71px" colspan="5"
+                        style="background-color: #4382c3; vertical-align: middle; text-align: center; font-family: Helvetica; font-size: 14px; color: #FFF">
+                        2015 © Buen Viaje a Cuba
+                        <br/>
+                        Publicidad: <a style="color: #0000CC" href="mailto:publicidad@buenviajeacuba.com">publicidad@buenviajeacuba.com</a>&nbsp&nbsp
+                            Información: <a href="mailto:info@buenviajeacuba.com"><span style="color:#0000CC">info@buenviajeacuba.com</span></a>
+                            </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

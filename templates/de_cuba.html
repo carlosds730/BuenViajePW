@@ -1,0 +1,28 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Inicio</a></li>
+            <li class="active">De Cuba</li>
+        </ol>
+        <div class="eventos " style="border-bottom: 1px solid #ffffff">
+            <div class="title_containter">
+                <h2>Cuba</h2>
+            </div>
+            <div class="search_result">
+                <h4><a href="{{ title_url.1 }}">{{ title_url.0 }}</a></h4>
+                <h4><a href="{{ title_url_1.1 }}">{{ title_url_1.0 }}</a></h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

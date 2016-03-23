@@ -1,0 +1,143 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Inicio</a></li>
+            <li class="active">Busqueda</li>
+        </ol>
+        {% if total == -1 %}
+            <h5>Escriba algo para buscar</h5>
+        {% elif total == 0 %}
+            <h5>No se ha encontrado ningún artículo que contenga <strong>{{ query }}</strong></h5>
+        {% elif total == 1 %}
+            <h5>Encontrado {{ total }} artículo que contiene <strong>{{ query }}</strong></h5>
+        {% else %}
+            <h5>Encontrados {{ total }} artículos que contienen <strong>{{ query }}</strong></h5>
+        {% endif %}
+        {% if events %}
+            <div class="title_containter">
+                <h2>Eventos</h2>
+            </div>
+
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% for x in events %}
+                    <div class="search_result">
+                        <h4><a href="/eventos/{{ x.fecha_inicio.month }}/#{{ x.pk }}">{{ x.titulo }}</a></h4>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if news %}
+            <div class="title_containter">
+                <h2>Noticias</h2>
+            </div>
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% for x in news %}
+                    <div class="search_result">
+                        <h4><a href="/noticia/{{ x.slug }}/#go_here">{{ x.titulo }}</a></h4>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if magazines %}
+            <div class="title_containter">
+                <h2>Revistas</h2>
+            </div>
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% for x in magazines %}
+                    <div class="search_result">
+                        <h4><a href="{{ x.url.url }}">Edición No.{{ x.numero }} Año {{ x.anho }}</a></h4>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if free_time %}
+            <div class="title_containter">
+                <h2>Tiempo Libre</h2>
+            </div>
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% for x in free_time %}
+                    <div class="search_result">
+                        <h4><a href="/tiempo-libre/#go_here">{{ x.titulo }}</a></h4>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if la_revista_secciones %}
+            <div class="title_containter">
+                <h2>Secciones de La Revista</h2>
+            </div>
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% for x in la_revista_secciones %}
+                    <div class="search_result">
+                        <h4><a href="/la_revista/#secciones_{{ x.pk }}">{{ x.titulo }}</a></h4>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if distribuciones %}
+            <div class="title_containter">
+                <h2>Sección Distribuciones</h2>
+            </div>
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% for x in distribuciones %}
+                    <div class="search_result">
+                        <h4><a href="/distribucion/">Sección Distribuciones</a></h4>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if informacion_general_cuba or informacion_general_cuba_secciones %}
+            <div class="title_containter">
+
+                <h2>Sección Información General</h2>
+            </div>
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% if informacion_general_cuba %}
+                    {% for x in informacion_general_cuba %}
+                        <div class="search_result">
+                            <h4><a href="/informacion-general/">Sección información General</a></h4>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if informacion_general_cuba_secciones %}
+                    {% for x in informacion_general_cuba_secciones %}
+                        <div class="search_result">
+                            <h4><a href="/informacion-general/#secciones_{{ x.pk }}">{{ x.titulo }}</a></h4>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if informacion_destinos %}
+            <div class="title_containter">
+                <h2>Sección Información Destinos</h2>
+            </div>
+            <div class="eventos" style="border-bottom: 1px solid white">
+                {% for x in informacion_destinos %}
+                    <div class="search_result">
+                        <h4><a href="/informacion-destinos/">{{ x.nombre }}</a></h4>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

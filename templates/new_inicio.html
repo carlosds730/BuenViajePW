@@ -1,0 +1,995 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'img/girasol.png' %}" rel="shortcut icon">
+    {% block title %}
+        <title>Buen Viaje a Cuba</title>
+    {% endblock %}
+
+    <!-- Bootstrap -->
+    <link href="{% static 'new/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- for fontawesome icon css file -->
+    <link href="{% static 'new/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- for content animate css file -->
+    <link rel="stylesheet" href="{% static 'new/css/animate.css' %}">
+    <!-- google fonts  -->
+    {#    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>#}
+    {#    <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>#}
+    {#    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>#}
+    <!-- for news ticker css file -->
+    <link href="{% static 'new/css/li-scroller.css' %}" rel="stylesheet">
+    <!-- slick slider css file -->
+    <link href="{% static 'new/css/slick.css' %}" rel="stylesheet">
+    <!-- for fancybox slider -->
+    <link href="{% static 'new/css/jquery.fancybox.css' %}" rel="stylesheet">
+    <!-- website theme file -->
+    <!-- <link href="css/theme-red.css" rel="stylesheet"> -->
+
+    <link href="{% static 'new/css/theme.css' %}" rel="stylesheet">
+    <!-- main site css file -->
+    <link href="{% static 'new/css/style.css' %}" rel="stylesheet">
+
+
+
+
+    {% block new_links %}
+        <link rel="stylesheet" href="{% static 'flex_images/jquery.flex-images.css' %}" type="text/css">
+    {% endblock %}
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!-- Preloader -->
+<div id="preloader">
+    <div id="status">&nbsp;</div>
+</div>
+<!-- End Preloader -->
+
+<a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+
+<div class="container">
+    <!-- start header section -->
+    {% block header %}
+        <header id="header">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="header_bottom">
+                        <div class="logo_area">
+                            <!-- for your img logo format -->
+                            <a href="/" class="logo">
+                                <img src="{% static 'img/logo.png' %}" alt="Buen Viaje logo">
+                            </a>
+                        </div>
+                        <div class="right_thing">
+                            <form name="search" id="search_form" class="form-inline" action="/search/"
+                                  method="post">{% csrf_token %}
+                                <input id="search_box" class="form-control" type="search" name="query"
+                                       placeholder="Buscar">
+                                <i class="fa fa-search search_button" id="search_button" style="float: left"></i>
+                                <input type="hidden" name="language" value="es">
+                            </form>
+                            <a href="{% url 'change_language' %}" id="languages_menu"><img
+                                    src="{% static 'img/UK.jpg' %}"> See this page in English</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+    <!-- End header section -->
+    <!-- start nav section -->
+    {% block nav %}
+        <section id="navArea">
+            <!-- Start navbar -->
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav main_nav">
+                        <li class="active"><a href="/"><span class="fa fa-home desktop-home"></span><span
+                                class="mobile-show">Home</span></a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">La
+                                Revista</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/la_revista/#go_here">La Revista</a></li>
+                                <li><a href="/distribucion/#go_here">Distribución</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">De
+                                Cuba</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/informacion-general/#go_here">Información
+                                    General</a></li>
+                                <li><a href="/informacion-destinos/#go_here">Información por
+                                    destinos</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Imágenes</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/imagenes/#go_here">Galería de fotos</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tiempo
+                                Libre</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/tiempo-libre/#go_here">Excusiones</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Eventos</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/eventos/#go_here">Calendario</a></li>
+                                {#  DONE: Do that! Show events of next year#}
+                                <li><a href="/proximo-anho/#go_here">Próximo año</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/contactenos/#go_here">Contáctenos</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Newsletter</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a id="modaltrigger" href="#" data-toggle="modal" data-target="#subscribemodal">Suscribirse</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </nav>
+        </section>
+    {% endblock %}
+    <!-- End nav section -->
+
+    {% block slidenews %}
+        <section id="newsSection">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <!-- start news sticker -->
+                    <div class="latest_newsarea">
+                        <span>Últimas noticias</span>
+                        <ul id="ticker01" class="news_sticker">
+                            {% for new in noticias %}
+                                <li><a href="{{ new.3 }}#go_here"><img src="{{ new.2 }}"
+                                                                                               alt="{{ new.1 }}">{{ new.0 }}
+                                </a></li>
+                            {% endfor %}
+                        </ul>
+                        <div class="social_area">
+                            <ul class="social_nav">
+                                <li class="facebook"><a href="https://www.facebook.com/buenviajeacuba"
+                                                        target="_blank"></a></li>
+                                <li class="twitter"><a href="https://www.twitter.com/buenviajeacuba"
+                                                       target="_blank"></a></li>
+                                {#                            <li class="flickr"><a href="#"></a></li>#}
+                                {#                            <li class="pinterest"><a href="#"></a></li>#}
+                                {#                            <li class="googleplus"><a href="#"></a></li>#}
+                                {#                            <li class="vimeo"><a href="#"></a></li>#}
+                                {#                            <li class="youtube"><a href="#"></a></li>#}
+                                <li class="mail"><a href="mailto:info@buenviajeacuba.com"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End news sticker -->
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+    {% block first_row %}
+        <!-- start slider section -->
+        <section id="sliderSection">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8 foto_slider">
+                    <!-- Set up your HTML -->
+                    <div class="slick_slider">
+                        {% for x in banners %}
+                            {% if forloop.first %}
+                                <div class="single_iteam">
+                                    <a><img id="banner{{ x.2 }}" src="{{ x.1 }}" alt="{{ x.0 }}"></a>
+                                    {#                                <a><img src="{{ x.1 }}" alt="{{ x.0 }}"></a>#}
+                                    <div class="slider_article">
+                                        <h2><a class="slider_tittle">{{ x.0 }}</a></h2>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="single_iteam">
+                                    <a><img id="banner{{ x.2 }}" src="" alt="{{ x.0 }}"></a>
+                                    {#                                <a><img src="{{ x.1 }}" alt="{{ x.0 }}"></a>#}
+                                    <div class="slider_article">
+                                        <h2><a class="slider_tittle">{{ x.0 }}</a></h2>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="single_sidebar wow fadeInDown " style="margin-bottom: 4%; text-align: center">
+                        <h2><span>Última edición</span></h2>
+                        <a href="{{ last_revista.url.url }}" class="sideAdd last_edition"
+                           style="width: 100%; text-align: center">
+                            <img src="{{ last_revista.get_small_thumbnail }}" alt="Buen Viaje a Cuba Portada">
+                        </a>
+                        <strong><a href="{{ last_revista.url.url }}"><p>Numero {{ last_revista.numero }}
+                            año {{ last_revista.anho }}</p></a></strong>
+                        <a href="/old_revistas/#go_here">Ver ediciones anteriores</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    <!-- End slider section -->
+
+
+    <!-- ==================start content body section=============== -->
+
+    <section id="contentSection">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                {% block content %}
+                    <div class="left_content">
+                        <div class="single_post_content">
+                            <h2><span>Noticias</span></h2>
+
+                            <div class="single_post_content_left">
+                                <ul class="business_catgnav  wow fadeInDown">
+                                    <li>
+                                        <figure class="bsbig_fig">
+                                            <a href="{{ noticia_principal.3 }}#go_here"
+                                               class="featured_img">
+                                                <img alt="{{ noticia_principal.0 }}"
+                                                     src="{{ noticia_principal.2 }}#go_here">
+                                                <span class="overlay"></span>
+                                            </a>
+                                            <figcaption>
+                                                <a href="{{ noticia_principal.3 }}#go_here">{{ noticia_principal.0 }}</a>
+                                            </figcaption>
+                                            <p>{{ noticia_principal.1 }}...<a
+                                                    href="{{ noticia_principal.3 }}#go_here"> +
+                                                Ver más</a></p>
+                                        </figure>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="single_post_content_right">
+                                <ul class="spost_nav">
+                                    {% for x in otras_noticias %}
+                                        <li>
+                                            <div class="media wow fadeInDown noticias">
+                                                <a href="{{ x.2 }}#go_here" class="media-left">
+                                                    <img alt="{{ x.0 }}" src="{{ x.1 }}">
+                                                </a>
+
+                                                <div class="media-body">
+                                                    <a href="{{ x.2 }}#go_here"
+                                                       class="catg_title">{{ x.0 }}</a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- start 2 style category design -->
+                        <div class="fashion_technology_area">
+                            <div class="fashion">
+                                <div class="single_post_content">
+                                    <h2><span>Eventos en Cuba</span></h2>
+                                    <ul class="business_catgnav wow fadeInDown">
+                                        <li>
+                                            <figure class="bsbig_fig">
+                                                <a href="#" data-toggle="modal" data-target="#eventoModal"
+                                                   class="featured_img">
+                                                    <img alt="{{ evento_principal.0 }}" src="{{ evento_principal.3 }}">
+                                                    <span class="overlay"></span>
+                                                </a>
+                                                <figcaption>
+                                                    <a href="#" data-toggle="modal"
+                                                       data-target="#eventoModal">{{ evento_principal.0 }}</a>
+                                                </figcaption>
+                                                <p style="margin-bottom: 17px">{{ evento_principal.1 }}... <a href="#"
+                                                                                                              data-toggle="modal"
+                                                                                                              data-target="#eventoModal">+Ver
+                                                    más</a></p>
+                                            </figure>
+                                        </li>
+                                    </ul>
+                                    <h4><a href="/eventos/{{ mes.0 }}/#go_here">Ver otros
+                                        eventos en {{ mes.1 }}</a></h4>
+                                </div>
+                            </div>
+                            <div class="technology">
+                                <div class="single_post_content">
+                                    <h2><span>Buen Viaje por el Mundo</span></h2>
+                                    <ul class="business_catgnav">
+                                        <li>
+                                            <figure class="bsbig_fig wow fadeInDown">
+                                                <a href="{{ buen_viaj_mundo.4 }}#content_to_container"
+                                                   class="featured_img">
+                                                    <img src="{{ buen_viaj_mundo.3.url }}"
+                                                         alt="{{ buen_viaj_mundo.0 }}">
+                                                    <span class="overlay"></span>
+                                                </a>
+                                                <figcaption>
+                                                    <a href="{{ buen_viaj_mundo.4 }}#content_to_container">{{ buen_viaj_mundo.0 }}</a>
+                                                </figcaption>
+                                                <p>{{ buen_viaj_mundo.1 }}...<a
+                                                        href="{{ buen_viaj_mundo.4 }}#content_to_container">
+                                                    + Ver más</a></p>
+                                            </figure>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+            {% block right_bar %}
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <aside class="right_content">
+                        {% block first_content %}
+                        {% endblock %}
+                        {% block publicidad %}
+                            <div class="single_sidebar">
+                                <h2><span>Publicidad</span></h2>
+                                <ul class="spost_nav">
+                                    {#DONE: This images should be loaded after the page is loaded#}
+                                    {% for publicidad in publicidades %}
+                                        <li>
+                                            <div class="media wow fadeInDown enlaces">
+                                                {% if  publicidad.url %}
+                                                    <a href="{{ publicidad.url }}" target="_blank"><img
+                                                            id="publicidad{{ publicidad.id }}"
+                                                            alt="{{ publicidad.nombre }}" src=""></a>
+                                                {% else %}
+                                                    <img id="publicidad{{ publicidad.id }}"
+                                                         alt="{{ publicidad.nombre }}" src="">
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endblock %}
+                        {% block directorio_eventos %}
+                            <div class="single_sidebar wow fadeInDown" style="margin-bottom: 4%">
+                                <h2><span>Directorio de Eventos</span></h2>
+{#                                <a href="/media/revistas/DirectorioEventos2016Espannol.pdf" class="sideAdd anuncio"><img#}
+{#                                        id="directorio_eventos" src="{% static 'img/DirectorioEventos2016_esp.jpg' %}"#}
+{#                                        alt="Directorio de Eventos"></a>#}
+                                <a class="sideAdd anuncio"><img
+                                        id="directorio_eventos" src="{% static 'img/DirectorioEventos2016_esp.jpg' %}"
+                                        alt="Directorio de Eventos"></a>
+                            </div>
+                        {% endblock %}
+                        <!-- start tab section -->
+                        {% block blogs %}
+                            <div class="single_sidebar">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    {#                                    {% for blog in blogs %}#}
+                                    <li role="presentation" class="active"><a href="#blogs" aria-controls="home"
+                                                                              role="tab"
+                                                                              data-toggle="tab">{{ blog_0.nombre }}</a>
+                                    </li>
+                                    <li role="presentation"><a href="#comments" aria-controls="messages" role="tab"
+                                                               data-toggle="tab">{{ blog_1.nombre }}</a></li>
+                                    {#                                    {% endfor %}#}
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="blogs">
+                                        <ul class="spost_nav">
+                                            <li>
+                                                <div class="media wow fadeInDown blogs">
+                                                    <a href="#" data-toggle="modal"
+                                                       data-target="#blogModal{{ blog_0_noticia.id }}"
+                                                       class="media-left">
+                                                        <img alt="{{ blog_0_noticia.titulo }}"
+                                                             src="{{ blog_0_noticia_small_img }}">
+                                                    </a>
+
+                                                    <div class="media-body">
+                                                        <a href="{{ blog_0_noticia_url }}"
+                                                           class="catg_title">{{ blog_0_noticia.titulo }}</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="comments">
+                                        <ul class="spost_nav">
+                                            <li>
+                                                <div class="media wow fadeInDown">
+                                                    <a href="#" data-toggle="modal"
+                                                       data-target="#blogModal{{ blog_1_noticia.id }}"
+                                                       class="media-left">
+                                                        <img alt="{{ blog_1_noticia.titulo }}"
+                                                             src="{{ blog_1_noticia_small_img }}">
+                                                    </a>
+
+                                                    <div class="media-body">
+                                                        <a href="{{ blog_1_noticia_url }}"
+                                                           class="catg_title">{{ blog_1_noticia.titulo }}</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endblock %}
+                        {% block mapas %}
+                            <div class="single_sidebar wow fadeInDown mapas">
+                                <h2><span>Mapas</span></h2>
+                                <ul>
+                                    <li><a href="/media/revistas/mapa.pdf">Descargar Mapa de Cuba en alta resolución</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endblock %}
+                        <!-- End sponsor add -->
+                    </aside>
+                </div>
+            {% endblock %}
+            {% block fotos_de_cuba %}
+                <div class="single_post_content" style="margin-bottom: 1%">
+                    <h2><span>Fotos de Cuba</span></h2>
+
+                    <div id="demo1" class="flex-images">
+                        {% for image in pics %}
+                            <div class="item" data-w="{{ image.0.width }}" data-h="{{ image.0.height }}"
+                                 data-id="{{ image.1 }}" data-width_big="{{ image.2.1 }}"
+                                 data-height_big="{{ image.2.2 }}" data-src_big="{{ image.2.0 }}"
+                                 data-usuario="{{ image.3 }}" data-description="{{ image.4 }}" rel="tooltip"
+                                 data-trigger="hover"
+                                 data-original-title="<p>{{ image.4 }}</p><p>Subida por {{ image.3 }}</p> <p
+                    >{{ image.5 }}
+                    comentarios</p>"
+                                 data-html="True"><a
+                                    href="/imagen/{{ image.1 }}/#img_container_big"><img
+                                    id="foto_de_cuba{{ image.1 }}" src=""></a></div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <button class="btn default-btn" id="send_photo_modal_trigger" data-toggle="modal"
+                                data-target="#uploadphotomodal">Click para enviar una foto
+                        </button>
+                        <a href="/imagenes/#go_here">
+                            <button class="btn default-btn" id="see_all_photo" style="float: right">Ver galería completa
+                            </button>
+                        </a>
+                    </div>
+                    <div class="modal fade modal_destinos" id="uploadphotomodal">
+                        <div class="modal-dialog newsletter_modal">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    <h3 class="modal-title" id="photo_titulo">Enviar una foto</h3>
+
+                                    <h4 id="photo_satisfactorio" style="display: none">Su imagen ha sido procesada
+                                        satisfactoriamente</h4>
+                                </div>
+                                <div class="modal-body" id="modal_body_content_photo">
+                                    <div class="form-group" id="image_upload_content">
+                                        {#DONE: I'm not completly satisfied with how this looks like#}
+                                        <form name="send_photo_form" id="uploadForm" action="/ajax_photo/" method="post"
+                                              enctype="multipart/form-data" class="form-inline commentarios_form">
+                                            {% csrf_token %}
+                                            <a id="tooltip_message_text" rel="tooltip" data-trigger="manual"
+                                               data-original-title="La descripción no puede estar en blanco."><textarea
+                                                    style="width: 100%" id="photo_description"
+                                                    class="textarea form-control newsletter" rows="3" cols="50"
+                                                    name="pic_description"
+                                                    placeholder="Descripción de la imagen"></textarea></a>
+                                            <input id="fileInput" class="input-file" name="upload" type="file"
+                                                   accept=".jpg" value="Imagen" style="display: none;">
+                                            <a id="tooltip_message_file" rel="tooltip" data-trigger="manual"
+                                               data-original-title="Debe seleccionar alguna foto."><input
+                                                    id="imagebutton" rel="tooltip" data-trigger="hover"
+                                                    data-original-title="La imagen debe ser menor de 2MB" type="button"
+                                                    class="btn default-btn newsletter"
+                                                    value="Click para seleccionar imagen"></a>
+
+                                            <div>
+                                                <a id="tooltip_message_name" rel="tooltip" data-trigger="manual"
+                                                   data-original-title="Debe insertar un nombre"><input id="image_name"
+                                                                                                        class="input_container_left form-control newsletter"
+                                                                                                        type="text"
+                                                                                                        name="name"
+                                                                                                        placeholder="Nombre"></a>
+
+                                                <div class="image_email_holder"><a id="tooltip_message_email"
+                                                                                   rel="tooltip" data-trigger="manual"
+                                                                                   data-original-title="Debe insertar un correo"
+                                                                                   data-placement="top"><input
+                                                        id="image_email"
+                                                        class="input_container_right form-control newsletter"
+                                                        type="email" name="email" placeholder="Email"></a></div>
+                                            </div>
+                                            <div class="notifications_content input_container_left">
+                                                <input type="checkbox" class="form-control checkbox" id="image_checkbox"
+                                                       name="notifications" placeholder="Recibir notificaciones">
+                                                <a>Recibir notificaciones</a>
+                                            </div>
+                                            <input id="submit_photo" type="submit" value="Enviar foto"
+                                                   class="form-control btn default-btn"/>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="image_upload_content_uploading">
+                                    <h4>Su imagen está siendo procesada</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form name="comment_form " id="comment_form" class="form-inline commentarios_form" action="/"
+                      style="display: none; margin-bottom: 0px">
+                    <textarea id="textarea" name="textarea" class="textarea form-control" rel="tooltip"
+                              data-trigger="manual" data-original-title="El comentario no puede estar en blanco"
+                              rows="2" cols="50" placeholder="Escriba su comentario"></textarea>
+                    <input id="POST-name" class="form-control img_form_element" rel="tooltip" data-trigger="manual"
+                           data-original-title="Debe insertar un nombre o un correo" type="text" name="name"
+                           placeholder="Nombre">
+                    <input id="POST-email" class="form-control img_form_element" rel="tooltip" data-trigger="manual"
+                           data-original-title="Debe insertar un email válido" type="email" name="email"
+                           placeholder="Correo">
+                    {#        <input type="submit" class="form-control btn default-btn img_form_element" id="submit" value="Comentar">#}
+                    <input type="checkbox" class="form-control checkbox" id="checkbox" rel="tooltip"
+                           data-trigger="manual"
+                           data-original-title="Para recibir notificaciones debe insertar un correo"
+                           placeholder="Recibir notificaciones">
+                    <a>Recibir notificaciones</a>
+                    {#        <a id="message"></a>#}
+                </form>
+            {% endblock %}
+        </div>
+    </section>
+
+    <div class="modal fade modal_destinos" id="subscribemodal">
+        <div class="modal-dialog newsletter_modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="suscripcion_titulo">Suscripción al newsletter</h3>
+
+                    <h4 id="satisfactorio" style="display: none">Su suscripción ha sido procesada
+                        satisfactoriamente</h4>
+                </div>
+                <div class="modal-body" id="modal_body_content_subscription">
+                    <form name="subscription_form" id="subscription_form" class="form commentarios_form" action="/">
+                        <input id="subscribe_name" class="form-control newsletter" type="text" name="name"
+                               data-toggle="tooltip" title="Some tooltip text!" placeholder="Nombre">
+                        <a id="tooltip_message" href="#" rel="tooltip" data-trigger="manual"
+                           data-original-title="El email no es correcto"><input id="subscribe_email"
+                                                                                class="form-control newsletter"
+                                                                                type="email" name="email"
+                                                                                placeholder="Correo"></a>
+                        {#DONE: This should be done by code#}
+                        <select id="newsletter_to_select" class="form-control newsletter">
+                            {% for x in newsletter %}
+                                <option class="form-control" data-id={{ x.pk }}>{{ x.title }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" class="form-control btn default-btn" id="submit_subscribpion"
+                               value="Suscribirse">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal_destinos" id="blogModal{{ blog_0_noticia.id }}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">{{ blog_0_noticia.titulo }}</h3>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center">
+                        <img style="float: left; margin-bottom: 0px; margin-right: 13px"
+                             src="{{ blog_0_noticia_small_img }}"
+                             alt="{{ blog_0_noticia.titulo }}-{{ blog_0_noticia.en_titulo }}">
+                    </div>
+                    {{ blog_0_noticia.texto|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal_destinos" id="blogModal{{ blog_1_noticia.id }}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">{{ blog_1_noticia.titulo }}</h3>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center">
+                        <img style="float: left; margin-bottom: 0px; margin-right: 13px"
+                             src="{{ blog_1_noticia_small_img }}"
+                             alt="{{ blog_1_noticia.titulo }}-{{ blog_1_noticia.en_titulo }}">
+                    </div>
+                    {{ blog_1_noticia.texto|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal_destinos" id="eventoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">{{ evento_principal.0 }}</h3>
+                </div>
+                <div class="modal-body">
+                    <div style="text-align: center">
+                        <img src="{{ evento_principal.3 }}" alt="{{ evento_principal.0 }}">
+                    </div>
+                    {{ evento_principal.2|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================End content body section=============== -->
+    {% block footer %}
+        <footer id="footer">
+            <div class="footer_top">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="footer_widget wow fadeInLeftBig">
+                            <h2>La Revista</h2>
+                            <ul class="tag_nav">
+                                <li><a href="/la_revista/#go_here">La Revista</a></li>
+                                <li><a href="/distribucion/#go_here">Distribución</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="footer_widget wow fadeInLeftBig">
+                            <h2>De Cuba</h2>
+                            <ul class="tag_nav">
+                                <li><a href="/informacion-general/#go_here">Información
+                                    General</a></li>
+                                <li><a href="/informacion-destinos/#go_here">Información por
+                                    Destinos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="footer_widget wow fadeInDown">
+                            <h2>Imágenes</h2>
+                            <ul class="tag_nav">
+                                <li><a href="/imagenes/#go_here">Galería de Fotos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="footer_widget wow fadeInDown">
+                            <h2>Tiempo Libre</h2>
+                            <ul class="tag_nav">
+                                <li><a href="/tiempo-libre/#go_here">Destinos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="footer_widget wow fadeInRightBig">
+                            <h2>Eventos</h2>
+                            <ul class="tag_nav">
+                                <li><a href="/eventos/#go_here">Calendario</a></li>
+                                <li><a href="/proximo-anho/#go_here">Próximo año</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="footer_widget wow fadeInRightBig">
+                            <h2>Newsletter</h2>
+                            <ul class="tag_nav">
+                                <li><a href="#" data-toggle="modal" data-target="#subscribemodal">Suscribirse</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer_bottom">
+                <p class="copyright">
+                    Copyright &copy;2015 <a href="/">Buen Viaje a Cuba</a>
+                </p>
+            </div>
+        </footer>
+    {% endblock %}
+</div>
+
+<!-- /.container -->
+
+
+<!-- jQuery Library -->
+{#<script type="text/javascript" src="{% static 'js/jquery-1.10.2.js' %}"></script>#}
+<script type="text/javascript" src="{% static 'js/jquery-1.10.2.js' %}"></script>
+{#<script src="{% static 'new/js/jquery-1.10.2.min.js' %}"></script>#}
+<!-- For content animatin  -->
+<script src="{% static 'new/js/wow.min.js' %}"></script>
+<!-- bootstrap js file -->
+<script src="{% static 'new/js/bootstrap.min.js' %}"></script>
+<!-- slick slider js file -->
+<script src="{% static 'new/js/slick.min.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'new/js/bootstrap-tooltip.js' %}"></script>
+<!-- news ticker jquery file -->
+<script src="{% static 'new/js/jquery.li-scroller.1.0.js' %}"></script>
+<!-- for news slider -->
+<script src="{% static 'new/js/jquery.newsTicker.min.js' %}"></script>
+<!-- for fancybox slider -->
+<script src="{% static 'new/js/jquery.fancybox.pack.js' %}"></script>
+<!-- custom js file include -->
+<script src="{% static 'new/js/custom.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/ajax_prep.js' %}"></script>
+
+<script>
+    function hideTooltip(node_jq) {
+        window.setTimeout(function () {
+            node_jq.tooltip('hide');
+        }, 2500);
+    }
+
+
+    $("#search_button").click(function () {
+        $("#search_form").submit();
+    });
+
+    if (getWidth() < 480) {
+        $("#languages_menu").html('<img src= /static/img/UK.jpg>');
+        {#        <img src="{% static 'img/UK.jpg' %}">#}
+        {#        document.getElementById("languages_menu").innerText = "";#}
+    }
+
+    $("#modaltrigger").click(function () {
+        $("#suscripcion_titulo").show();
+        $("#satisfactorio").hide();
+        $("#modal_body_content_subscription").show();
+    });
+    $("#submit_subscribpion").click(function () {
+        var nombre = document.getElementById("subscribe_name").value;
+        var email = document.getElementById("subscribe_email").value;
+        var tooltip = document.getElementById("tooltip_message");
+        {#This variable gets the id of the selected newsletter#}
+        var newsletter = document.getElementById("newsletter_to_select").options[document.getElementById("newsletter_to_select").selectedIndex].getAttribute("data-id");
+
+
+        if (email == "") {
+            tooltip.setAttribute("data-original-title", "El email no puede estar en blanco");
+            $("#tooltip_message").tooltip('show');
+            return false;
+        }
+
+        if (nombre != "") {
+            var request = $.post("/subscribe/", {name: nombre, mail: email, id_newsletter: newsletter});
+        }
+        else {
+            var request = $.post("/subscribe/", {mail: email, id_newsletter: newsletter});
+        }
+        request.done(function (data) {
+            if (data['message']) {
+                tooltip.setAttribute("data-original-title", data['message']);
+                $("#tooltip_message").tooltip('show');
+            }
+            else {
+                document.getElementById("subscribe_name").value = "";
+                document.getElementById("subscribe_email").value = "";
+
+                $("#suscripcion_titulo").fadeOut('fast');
+
+                $("#satisfactorio").fadeIn('slow');
+                $("#modal_body_content_subscription").slideUp('fast');
+            }
+        });
+        return false;
+    });
+    $("#imagebutton").click(
+            function () {
+                document.getElementById("fileInput").click();
+            }
+    );
+    $("#subscribe_email").click(
+            function () {
+                $("#tooltip_message").tooltip('hide');
+            }
+    );
+</script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-62515571-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+<script>
+    function uploadSomePics() {
+        {% for x in banners %}
+            {% if forloop.first %}
+            {% else %}
+                document.getElementById("banner{{ x.2 }}").src = "{{ x.1 }}";
+            {% endif %}
+        {% endfor %}
+        {% for publicidad in publicidades %}
+            document.getElementById("publicidad{{ publicidad.id }}").src = "{{ publicidad.get_small_thumbnail }}";
+        {% endfor %}
+        {#        document.getElementById("directorio_eventos").src = "/static/img/Directorio Eventos2015_esp.jpg";#}
+        {% for image in pics %}
+            document.getElementById("foto_de_cuba{{ image.1 }}").src = "{{ image.0.url }}";
+        {% endfor %}
+    }
+
+
+</script>
+
+{% block new_scripts %}
+    <script type="text/javascript" src="{% static 'flex_images/jquery.flex-images.js' %}"></script>
+
+    <script>$('.flex-images').flexImages({rowHeight: 270, truncate: 1});</script>
+
+    <script>
+        window.onload = function () {
+            $("#image_email").keyup(function () {
+                emailValidationOnTheFly($(this)[0]);
+
+            }).change(function () {
+                emailValidationOnTheFly($(this)[0]);
+            });
+            uploadSomePics();
+
+        };
+
+        $(".item>a").click(function () {
+            var node = $(this).parent()[0];
+            var img_id = node.getAttribute("data-id");
+            var img_width = node.getAttribute("data-width_big");
+            var img_heigth = node.getAttribute("data-height_big");
+            var img_src = node.getAttribute("data-src_big");
+            var img_usuer = node.getAttribute("data-usuario");
+            var img_descr = node.getAttribute("data-description");
+            if (parseInt(img_width, 10) + 80 + 520 < getWidth()) {
+                var height_modal = getHeight() - ( parseInt(img_heigth, 10) + 144);
+                if (height_modal > 20) {
+                    prep_img_modal(img_id, img_width, img_heigth, img_src, img_usuer, img_descr, "{{ language }}", height_modal);
+                    return false;
+                }
+            }
+            $(this)[0].href = "/imagen/" + img_id + "/?languague=es" + "&width=" + getWidth() + "&height=" + getHeight() + "#img_container_big";
+        });
+    </script>
+{% endblock %}
+
+<script>$(document).ready(function () {
+    $('[rel=tooltip]').tooltip();
+});
+</script>
+{#This script upload the pictures#}
+{% block upload_pictures_script %}
+    <script type="text/javascript" src="{% static 'js/jquery.form.js' %}"></script>
+    {# DONE: Recieve the validation messages, image validation is done server side. Validate here that description, name and email don't be empty. Notification messages should be tooltips.#}
+    <script>
+        $("#send_photo_modal_trigger").click(function () {
+            $("#photo_titulo").show();
+            $("#photo_satisfactorio").hide();
+            $("#modal_body_content_photo").show();
+            $("#photo_description").val("");
+        });
+
+        var message = '';
+        var options = {
+            url: '/ajax_photo/',
+            error: function (response) {
+                document.getElementById("image_name").value = "";
+                document.getElementById("image_email").value = "";
+
+                $("#photo_titulo").text("Enviar foto");
+                $("#modal_body_content_photo").fadeIn('fast');
+                $('#fileInput').val('');
+                var tooltipo_file_bad = $("#tooltip_message_file");
+                tooltipo_file_bad[0].setAttribute("data-original-title", "Su archivo tiene problemas, ¿está seguro de que es una imagen menor de 2MB?");
+
+                tooltipo_file_bad.tooltip('show');
+                hideTooltip(tooltipo_file_bad);
+                tooltipo_file_bad[0].setAttribute("data-original-title", "Debe seleccionar alguna foto.");
+
+                {#                alert(response['result']);#}
+
+            },
+            success: function (response) {
+                if (response['status'] == 'success') {
+                    document.getElementById("photo_description").value = "";
+
+                    $("#photo_titulo").fadeOut('fast');
+                    $("#photo_titulo").text("Enviar foto");
+
+                    $("#photo_satisfactorio").fadeIn('slow');
+                    $("#modal_body_content_photo").slideUp('fast');
+
+                    $('#fileInput').val('');
+
+                }
+                else {
+                    $("#photo_titulo").text("Enviar foto");
+                    $("#modal_body_content_photo").fadeIn('fast');
+                    $('#fileInput').val('');
+                    var tooltipo_file_bad = $("#tooltip_message_file");
+                    tooltipo_file_bad[0].setAttribute("data-original-title", "Su archivo tiene problemas, ¿está seguro de que es una imagen menor de 2MB?");
+
+                    tooltipo_file_bad.tooltip('show');
+                    hideTooltip(tooltipo_file_bad);
+                    tooltipo_file_bad[0].setAttribute("data-original-title", "Debe seleccionar alguna foto.");
+                }
+
+            }
+        };
+        $("#submit_photo").click(function () {
+            var trext = document.getElementById("photo_description").value;
+            var nombre = document.getElementById("image_name").value;
+            var email = document.getElementById("image_email").value;
+
+            if (trext == "" || nombre == "" || email == "" || $('#fileInput').val() == "") {
+                if (trext == "") {
+                    $("#tooltip_message_text").tooltip('show');
+                    hideTooltip($("#tooltip_message_text"));
+                }
+                if (nombre == "") {
+                    $("#tooltip_message_name").tooltip('show');
+                    hideTooltip($("#tooltip_message_name"));
+                }
+                if (email == "") {
+                    $("#tooltip_message_email").tooltip('show');
+                    hideTooltip($("#tooltip_message_email"));
+                }
+                if ($('#fileInput').val() == "") {
+                    $("#tooltip_message_file").tooltip('show');
+                    hideTooltip($("#tooltip_message_file"));
+                }
+                return false;
+            }
+            $("#modal_body_content_photo").fadeOut('fast');
+            $("#photo_titulo").text("Su imagen está siendo procesada");
+            $('#uploadForm').ajaxSubmit(options);
+
+            return false;
+        });
+    </script>
+{% endblock %}
+
+
+</body>
+</html>

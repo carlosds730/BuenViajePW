@@ -1,0 +1,106 @@
+{% extends 'noticia_en.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>Buen Viaje a Cuba - Contact us</title>
+{% endblock %}
+{% block content_content %}
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Contact us</li>
+    </ol>
+    <div class="contact_area">
+        <p>The magazine Buen Viaje a Cuba is a Tourism/Cultural Magazine completely dedicated to promoting Cuba as a tourist destination. If you wish to have more information on some of the published subjects send us your request.</p>
+
+        <form class="contact_form">
+            <input class="form-control" id="asunto_to_send" type="text" placeholder="Subject">
+            <input class="form-control" id="email_to_send" type="email" placeholder="Email">
+
+            <div>
+                <textarea class="form-control textarea" id="text_to_send" rel="tooltip" data-placement="top" data-trigger="manual" data-original-title="Su mensaje ha sido enviado con éxito." cols="30" rows="10" placeholder="Message"></textarea>
+            </div>
+            <input type="submit" id="submit_email" value="Send Mail">
+            <a id="message"></a>
+        </form>
+    </div>
+{% endblock %}
+
+{% block new_scripts %}
+    <script type="text/javascript" src="{% static 'js/ajax_prep.js' %}"></script>
+    <script>
+        window.onload = function () {
+            CookiesEmail(document.getElementById("email_to_send"));
+            uploadSomePics();
+        };
+
+        $("#email_to_send").keyup(function () {
+            emailValidationOnTheFly($(this)[0]);
+
+        }).change(function () {
+            emailValidationOnTheFly($(this)[0]);
+        });
+
+        $("#submit_email").click(function () {
+            var trext = document.getElementById("text_to_send").value;
+            var asunto = document.getElementById("asunto_to_send").value;
+            var email = document.getElementById("email_to_send").value;
+
+            if (trext == "") {
+                $("#message").text("Message can not be empty").fadeIn("slow");
+                return false;
+            }
+            else {
+                if (asunto == "" && email == "") {
+                    $("#message").text("Subject and mail are empty").fadeIn("slow");
+                    return false;
+                }
+                else {
+                    if (asunto == "") {
+                        $("#message").text("Subject is empty").fadeIn("slow");
+                        return false;
+                    }
+                    else {
+                        if (email == "") {
+                            $("#message").text("Invalid email address").fadeIn("slow");
+                        }
+                    }
+                }
+            }
+            if (email != "") {
+                if (!validateEmail(email)) {
+                    $("#message").text("Invalid email address").fadeIn("slow");
+                    return false;
+                }
+            }
+            var request = $.post("/contactenos/", {texto: trext, asunto: asunto, email: email});
+            request.done(
+                    function (data) {
+                        var tool_tip = $("#text_to_send");
+                        if (data['status'] == "Success") {
+                            tool_tip.tooltip('show');
+                            document.getElementById("text_to_send").value = "";
+                            document.getElementById("asunto_to_send").value = "";
+                            hideTooltip(tool_tip);
+                            $("#message").fadeOut('fast');
+                        }
+                        else {
+                            tool_tip[0].setAttribute("data-original-title", "Your message could not been sent, try later.");
+                            tool_tip.tooltip('show');
+                            hideTooltip(tool_tip);
+                            tool_tip[0].setAttribute("data-original-title", "Your message has been sent.");
+                        }
+                    }
+            );
+            request.error(
+                    function () {
+                        tool_tip[0].setAttribute("data-original-title", "Your message could not been sent, try later.");
+                        tool_tip.tooltip('show');
+                        hideTooltip(tool_tip);
+                        tool_tip[0].setAttribute("data-original-title", "Your message has been sent.");
+                    }
+            );
+            return false;
+        });
+    </script>
+{% endblock %}

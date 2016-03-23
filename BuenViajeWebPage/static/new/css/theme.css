@@ -1,0 +1,164 @@
+
+.scrollToTop {
+    background-color: #133782;
+    color: #fff;
+}
+
+.scrollToTop:hover, .scrollToTop:focus {
+    background-color: #fff;
+    color: #133782;
+    border-color: 1px solid #133782;
+}
+
+.logo > span {
+    color: #133782;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    background-color: #133782;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #133782;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: #133782;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #133782;
+}
+
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: #133782;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #133782;
+}
+
+.latest_newsarea span {
+    background: none repeat scroll 0 0 #133782;
+}
+
+.latest_post > h2 span {
+    background: none repeat scroll 0 0 #133782;
+}
+
+#prev-button {
+    color: #133782;
+}
+
+#next-button {
+    color: #133782;
+}
+
+.single_post_content > h2 span {
+    background: none repeat scroll 0 0 #133782;
+}
+
+.single_sidebar > h2 span {
+    background: none repeat scroll 0 0 #133782;
+}
+
+.bsbig_fig figcaption a:hover {
+    color: #133782;
+}
+
+.spost_nav .media-body > a:hover {
+    color: #133782;
+}
+
+.cat-item a:hover {
+    background-color: #133782;
+}
+
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+    background-color: #133782;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background-color: #133782;
+}
+
+.single_sidebar > ul > li a:hover {
+    color: #133782;
+}
+
+.footer_widget > h2:hover {
+    color: #133782;
+}
+
+.tag_nav li a:hover {
+    /*color: #133782;*/
+    cursor: hand;
+    color: #f8f8ff;
+    border-color: #f8f8ff;
+}
+
+.copyright a:hover {
+    color: #133782;
+}
+
+.post_commentbox a:hover, .post_commentbox span:hover {
+    color: #133782;
+}
+
+.breadcrumb {
+    border-left: 10px solid #133782;
+}
+
+.single_page_content ul li:before {
+    /*background-color: #133782;*/
+}
+
+.single_page_content h2, .single_page_content h3, .single_page_content h4, .single_page_content h5, .single_page_content h6 {
+    color: #133782;
+}
+
+.nav-slit .icon-wrap {
+    background-color: #133782;
+}
+
+.nav-slit h3 {
+    background: #133782;
+}
+
+.catgArchive {
+    background-color: #133782;
+}
+
+.error_page > h3 {
+    color: #133782;
+}
+
+.error_page > span {
+    background: none repeat scroll 0 0 #133782;
+}
+
+.error_page > a {
+    background-color: #133782;
+}
+
+.contact_area > h2 {
+    background-color: #133782;
+}
+
+.contact_form input[type="submit"] {
+    background-color: #133782;
+}
+
+.contact_form input[type="submit"]:hover {
+    background-color: #fff;
+    color: #133782;
+}
+
+.related_post > h2 i {
+    color: #133782;
+}
+
+.form-control:focus {
+    border-color: #133782;
+    box-shadow: 0 0px 1px #133782 inset, 0 0 5px #133782;
+}

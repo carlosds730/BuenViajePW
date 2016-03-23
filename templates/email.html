@@ -1,0 +1,84 @@
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Boletín digital de Buen Viaje a Cuba</title>
+</head>
+
+<body>
+<table width="98%" border="0" align="center" cellpadding="0px" cellspacing="0px"
+       style="mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse; border-spacing:0px">
+    <tr>
+        <td>
+            <table width="799px" border="0" cellpadding="0px" align="center" cellspacing="0px"
+                   style="box-shadow:0px 0px 10px 10px #b4b4b4; border-spacing:0px; mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse">
+                <tr>
+                    <td colspan="3" style="vertical-align:middle">
+                        <table id="cabecera" width="799px" bgcolor="#4382c3" border="0" align="center" cellspacing="0"
+                               cellpadding="0"
+                               style="mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse; border-spacing:0px; border-bottom:4px solid #ffdf42">
+                            <tr>
+                                <td width="107" height="124"><img style="display:block" src="{{ site }}/static/img/top-left.jpg" width="107" height="124"/></td>
+                                <td width="222" height="124"><img style="display:block" src="{{ site }}/static/img/top-right.jpg" width="222" height="124"/></td>
+                                <td width="470" height="150" rowspan="2">
+                                    {% if newspict %}
+                                        <img style="display:block" src="{{ newspict.url }}" width="470" height="150">
+                                    {% else %}
+                                        <img style="display:block" src="{{ site }}/static/img/banner.jpg" width="470" height="150"/>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="26"><img style="display:block" src="{{ site }}/static/img/bottom-left.jpg" width="107"
+                                                     height="26" alt=""/></td>
+                                <td width="222" height="26"
+                                    style="font-family:Helvetica; font-size:16px; color:#ffffff; font-weight:normal "
+                                    valign="middle">{{ message.title }}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="50">
+                        &nbsp;
+                    </td>
+                    <td style="text-align: left; font-family: Helvetica; font-size: 14px; color: #1D438A; vertical-align: middle">
+                        <p>{{ texto }}</p>
+
+                        <p style="margin-right: 10px; margin-left: 10px; font-style: italic">"{{ comentario }}"</p>
+                        {% if language == "es" %}
+                            <p><a href="{{ site }}{{ publicacion.get_absolute_url }}#go_here">Ver publicación</a></p>
+                        {% else %}
+                            <p><a href="{{ site }}{{ publicacion.get_absolute_url }}#go_here">See publication</a></p>
+                        {% endif %}
+                    </td>
+                    <td width="50">
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td width="156" height="75" bgcolor="#4382c3" colspan="3" valign="middle"
+                        style="vertical-align: middle; text-align: center; font-family: Helvetica; font-size: 14px; color: #FFFFFF">
+                        2015 © Buen Viaje a Cuba
+                        <br/>
+                        Publicidad: <a style="color: #0000CC"
+                                       href="mailto:publicidad@buenviajeacuba.com">publicidad@buenviajeacuba.com</a>&nbsp; &nbsp;
+                        Información: <a href="mailto:info@buenviajeacuba.com"><span style="color:#0000CC">info@buenviajeacuba.com</span></a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

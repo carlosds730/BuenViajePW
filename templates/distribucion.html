@@ -1,0 +1,31 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+{% block title %}
+    <title>Buen Viaje a Cuba - Distribución</title>
+{% endblock %}
+
+{% block content_content %}
+    <ol class="breadcrumb">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/la_revista/">La Revista</a></li>
+        <li class="active">Distribución</li>
+    </ol>
+    <div class="media wow fadeInDown single_page_content">
+        <img class="img-center" src="{{ imagen }}" alt="img">
+    </div>
+    <div class="title_containter">
+        <h2>Distribución en Ferias {{ anho }}</h2>
+    </div>
+    <div class="text_containter">
+        <p>{{ encabezado|safe }}</p>
+        {{ texto|safe }}
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

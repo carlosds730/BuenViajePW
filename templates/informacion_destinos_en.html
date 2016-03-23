@@ -1,0 +1,54 @@
+{% extends 'noticia_en.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+{% block title %}
+    <title>Buen Viaje a Cuba - Information according to destination</title>
+{% endblock %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/de-cuba/">About Cuba</a></li>
+            <li class="active">Information according to destination</li>
+        </ol>
+        <div class="title_containter">
+            <h2>Destination Information</h2>
+        </div>
+        <div class="destinos">
+            {% for x in destinos %}
+                <div class="destino">
+                    <div class="image_left">
+                        <img src="{{ x.1 }}">
+                    </div>
+                    <h5>{{ x.0 }}</h5>
+
+                    <p>{{ x.2 }}...<a href="#" data-toggle="modal" data-target="#myModal{{ x.4 }}">+See More</a></p>
+                </div>
+                {#DONE: Make my own modal. I don't like this one#}
+                <div class="modal fade modal_destinos" id="myModal{{ x.4 }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3 class="modal-title">{{ x.0 }}</h3>
+                            </div>
+                            <div style="text-align: center" class="modal-body">
+                                <img src="{{ x.5 }}">
+                                {{ x.3|safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

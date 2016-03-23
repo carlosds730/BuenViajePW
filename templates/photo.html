@@ -1,0 +1,114 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head lang="es">
+    <meta charset="UTF-8">
+    <title>{{ titulo }}-Buen Viaje a Cuba</title>
+    {#    <!-- Bootstrap -->#}
+    <link href="{% static 'new/css/bootstrap.min.css' %}" rel="stylesheet">
+        <!-- for fontawesome icon css file -->
+        <link href="{% static 'new/css/font-awesome.min.css' %}" rel="stylesheet">
+        <!-- for content animate css file -->
+        <link rel="stylesheet" href="{% static 'new/css/animate.css' %}">
+        <!-- google fonts  -->
+        <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Varela' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <!-- for news ticker css file -->
+        <link href="{% static 'new/css/li-scroller.css' %}" rel="stylesheet">
+        <!-- slick slider css file -->
+        <link href="{% static 'new/css/slick.css' %}" rel="stylesheet">
+        <!-- for fancybox slider -->
+        <link href="{% static 'new/css/jquery.fancybox.css' %}" rel="stylesheet">
+        <!-- website theme file -->
+        <!-- <link href="css/theme-red.css" rel="stylesheet"> -->
+
+        <link href="{% static 'new/css/theme.css' %}" rel="stylesheet">
+        <!-- main site css file -->
+        <link href="{% static 'new/css/style.css' %}" rel="stylesheet">
+
+        <script type="text/javascript" src="{% static 'new/js/bootstrap-tooltip.js' %}"></script>
+
+
+        <link rel="stylesheet" href="{% static 'css/noticia.css' %}" type="text/css"/>
+    <script type="text/javascript" src="{% static 'js/jquery-1.10.2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.form.js' %}"></script>
+    {#    <!-- jQuery Library -->#}
+{#        <script src="{% static 'new/js/jquery-1.10.2.min.js' %}"></script>#}
+    {#    <!-- For content animatin  -->#}
+        <script src="{% static 'new/js/wow.min.js' %}"></script>
+    {#    <!-- bootstrap js file -->#}
+        <script src="{% static 'new/js/bootstrap.min.js' %}"></script>
+    {#    <!-- slick slider js file -->#}
+        <script src="{% static 'new/js/slick.min.js' %}"></script>
+    {#    <!-- news ticker jquery file -->#}
+        <script src="{% static 'new/js/jquery.li-scroller.1.0.js' %}"></script>
+    {#    <!-- for news slider -->#}
+        <script src="{% static 'new/js/jquery.newsTicker.min.js' %}"></script>
+    {#    <!-- for fancybox slider -->#}
+        <script src="{% static 'new/js/jquery.fancybox.pack.js' %}"></script>
+    {#    <!-- custom js file include -->#}
+        <script src="{% static 'new/js/custom.js' %}"></script>
+</head>
+<body>
+<div>
+    <button class="btn default-btn" style="float: left" data-toggle="modal" data-target="#uploadphotomodal">Click para enviar una foto
+    </button>
+    <button class="btn default-btn" style="float: right">Ver el resto de las fotos
+    </button>
+</div>
+<div class="modal fade modal_destinos" id="uploadphotomodal">
+    <div class="modal-dialog newsletter_modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="suscripcion_titulo">Enviar una foto</h3>
+
+                <h4 id="satisfactorio" style="display: none">Su imagen ha sido procesada satisfactoriamente</h4>
+            </div>
+            <div class="modal-body" id="modal_body_content">
+                <div class="form-group">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="uploadForm" action="/ajax_photo/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input id="fileInput" class="input-file" name="upload" type="file">
+    <span class="upload-message"></span>
+    <input id="submit" type="submit" value="Upload"/>
+</form>
+
+{#<form id="uploadForm" action="/ajax_photo/" method="post" enctype="multipart/form-data">#}
+{#    {% csrf_token %}#}
+{#    <input id="fileInput" class="input-file" name="upload" type="file">#}
+{#    <span class="upload-message"></span>#}
+{#    <input id="submit" type="submit" value="Upload"/>#}
+{#</form>#}
+<script type="text/javascript" src="{% static 'js/ajax_prep.js' %}"></script>
+<script>
+    var message = '';
+    var options = {
+        url: '/ajax_photo/',
+        error: function (response) {
+            message = '<span class="error">We\'re sorry, but something went wrong. Retry.</span>';
+            $('.upload-message').html(message);
+            $('fileInput').val('');
+        },
+        success: function (response) {
+            message = '<span class="' + response.status + '">' + response.result + '</span> ';
+            message = ( response.status == 'success' ) ? message + response.fileLink : message;
+            $('.upload-message').html(message);
+            $('fileInput').val('');
+        }
+    };
+    $("#submit").click(function () {
+        $('#uploadForm').ajaxSubmit(options);
+        return false;
+    });
+</script>
+</body>
+</html>

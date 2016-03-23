@@ -1,0 +1,227 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>Buen Viaje a Cuba - Imágenes</title>
+{% endblock %}
+
+{% block new_links %}
+    <link rel="stylesheet" href="{% static 'flex_images/jquery.flex-images.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/noticia.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/company.css' %}" type="text/css">
+{% endblock %}
+
+{# DONE: Make click on pictures works #}
+{# DONE: Make filter on pictures works #}
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Inicio</a></li>
+            <li class="active">Imágenes</li>
+        </ol>
+        <div class="order_filter_container">
+            <div class="dropdown dropdown_mine image_order">
+                <div>
+                    <button class="btn default-btn" id="send_photo_modal_trigger" data-toggle="modal" data-target="#uploadphotomodal">Click para enviarnos tu foto de Cuba
+                    </button>
+                    <button class="btn default-btn dropdown-toggle" style="margin-bottom: 0px" data-toggle="dropdown">Ordenar las fotos por:
+                    </button>
+                    {#DONE: Order by date from newer to older and from older to newer#}
+                    <ul class="dropdown-menu sort_pict_by" style="margin-top: 0px">
+                        {#DONE: Fix the <a> with the same id#}
+                        <li><a href="#" id="fecha_down" tabindex="-1" class="subm btn default-btn">Fecha (primero las más recientes)</a></li>
+                        <li><a href="#" id="fecha_up" tabindex="-1" class="subm btn default-btn">Fecha (primero las más antiguas)</a></li>
+                        <li><a href="#" id="comentario" tabindex="-1" class="subm btn default-btn">Número de Comentarios</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <form class="dropdown dropdown_mine image_filter form-inline">
+                <a id="tooltip_filter_message" rel="tooltip" data-trigger="manual" data-original-title="Debe escribir algo para poder filtrar."><input id="user_input" type="text" class="form-control" placeholder="Usuario"></a>
+
+                <button id="user" tabindex="-1" class="subm btn default-btn form-control">Filtrar</button>
+
+            </form>
+        </div>
+
+        <div class="title_containter">
+            <h2 style="text-align: center">Fotos de Cuba</h2>
+        </div>
+        <div class="media wow fadeInDown single_page_content images_to_show" style="padding-top: 0px">
+            {#DONE: Here it should show how the image are ordered (or filtered)#}
+            <h5 id="order_image_info">Imágenes ordenadas por cantidad de comentarios</h5>
+
+            <div id="demo0" class="flex-images" data-id="{{ last_pk }}">
+                {% for image in images %}
+                    <div class="item" data-w="{{ image.0.width }}" data-h="{{ image.0.height }}" data-id="{{ image.1 }}" data-width_big="{{ image.2.1 }}" data-height_big="{{ image.2.2 }}" data-src_big="{{ image.2.0 }}" data-usuario="{{ image.3 }}" data-description="{{ image.4 }}" rel="tooltip" data-trigger="hover" data-original-title="<p>{{ image.4 }}</p><p>Subida por {{ image.3 }}</p> <p
+                    >{{ image.5 }}
+                    comentarios</p>"
+                         data-html="True"><a href="/imagen/{{ image.1 }}/#img_container_big"><img src={{ image.0.url }}></a></div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal_destinos" id="uploadphotomodal">
+        <div class="modal-dialog newsletter_modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="photo_titulo">Enviar una foto</h3>
+
+                    <h4 id="photo_satisfactorio" style="display: none">Su imagen ha sido procesada satisfactoriamente</h4>
+                </div>
+                <div class="modal-body" id="modal_body_content_photo">
+                    <div class="form-group" id="image_upload_content">
+                        {#DONE: I'm not completly satisfied with how this looks like#}
+                        <form name="send_photo_form" id="uploadForm" action="/ajax_photo/" method="post" enctype="multipart/form-data" class="form-inline commentarios_form">
+                            {% csrf_token %}
+                            <a id="tooltip_message_text" rel="tooltip" data-trigger="manual" data-original-title="La descripción no puede estar en blanco."><textarea style="width: 100%" id="photo_description" class="textarea form-control newsletter" rows="3" cols="50" name="pic_description" placeholder="Descripción de la imagen"></textarea></a>
+                            <input id="fileInput" class="input-file" name="upload" type="file" accept=".jpg" value="Imagen" style="display: none;">
+                            <a id="tooltip_message_file" rel="tooltip" data-trigger="manual" data-original-title="Debe seleccionar alguna foto."><input id="imagebutton" rel="tooltip" data-trigger="hover" data-original-title="La imagen debe ser menor de 2MB" type="button" class="btn default-btn newsletter" value="Seleccionar imagen"></a>
+
+                            <div>
+                                <a id="tooltip_message_name" rel="tooltip" data-trigger="manual" data-original-title="Debe insertar un nombre"><input id="image_name" class="input_container_left form-control newsletter" type="text" name="name" placeholder="Nombre"></a>
+
+                                <div class="image_email_holder"><a id="tooltip_message_email" href="#" rel="tooltip" data-trigger="manual" data-original-title="Debe insertar un correo" data-placement="top"><input id="image_email" class="input_container_right form-control newsletter" type="email" name="email" placeholder="Email"></a></div>
+                            </div>
+                            <div class="notifications_content input_container_left">
+                                <input type="checkbox" class="form-control checkbox" id="image_checkbox" name="notifications" placeholder="Recibir notificaciones">
+                                <a>Recibir notificaciones</a>
+                            </div>
+                            <input id="submit_photo" type="submit" value="Enviar foto" class="form-control btn default-btn"/>
+                        </form>
+                    </div>
+                    <div style="display: none" class="image_upload_content_uploading">
+                        <h4>Su imagen está siendo procesada</h4>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <form name="comment_form " id="comment_form" class="form-inline commentarios_form" action="/" style="display: none; margin-bottom: 0px">
+        <textarea id="textarea" name="textarea" class="textarea form-control" rel="tooltip" data-trigger="manual" data-original-title="El comentario no puede estar en blanco" rows="2" cols="50" placeholder="Escriba su comentario"></textarea>
+        <input id="POST-name" class="form-control img_form_element" rel="tooltip" data-trigger="manual" data-original-title="Debe insertar un nombre o un correo" type="text" name="name" placeholder="Nombre">
+        <input id="POST-email" class="form-control img_form_element" rel="tooltip" data-trigger="manual" data-original-title="Debe insertar un email válido" type="email" name="email" placeholder="Correo">
+        {#        <input type="submit" class="form-control btn default-btn img_form_element" id="submit" value="Comentar">#}
+        <input type="checkbox" class="form-control checkbox" id="checkbox" rel="tooltip" data-trigger="manual" data-original-title="Para recibir notificaciones debe insertar un correo" placeholder="Recibir notificaciones">
+        <a>Recibir notificaciones</a>
+        {#        <a id="message"></a>#}
+    </form>
+{% endblock %}
+{% block new_scripts %}
+    <script type="text/javascript" src="{% static 'js/ajax_prep.js' %}"></script>
+    <script type="text/javascript" src="{% static 'flex_images/jquery.flex-images.js' %}"></script>
+    <script>$("#demo0").flexImages({rowHeight: 200, truncate: 1});</script>
+    <script> window.onload = function () {
+        uploadSomePics();
+        $("#user_input").click(function () {
+            $("#tooltip_filter_message").tooltip('hide');
+        });
+
+        $(".item>a").click(function () {
+            var node = $(this).parent()[0];
+            var img_id = node.getAttribute("data-id");
+            var img_width = node.getAttribute("data-width_big");
+            var img_heigth = node.getAttribute("data-height_big");
+            var img_src = node.getAttribute("data-src_big");
+            var img_usuer = node.getAttribute("data-usuario");
+            var img_descr = node.getAttribute("data-description");
+            if (parseInt(img_width, 10) + 80 + 520 < getWidth()) {
+                var height_modal = getHeight() - ( parseInt(img_heigth, 10) + 144);
+                if (height_modal > 20) {
+                    prep_img_modal(img_id, img_width, img_heigth, img_src, img_usuer, img_descr, "{{ language }}", height_modal);
+                    return false;
+                }
+            }
+            $(this)[0].href = "/imagen/" + img_id + "/?languague=es" + "&width=" + getWidth() + "&height=" + getHeight() + "#img_container_big";
+        });
+
+        var request = $.post("/imagenes/",
+                {
+                    filter: 'load',
+                    language: 'es',
+                    width: document.getElementsByTagName('body')[0].getBoundingClientRect()['width'],
+                    height: document.getElementsByTagName('body')[0].getBoundingClientRect()['height']
+                });
+        request.done(function (data) {
+            prep_the_pictures(0, data['images'], "{{ language }}");
+        });
+
+        setInterval(function () {
+            request = $.post("/imagenes/",
+                    {
+                        filter: 'update',
+                        last_pk: document.getElementById('demo0').getAttribute('data-id'),
+                        width: document.getElementsByTagName('body')[0].getBoundingClientRect()['width'],
+                        height: document.getElementsByTagName('body')[0].getBoundingClientRect()['height']
+                    });
+            request.done(function (data) {
+                if (data['change'] == 1) {
+                    document.getElementById('demo0').setAttribute('data-id', data['last_pk'])
+                    $('#demo0').children().remove();
+                    prep_the_pictures(0, data['images'], "{{ language }}");
+                }
+            })
+        }, 30000);
+        $("#image_email").keyup(function () {
+            emailValidationOnTheFly($(this)[0]);
+
+        }).change(function () {
+            emailValidationOnTheFly($(this)[0]);
+        });
+
+
+    };
+    </script>
+
+    <script>
+        $(".subm").click(function () {
+            $('.image_order > div').removeClass("open");
+
+            var request = null;
+            var user_to_filter = $('#user_input').val();
+            $("#user_input").val("");
+            if (this.id == 'user' && user_to_filter) {
+                request = $.post("/imagenes/", {filter: this.id, user: user_to_filter, language: 'es'});
+                $('#demo0').fadeOut('slow');
+            }
+            else if (this.id == 'user' && (user_to_filter == "")) {
+                $("#tooltip_filter_message").tooltip('show');
+                function hideTooltip() {
+                    window.setTimeout(function () {
+                        $("#tooltip_filter_message").tooltip('hide');
+                    }, 1500);
+                }
+
+                hideTooltip();
+
+                return false;
+            }
+            else {
+                request = $.post("/imagenes/", {filter: this.id, language: 'es'});
+                $('#demo0').fadeOut('slow');
+            }
+            request.done(function (data) {
+                        $('#demo0').fadeOut(250);
+                        var timeoutID;
+
+                        function delayedAlert() {
+                            timeoutID = window.setTimeout(function () {
+                                $('#demo0').children().remove();
+                                prep_the_pictures(0, data['images'], "{{ language }}");
+                            }, 500);
+                        }
+
+                        document.getElementById('order_image_info').innerHTML = data['message'];
+                        delayedAlert();
+
+                    }
+            );
+            return false;
+        })
+        ;
+    </script>
+{% endblock %}

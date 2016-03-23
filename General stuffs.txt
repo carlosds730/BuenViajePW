@@ -1,0 +1,9 @@
+DONE: On April 17th (Friday) this must be uploaded in PythonAnywhere for testing.
+DONE: On Monday, March 16 call Ivan to see what to do with the design (find a designer just in case).
+DONE: Do the design responsive.
+NOTDONE: Try to fix the problem in the tablets.
+IMPOSSIBLE: How to deploy with VirtualEnv in DinaHosting? Server configuration (how many connections and emails the server can manage)..
+DONE: Make a script to save the current database (the model requires some changes)
+DONE: Download the fonts.
+DONE: Complete the f**king sitemap in the footer (fix the links)
+DONE: Do the search template.

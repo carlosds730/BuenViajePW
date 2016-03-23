@@ -1,0 +1,726 @@
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Newsletter Buen Viaje a Cuba</title>
+    <!--<link rel="stylesheet" href="style-css.css"/>-->
+    <!--[if IE]>
+    <scriptsrc="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+   <![endif]-->
+    <style>
+        #contenedor{
+            width:800px;
+            {% if message.articles.all.6 %}
+                height:2353px;
+            {% else %}
+                height:1740px;
+            {% endif %}
+            margin:0 auto;
+            position:relative;
+            top:0px;
+            {#background-color: #eefff6;#}
+            box-shadow:0px 0px 10px 10px #b4b4b4;
+        }
+        #cabecera{
+            width: 329px;
+            height: 155px;
+            top: 0px;
+            left: 0px;
+            position:absolute;
+            background-color: #4382c3;
+            {# background-image: url({% static "img/logo-buenviaje.jpg"%});#}
+            z-index: 000;
+        }
+        #cabeceraII{
+            width: 470px;
+            height: 155px;
+            top: 0px;
+            left: 330px;
+            position:absolute;
+            background-color: #4382c3;
+        {#            background-image: url({% static "img/bannerI.jpg" %});#}
+            z-index: 000;
+        }
+        #line-cabecera{
+            width:1px;
+            height:151px;
+            position:absolute;
+            top:0px;
+            left:329px;
+            background-color:#4382c3;
+            z-index:999;
+        }
+        #line-cabecera-I{
+            width:1px;
+            height:155px;
+            position:absolute;
+            top:0px;
+            left:329px;
+            background-color: #ffe01b;
+            z-index:998;
+        }
+        #line-news{
+            width:577px;
+            height:1px;
+            position:absolute;
+            top:40px;
+            left:0px;
+            background-color:#4382c3;
+            z-index:999;
+        }
+        #line-newsII{
+            width:1px;
+            height:145px;
+            position:absolute;
+            top:60px;
+            left:180px;
+            background-color:#4382c3;
+            z-index:999;
+        }
+        #line-newsIII{
+            width:577px;
+            height:1px;
+            position:absolute;
+            top:204px;
+            left:0px;
+            background-color:#4382c3;
+            z-index:999;
+        }
+
+        #image-news{
+            /*width:133px;*/
+            /*height:96px;*/
+            position:absolute;
+            top:65px;
+            left:15px;
+            /*background-color:#4382c3;*/
+            /*border: 5px solid #FFF;*/
+            /*border-color: #ffffff;*/
+            /*box-shadow:5px 5px 5px 0px #b4b4b4;*/
+            z-index:777;
+        }
+
+        img.news{
+            border: 5px solid #FFF;
+            box-shadow:5px 5px 5px 0px #b4b4b4;
+        }
+
+        #text-news{
+            width:392px;
+            height:98px;
+            position:absolute;
+            top:50px;
+            left:190px;
+            vertical-align: top;
+            border-color: #ffffff;
+            z-index:777;
+        }
+
+        #newsletter-number{
+            width: 214px;
+            height: 18px;
+            top: 129px;
+            left: 108px;
+            position:relative;
+            background-color: #4382c3;
+            z-index:555;
+        }
+        #etiqueta{
+            width: 201px;
+            height: 199px;
+            top: 68px;
+            left: 586px;
+            position:relative;
+        {#            background-image: url({% static "img/etiqueta.png"%});#}
+            z-index:1999;
+        }
+        #NEWS{
+            width: 611px;
+            height: 183px;
+            top: 155px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSII{
+            width: 611px;
+            height: 183px;
+            top: 355px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSIII{
+            width: 611px;
+            height: 183px;
+            top: 555px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSIV{
+            width: 611px;
+            height: 183px;
+            top: 895px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSV{
+            width: 611px;
+            height: 183px;
+            top: 1100px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSVI{
+            width: 611px;
+            height: 183px;
+            top: 1305px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSVII{
+            width: 611px;
+            height: 183px;
+            top: 1645px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSVIII{
+            width: 611px;
+            height: 183px;
+            top: 1850px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #NEWSXIX{
+            width: 611px;
+            height: 183px;
+            top: 2055px;
+            left: 20px;
+            position:absolute;
+            z-index:999;
+        }
+        #publicidad-vertical{
+            width: 189px;
+            height: 605px;
+            top: 155px;
+            left: 611px;
+            position:absolute;
+        {#            background-color:#FFF;#}
+            z-index:444;
+        }
+        #publicidad-vertical-img{
+            width: 153px;
+            height: 486px;
+            top: 100px;
+            left: 18px;
+            position:absolute;
+            /*background-image: url("img/publiaireuropa.jpg");*/
+            z-index:544;
+        }
+        #line-publicidad-vertical{
+            width: 1px;
+            height: 565px;
+            top: 40px;
+            left: 0px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #publicidad-vertical-II{
+            width: 189px;
+            height: 605px;
+            top: 895px;
+            left: 611px;
+            position:absolute;
+        {#            background-color:#FFF;#}
+            z-index:444;
+        }
+        #publicidad-vertical-img-II{
+            width: 153px;
+            height: 560px;
+            top: 39px;
+            left: 18px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #line-publicidad-vertical-II{
+            width: 1px;
+            height: 575px;
+            top: 40px;
+            left: 0px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #publicidad-vertical-text{
+            width: 105px;
+            height: 21px;
+            top: 10px;
+            left: 0px;
+            position:absolute;
+            {#background-color:#FFF;#}
+            z-index:444;
+        }
+        #publicidad-vertical-III{
+            width: 189px;
+            height: 605px;
+            top: 1645px;
+            left: 611px;
+            position:absolute;
+        {#            background-color:#FFF;#}
+            z-index:444;
+        }
+        #publicidad-vertical-img-III{
+            width: 153px;
+            height: 270px;
+            top: 40px;
+            left: 18px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #publicidad-vertical-img-IV{
+            width: 153px;
+            height: 270px;
+            top: 325px;
+            left: 18px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #line-publicidad-vertical-III{
+            width: 1px;
+            height: 575px;
+            top: 40px;
+            left: 0px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #publicidad-vertical-text-III{
+            width: 105px;
+            height: 21px;
+            top: 10px;
+            left: 0px;
+            position:absolute;
+            {#background-color:#FFF;#}
+            z-index:444;
+        }
+        #line-publicidad-horizontal{
+            width: 765px;
+            height: 1px;
+            top: 759px;
+            left: 20px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #line-publicidad-horizontal-II{
+            width: 765px;
+            height: 1px;
+            top: 1509px;
+            left: 20px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #line-publicidad-horizontal-III{
+            width: 765px;
+            height: 1px;
+            top: 2259px;
+            left: 20px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #publicidad-horizontal{
+            width: 765px;
+            height: 124px;
+            top: 769px;
+            left: 20px;
+            position:absolute;
+            {#background-color:#FFF;#}
+            z-index:444;
+        }
+        #publicidad-horizontal-II{
+            width: 765px;
+            height: 124px;
+            top: 1519px;
+            left: 20px;
+            position:absolute;
+            {#background-color:#FFF;#}
+            z-index:444;
+        }
+        #publicidad-horizontal-text{
+            width: 765px;
+            height: 21px;
+            top: 0px;
+            left: 0px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:444;
+        }
+        #publicidad-horizontal-img{
+            width: 765px;
+            height: 96px;
+            top: 30px;
+            left: 0px;
+            position:absolute;
+        {#            border: 1px solid #4382c3;#}
+            background-color:#4382c3;
+            z-index:1999;
+        }
+        #publicidad-horizontal-img-I{
+            width: 375px;
+            height: 96px;
+            top: 30px;
+            left: 0px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:444;
+        }
+        #publicidad-horizontal-img-II{
+            width: 375px;
+            height: 96px;
+            top: 30px;
+            left: 389px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:444;
+        }
+
+        img.publi{
+            border: 1px solid #4382c3;
+        }
+
+        h1{
+            font-family:Helvetica;
+            font-size:14px;
+            font-weight:normal;
+            color:#ffffff;
+            z-index:999;
+        }
+        p.noticia{
+            font-family: Helvetica;
+            font-size:14px;
+            font-weight:bold;
+            top: 0;
+            left: 200;
+            position: relative;
+            color:#4382c3;
+            z-index:999;
+        }
+        p.news{
+            font-family:Helvetica;
+            width: 380px;
+            font-size:12px;
+            font-weight:normal;
+            line-height: 1.7;
+            top: 0px;
+            left: 10px;
+            position: relative;
+            color:#000;
+            z-index:999;
+        }
+        a.leermas{
+            font-family:Helvetica;
+            font-style: italic;
+            font-size:12px;
+            font-weight:normal;
+            line-height: 1.7;
+            /*top: 135px;*/
+            /*left: 500px;*/
+            /*position: relative;*/
+            color:#4382c3;
+            z-index:999;
+        }
+        p.publicidad{
+            font-family:Helvetica;
+            font-size:14px;
+            font-weight:bold;
+            top: -12px;
+            left: 18px;
+            position: absolute;
+            color:#FFF;
+            z-index:999;
+        }
+        p.publicidad-I{
+            font-family:Helvetica;
+            font-size:14px;
+            font-weight:bold;
+            top: -12px;
+            left: 18px;
+            position: absolute;
+            color:#4382c3;
+            z-index:999;
+        }
+
+        #final{
+            {% if message.articles.all.6 %}
+                top:2276px;
+            {% else %}
+                top:1660px;
+            {% endif %}
+            width: 765px;
+            height: 60px;
+            left: 20px;
+            position:absolute;
+            background-color:#4382c3;
+            z-index:544;
+        }
+        #info{
+            font-family:Helvetica;
+            font-size:14px;
+            top: 7px;
+            width: 765px;
+            position: absolute;
+            text-align: center;
+        }
+
+    </style>
+</head>
+{#<body background="img/bacgroundgray_body.jpg">#}
+{#<table style="top: 0px; left: 0px; position: absolute" width="800px" height="1740px">#}
+    <div id="contenedor">
+        <h1>
+            <div id="newsletter-number"><p>Boletín No.{{ message.pk }} Año 2015</p></div>
+        </h1>
+        <div id="etiqueta"><img src={% static "img/etiqueta.png" %} width="201" height="199"></div>
+        <div id="line-cabecera"></div>
+        <div id="line-cabecera-I"></div>
+        <div id="cabecera"><img src={% static "img/logo-buenviaje.jpg" %} width="329" height="155"></div>
+        <div id="cabeceraII"><img src={% static "img/bannerI.jpg" %} width="470" height="155"></div>
+        {% if message.articles.all.0 %}
+            {% with message.articles.all.0 as article_1%}
+                {% with article_1.get_width_top as article_1_img %}
+                    <div id="NEWS"><p class="noticia">{{ article_1.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_1.text }}... <a class="leermas" href={{ article_1.url }}><strong> Leer más</strong></a> </p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_1_img.1 }}px; top:{{ article_1_img.2 }}px" src="{{ article_1_img.0.url }}" width="{{ article_1_img.0.width }}" height="{{ article_1_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+        {% endif %}
+        {% if message.articles.all.1 %}
+            {% with message.articles.all.1 as article_2%}
+                {% with article_2.get_width_top as article_2_img %}
+                    <div id="NEWSII"><p class="noticia">{{ article_2.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_2.text }}... <a class="leermas" href={{ article_2.url }}><strong> Leer más</strong></a></p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_2_img.1 }}px; top:{{ article_2_img.2 }}px" src="{{ article_2_img.0.url }}" width="{{ article_2_img.0.width }}" height="{{ article_2_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+        {% endif %}
+        {% if message.articles.all.2 %}
+            {% with message.articles.all.2 as article_3%}
+                {% with article_3.get_width_top as article_3_img %}
+                    <div id="NEWSIII"><p class="noticia">{{ article_3.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_3.text }}... <a class="leermas" href={{ article_3.url }}><strong> Leer más</strong></a></p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_3_img.1 }}px; top:{{ article_3_img.2 }}px" src="{{ article_3_img.0.url }}" width="{{ article_3_img.0.width }}" height="{{ article_3_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+        {% endif %}
+        <div id="publicidad-vertical">
+            <div id="publicidad-vertical-img">
+                {% if message.publicities.all.0 %}
+                    {% with message.publicities.all.0 as publi %}
+                        {% thumbnail publi.image '153x486' as image %}
+                            <a href={{ publi.url }}><img src="{{ image.url }}" width="153" height="486"></a>
+                        {% endthumbnail %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+            <div id="line-publicidad-vertical"></div>
+        </div>
+        <div id="line-publicidad-horizontal"></div>
+        <div id="publicidad-horizontal">
+            <div id="publicidad-horizontal-img">
+                {% if message.publicities.all.1 %}
+                    {% with message.publicities.all.1 as publi %}
+                        {% thumbnail publi.image '765x96' as image %}
+                            <a href={{ publi.url }}><img class="publi" src="{{ image.url }}" width="765" height="96"></a>
+                        {% endthumbnail %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+            <div id="publicidad-horizontal-text"><p class="publicidad">Publicidad</p></div>
+        </div>
+        {% if message.articles.all.3 %}
+            {% with message.articles.all.3 as article_4%}
+                {% with article_4.get_width_top as article_4_img %}
+                    <div id="NEWSIV"><p class="noticia">{{ article_4.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_4.text }}... <a class="leermas" href={{ article_4.url }}><strong> Leer más</strong></a></p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_4_img.1 }}px; top:{{ article_4_img.2 }}px" src="{{ article_4_img.0.url }}" width="{{ article_4_img.0.width }}" height="{{ article_4_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+        {% endif %}
+        {% if message.articles.all.4 %}
+            {% with message.articles.all.4 as article_5%}
+                {% with article_5.get_width_top as article_5_img %}
+                    <div id="NEWSV"><p class="noticia">{{ article_5.title }}</p>
+
+                        <div id="text-news"><p class="news">{{ article_5.text }}... <a class="leermas" href={{ article_5.url }}><strong> Leer más</strong></a></p></div>
+
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_5_img.1 }}px; top:{{ article_5_img.2 }}px" src="{{ article_5_img.0.url }}" width="{{ article_5_img.0.width }}" height="{{ article_5_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+        {% endif %}
+        {% if message.articles.all.5 %}
+            {% with message.articles.all.5 as article_6%}
+                {% with article_6.get_width_top as article_6_img %}
+                    <div id="NEWSVI"><p class="noticia">{{ article_6.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_6.text }}... <a class="leermas" href={{ article_6.url }}><strong> Leer más</strong></a></p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_6_img.1 }}px; top:{{ article_6_img.2 }}px" src="{{ article_6_img.0.url }}" width="{{ article_6_img.0.width }}" height="{{ article_6_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+        {% endif %}
+        <div id="publicidad-vertical-II">
+            <div id="publicidad-vertical-img-II">
+                {% if message.publicities.all.2 %}
+                    {% with message.publicities.all.2 as publi %}
+                        {% thumbnail publi.image '153x560' as image %}
+                            <a href={{ publi.url }}><img class="publi" src="{{ image.url }}" width="153" height="560"></a>
+                        {% endthumbnail %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+            <div id="line-publicidad-vertical-II"></div>
+            <div id="publicidad-vertical-text"><p class="publicidad-I">Publicidad</p></div>
+        </div>
+        <div id="line-publicidad-horizontal-II"></div>
+        <div id="publicidad-horizontal-II">
+            <div id="publicidad-horizontal-img-I">
+                {% if message.publicities.all.3 %}
+                    {% with message.publicities.all.3 as publi %}
+                        {% thumbnail publi.image '375x96' as image %}
+                            <a href={{ publi.url }}><img class="publi" src="{{ image.url }}" width="375" height="96"></a>
+                        {% endthumbnail %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+            <div id="publicidad-horizontal-img-II">
+                {% if message.publicities.all.4 %}
+                    {% with message.publicities.all.4 as publi %}
+                        {% thumbnail publi.image '375x96' as image %}
+                            <a href={{ publi.url }}><img class="publi" src="{{ image.url }}" width="375" height="96"></a>
+                        {% endthumbnail %}
+                    {% endwith %}
+                {% endif %}
+            </div>
+            <div id="publicidad-horizontal-text"><p class="publicidad">Publicidad</p></div>
+        </div>
+        {% if message.articles.all.6 %}
+            {% with message.articles.all.6 as article_7%}
+                {% with article_7.get_width_top as article_7_img %}
+                    <div id="NEWSVII"><p class="noticia">{{ article_7.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_7.text }}... <a class="leermas" href={{ article_7.url }}><strong> Leer más</strong></a></p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_7_img.1 }}px; top:{{ article_7_img.2 }}px" src="{{ article_7_img.0.url }}" width="{{ article_7_img.0.width }}" height="{{ article_7_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+            {% with message.articles.all.7 as article_8%}
+                {% with article_8.get_width_top as article_8_img %}
+                    <div id="NEWSVIII"><p class="noticia">{{ article_8.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_8.text }}... <a class="leermas" href={{ article_8.url }}><strong> Leer más</strong></a></p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_8_img.1 }}px; top:{{ article_8_img.2 }}px" src="{{ article_8_img.0.url }}" width="{{ article_8_img.0.width }}" height="{{ article_8_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+            {% with message.articles.all.8 as article_9%}
+                {% with article_9.get_width_top as article_9_img %}
+                    <div id="NEWSXIX"><p class="noticia">{{ article_9.title }}</p>
+                        <div id="text-news"><p class="news">{{ article_9.text }}... <a class="leermas" href={{ article_9.url }}><strong> Leer más</strong></a></p></div>
+                        <div id="line-news"></div>
+                        <div id="line-newsII"></div>
+                        <div id="line-newsIII"></div>
+                        <div id="image-news">
+                            <img class="news" style="position: absolute; left: {{ article_9_img.1 }}px; top:{{ article_9_img.2 }}px" src="{{ article_9_img.0.url }}" width="{{ article_9_img.0.width }}" height="{{ article_9_img.0.height }}">
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endwith %}
+            <div id="publicidad-vertical-III">
+                <div id="publicidad-vertical-img-III">
+                    {% if message.publicities.all.5 %}
+                        {% with message.publicities.all.5 as publi %}
+                            {% thumbnail publi.image '153x270' as image %}
+                                <a href={{ publi.url }}><img class="publi" src="{{ image.url }}" width="153" height="270"></a>
+                            {% endthumbnail %}
+                        {% endwith %}
+                    {% endif %}
+                </div>
+                <div id="publicidad-vertical-img-IV">
+                    {% if message.publicities.all.6 %}
+                        {% with message.publicities.all.6 as publi %}
+                            {% thumbnail publi.image '153x270' as image %}
+                                <a href={{ publi.url }}><img class="publi" src="{{ image.url }}" width="153" height="270"></a>
+                            {% endthumbnail %}
+                        {% endwith %}
+                    {% endif %}
+                </div>
+                <div id="publicidad-vertical-text-III"><p class="publicidad-I">Publicidad</p></div>
+                <div id="line-publicidad-vertical-III"></div>
+            </div>
+            <div id="line-publicidad-horizontal-III"></div>
+        {% endif %}
+        <div id="final">
+            <div id="info">
+                <p style="color: #ffffff">2015 © Buen Viaje a Cuba</p>
+            </div>
+        </div>
+    </div>
+{#</table>#}
+</body>

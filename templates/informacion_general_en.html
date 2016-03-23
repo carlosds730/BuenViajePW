@@ -1,0 +1,33 @@
+{% extends 'noticia_en.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+{% block title %}
+    <title>Buen Viaje a Cuba - General Information</title>
+{% endblock %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/language=en">Inicio</a></li>
+            <li><a href="/de-cuba/">About Cuba</a></li>
+            <li class="active">General Information</li>
+        </ol>
+        <div class="title_containter">
+            <h2>General Information</h2>
+        </div>
+        <div class="text_containter">
+            {{ en_titulo|safe }}
+        </div>
+        {% for x in secciones %}
+            <h3 id="secciones_{{ x.2 }}">{{ x.0 }}</h3>
+            <p>{{ x.1 }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

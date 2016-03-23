@@ -1,0 +1,106 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block title %}
+    <title>Buen Viaje a Cuba - Contáctenos</title>
+{% endblock %}
+{% block content_content %}
+    <ol class="breadcrumb">
+        <li><a href="/">Inicio</a></li>
+        <li class="active">Contáctenos</li>
+    </ol>
+    <div class="contact_area">
+        <p style="text-align: justify">La revista Buen Viaje a Cuba es un Magazine Turístico Cultural dedicado completamente a la promoción de Cuba como destino turístico. Si desea tener más información de alguno de los temas publicados, envíenos su petición.</p>
+
+        <form class="contact_form">
+            <input class="form-control" id="asunto_to_send" type="text" placeholder="Asunto">
+            <input class="form-control" id="email_to_send" type="email" placeholder="Correo">
+
+            <div>
+                <textarea class="form-control textarea" id="text_to_send" rel="tooltip" data-placement="top" data-trigger="manual" data-original-title="Su mensaje ha sido enviado con éxito." cols="30" rows="10" placeholder="Mensaje"></textarea>
+            </div>
+            <input type="submit" id="submit_email" value="Enviar mensaje">
+            <a id="message"></a>
+        </form>
+    </div>
+{% endblock %}
+
+{% block new_scripts %}
+    <script type="text/javascript" src="{% static 'js/ajax_prep.js' %}"></script>
+    <script>
+        window.onload = function () {
+            CookiesEmail(document.getElementById("email_to_send"));
+            uploadSomePics();
+        };
+
+        $("#email_to_send").keyup(function () {
+            emailValidationOnTheFly($(this)[0]);
+
+        }).change(function () {
+            emailValidationOnTheFly($(this)[0]);
+        });
+
+        $("#submit_email").click(function () {
+            var trext = document.getElementById("text_to_send").value;
+            var asunto = document.getElementById("asunto_to_send").value;
+            var email = document.getElementById("email_to_send").value;
+
+            if (trext == "") {
+                $("#message").text("El mensaje no puede estar en blanco").fadeIn("slow");
+                return false;
+            }
+            else {
+                if (asunto == "" && email == "") {
+                    $("#message").text("Debe insertar un email y un asunto").fadeIn("slow");
+                    return false;
+                }
+                else {
+                    if (asunto == "") {
+                        $("#message").text("Debe insertar un asunto").fadeIn("slow");
+                        return false;
+                    }
+                    else {
+                        if (email == "") {
+                            $("#message").text("Debe insertar una dirección de correo válida").fadeIn("slow");
+                        }
+                    }
+                }
+            }
+            if (email != "") {
+                if (!validateEmail(email)) {
+                    $("#message").text("La dirección de correo introducida no es válida").fadeIn("slow");
+                    return false;
+                }
+            }
+            var request = $.post("/contactenos/", {texto: trext, asunto: asunto, email: email});
+            request.done(
+                    function (data) {
+                        var tool_tip = $("#text_to_send");
+                        if (data['status'] == "Success") {
+                            tool_tip.tooltip('show');
+                            document.getElementById("text_to_send").value = "";
+                            document.getElementById("asunto_to_send").value = "";
+                            hideTooltip(tool_tip);
+                            $("#message").fadeOut('fast');
+                        }
+                        else {
+                            tool_tip[0].setAttribute("data-original-title", "Su correo no ha podido ser enviado, inténtelo más tarde.");
+                            tool_tip.tooltip('show');
+                            hideTooltip(tool_tip);
+                            tool_tip[0].setAttribute("data-original-title", "Su mensaje ha sido enviado con éxito.");
+                        }
+                    }
+            );
+            request.error(
+                    function () {
+                        tool_tip[0].setAttribute("data-original-title", "Su correo no ha podido ser enviado, inténtelo más tarde.");
+                        tool_tip.tooltip('show');
+                        hideTooltip(tool_tip);
+                        tool_tip[0].setAttribute("data-original-title", "Su mensaje ha sido enviado con éxito.");
+                    }
+            );
+            return false;
+        });
+    </script>
+{% endblock %}

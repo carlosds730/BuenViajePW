@@ -1,0 +1,194 @@
+{% extends 'new_inicio.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+{#DONE: Fix the menu, the href are appearing relative to the current page#}
+
+{% block title %}
+    <title>Buen Viaje a Cuba - Galería de Fotos</title>
+{% endblock %}
+{% block new_links %}
+    <link rel="stylesheet" href="{% static 'css/noticia.css' %}" type="text/css"/>
+    {#    <script src="{% static 'new/js/jquery-1.10.2.min.js' %}"></script>#}
+{% endblock %}
+
+{% block first_row %}
+{% endblock %}
+
+{% block content %}
+    <div class="left_content">
+        <div class="single_page">
+            {% block content_content %}
+                <div id="content_to_container">
+                    <ol class="breadcrumb">
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/imagenes/">Galería de Fotos</a></li>
+                    </ol>
+
+                    <div class="post_commentbox" id="img_container_big">
+                        <span><i class="fa fa-calendar"></i>{{ image.fecha_upload }}</span>
+                        <a id="number_comentarios_content" href="#comentarios_title"><i class="fa fa-comments"></i></a><a id="number_comentarios">{{ number_comentarios }}</a>
+                        <a id="user_comentarios_content"><i class="fa fa-user"></i></a><a id="user_uploader">{{ image.usuario.nombre }}</a>
+                        {#NOTDONE: Add Facebook´s like and Share buttons#}
+                        {#NOTDONE: Add a counter of likes and shares (I believe this can be done eaisly with FaceBook´s API)#}
+                    </div>
+                    <div class="media wow fadeInDown single_page_content">
+                        {% if image %}
+                            <img class="img-center" src="{{ imagen_url }}" alt="img">
+                        {% endif %}
+
+                        <p>{{ image.descripcion }}</p>
+                    </div>
+                </div>
+                <div class="comentarios_content">
+
+                    <h3 id="comentarios_title">Comentarios</h3>
+
+
+                    <div id="comentarios" style="margin-bottom: 5px; max-height: 468px;">
+                        {% for comment in image.comentarios.all %}
+                            <div class="comentario" id="{{ comment.pk }}" style="display: block">
+                                <p>El {{ comment.fecha }} {{ comment.usuario.nombre }} comentó: </p>
+
+                                <p>{{ comment.texto }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <form name="comment_form" id="comment_form" class="form-inline commentarios_form" action="/">
+                        <textarea id="textarea" name="textarea" class="textarea form-control" rows="3" cols="50" placeholder="Escriba su comentario"></textarea>
+                        <input id="POST-name" class="form-control" type="text" name="name" placeholder="Nombre">
+                        <input id="POST-email" class="form-control" type="email" name="email" placeholder="Correo">
+                        <input type="submit" class="form-control btn default-btn" id="submit" value="Comentar">
+                        <input type="checkbox" class="form-control checkbox" id="checkbox" placeholder="Recibir notificaciones">
+                        <a>Recibir notificaciones</a>
+                        <a id="message"></a>
+                    </form>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block first_content %}
+    <div class="single_sidebar wow fadeInDown " style="margin-bottom: 4%; text-align: center">
+        <h2><span>Última edición</span></h2>
+        <a href="{{ last_revista.url.url }}" class="sideAdd last_edition" style="width: 100%; text-align: center" href="#">
+            <img src="{{ last_revista.get_small_thumbnail }}" alt="img">
+        </a>
+        <strong><a href="{{ last_revista.url.url }}"><p>Numero {{ last_revista.numero }} año {{ last_revista.anho }}</p></a></strong>
+        <a href="#">Ver ediciones anteriores</a>
+    </div>
+
+
+{% endblock %}
+
+
+
+
+{% block fotos_de_cuba %}
+{% endblock %}
+
+{% block new_scripts %}
+    <script type="text/javascript" src="{% static 'js/ajax_prep.js' %}"></script>
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+            setInterval(function () {
+                updateCommentsImage({{ id }}, 'es')
+            }, 10000);
+            CookiesJob();
+            var left_content_height = document.getElementsByClassName("left_content")[0].getBoundingClientRect()["height"];
+            var right_content_height = document.getElementsByClassName("right_content")[0].getBoundingClientRect()["height"];
+            var content_to_container_height = document.getElementById("content_to_container").getBoundingClientRect()["height"];
+            var comentarios_title_height = document.getElementById("comentarios_title").getBoundingClientRect()["height"];
+            var coment_form_height = document.getElementById("comment_form").getBoundingClientRect()["height"];
+            var comentarios_content = document.getElementById("comentarios");
+            var d = right_content_height - (content_to_container_height + comentarios_title_height + coment_form_height);
+            if (d > 100) {
+                comentarios_content.style.maxHeight = d.toString() + "px";
+            }
+        };
+
+        $("#POST-email").keyup(function () {
+            emailValidationOnTheFly($(this)[0]);
+
+        }).change(function () {
+            emailValidationOnTheFly($(this)[0]);
+        });
+
+
+        $("#contenido").click(function () {
+            $("#short_desciption").fadeOut(250,
+                    function () {
+                        $("#long_description").fadeIn(750);
+                    });
+        });
+        {#DONE: Add some validation here. Verify that textarea.value is not empty. #}
+        {#LATER: Refactor this as much as possible#}
+        {#DONE: Add a "Recibir notificaciones" select box and enable it if the validation is correct#}
+        {#DONE: In every ajax call add something that says "The data is being loaded" or "Your comment is being processed". Removed after the server sends back the data.#}
+        {#DONE: Add the name and email to the browser cookies. Load that info from the cookies also.#}
+        $("#submit").click(function () {
+            var trext = document.getElementById("textarea").value;
+            var nombre = document.getElementById("POST-name").value;
+            var email = document.getElementById("POST-email").value;
+            var check = document.getElementById("checkbox").checked;
+            if (trext == "") {
+                $("#message").text("El comentario no puede estar en blanco").fadeIn("slow");
+                return false;
+            }
+            else {
+                if (nombre == "" && email == "") {
+                    $("#message").text("Debe insertar un nombre o un correo").fadeIn("slow");
+                    return false;
+                }
+                else {
+                    if (check == true && email == "") {
+                        $("#message").text("Para recibir notificaciones debe insertar un correo").fadeIn("slow");
+                        return false;
+                    }
+                }
+
+            }
+            var a = $("#comentarios").find("> div:first")[0];
+            if (a == undefined)
+                a = -1;
+            else {
+                a = a.id;
+            }
+            if (check == true) {
+                var request = $.post("/imagen/" + {{ id }} +"/", {texto: trext, nombre: nombre, email: email, pk_last_comment: a, noti: "true", language: 'es'});
+            }
+            else {
+                {#DONE:ver en la pag en Ingles cambiar el valor del language#}
+                var request = $.post("/imagen/" + {{ id }} +"/", {texto: trext, nombre: nombre, email: email, pk_last_comment: a, language: 'es'});
+            }
+            {#            var request = $.post("/ajax_noticias/" + {{ id }} +"/", {texto: trext, nombre: nombre, email: email, pk_last_comment: a, noti: check.toString()});#}
+            request.done(function (data) {
+                if (data['error'])
+                    $("#message").text('El email está mal!').fadeIn("slow");
+                else {
+                    insert_comments(data, false, "es");
+                    document.getElementById("textarea").value = "";
+                    $("#message").fadeOut("slow");
+                }
+            });
+            return false;
+        });
+
+        $("#see_more").click(function () {
+            var a = $("#comentarios").find("> div:first")[0];
+            if (a == undefined)
+                a = -1;
+            else {
+                a = a.id;
+            }
+            var request = $.post("/imagen/" + {{ id }} +"/", {pk_last_comment: a, old: "a"});
+            request.done(function (data) {
+                insert_comments(data, true, "es");
+            });
+            $(this).hide();
+        });
+    </script>
+{% endblock %}

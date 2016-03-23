@@ -1,0 +1,38 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+{% block title %}
+    <title>Buen Viaje a Cuba - La revista</title>
+{% endblock %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Inicio</a></li>
+            <li class="active">La Revista</li>
+        </ol>
+        <div class="title_containter">
+            <h2>La Revista</h2>
+        </div>
+        <div class="text_containter">
+            {{ encabezado|safe }}
+        </div>
+        <div class="title_containter">
+            <h2>Secciones</h2>
+        </div>
+        <div class="text_containter">
+            {{ encabezado_seccion|safe }}
+        </div>
+        {% for x in secciones %}
+            <h3 id="secciones_{{ x.2 }}">{{ x.0 }}</h3>
+            <p>{{ x.1 }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

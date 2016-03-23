@@ -1,0 +1,181 @@
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Boletín digital de Buen Viaje a Cuba</title>
+</head>
+
+<body>
+<table width="98%" border="0" align="center" cellpadding="0px" cellspacing="0px"
+       style="mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse; border-spacing:0px">
+    <tr>
+        <td>
+            <table width="799px" border="0" cellpadding="0px" align="center" cellspacing="0px"
+                   style="box-shadow:0px 0px 10px 10px #b4b4b4; border-spacing:0px; mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse">
+                <tr>
+                    <td colspan="3" style="vertical-align:middle">
+                        <table id="cabecera" width="799px" bgcolor="#4382c3" border="0" align="center" cellspacing="0" cellpadding="0" style="mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse; border-spacing:0px; border-bottom:4px solid #ffdf42">
+                            <tr>
+                                <td width="107" height="124"><img style="display:block" src={% static "img/top-left.jpg" %} width="107" height="124"  alt=""/></td>
+                                <td width="222" height="124"><img style="display:block" src={% static "img/top-right.jpg"%} width="222" height="124"  alt=""/></td>
+                                <td width="470" height="150" rowspan="2"><img style="display:block" src={% static "img/bannerI.jpg"%} width="470" height="150"/></td>
+                            </tr>
+                            <tr>
+                              <td height="26"><img style="display:block" src={% static "img/bottom-left.jpg"%} width="107" height="26"  alt=""/></td>
+                              <td width="222" height="26" style="font-family:Helvetica; font-size:16px; color:#ffffff; font-weight:normal " valign="middle">Newsletter No. 365 Año 2014</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                            	<td width="16" rowspan="5">&nbsp;
+                                	
+                  </td>
+                            	<td width="771"><table width="771" border="0" align="center" cellspacing="0" cellpadding="0" style="mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse; border-spacing:0px; border-bottom:1px solid #4382c3">
+                            	  <tr>
+                                     <td width="581" height="33" 
+                                    style="border-top:5px solid #FFF;border-bottom:1px solid #4382c3; font-family: Helvetica; font-size:14px; color:#4382c3; font-weight:bold; vertical-align:middle">
+                                    Opciones para todos en Santiago de Cuba
+                                </td>
+                            	    <td width="13">&nbsp;</td>
+                            	    <td width="17">&nbsp;</td>
+                            	    <td width="160"
+                                    style="font-family:Helvetica;font-size:14px;font-weight:bold; color:#4382c3">
+                                    Publicidad
+                                </td>
+                          	    </tr>
+                            	  <tr>
+                            	    <td><table width="581" border="0" align="center" cellspacing="0" cellpadding="0" style="mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse; border-spacing:0px">
+                            	      <tr>
+                            	        <td width="161" rowspan="3" align="center"
+                                         style="border-bottom:1px solid #4382c3;vertical-align:middle">
+                                            {% if message.articles.all.0 %}
+                                                {% with message.articles.all.0 as article %}
+                                                    {% with article.get_width_top as article_img %}
+                                                        <img style="border: 5px solid #FFF; box-shadow:5px 5px 5px 0px #b4b4b4"
+                                                             src="{{ article_img.0.url }}" width="{{ article_img.1 }}"
+                                                             height="{{ article_img.2 }}">
+                                                    {% endwith %}
+                                                {% endwith %}
+                                            {% endif %}
+                                        </td>
+                                        <td width="13" height="10" align="center">&nbsp;</td>
+                            	        <td colspan="2">&nbsp;</td>
+                           	          </tr>
+                            	      <tr>
+                            	        <td width="13" rowspan="2" align="center"
+                                    style="border-bottom:1px solid #4382c3; border-right:1px solid #4382c3; vertical-align:middle">&nbsp;
+                                    
+                                </td>
+                            	        <td width="10">&nbsp;</td>
+                            	         <td width="397" valign="top"
+                                    style="vertical-align:middle; font-family:Helvetica; font-size:12px; font-weight:normal;line-height:16.8pt">
+                                    El grupo francés Accor continúa consolidando su presencia en Cuba, donde tiene
+                                    previsto inaugurar próximamente un hotel diseñado para el segmento de alta gama. Se
+                                    trata del Pullman Cayo Coco, en primera línea de playa de ese hermoso islote situado
+                                    al norte de la zona central de Cuba. Con categoría cinco estrellas, el resort
+                                    dispondrá de 472 habitaciones estandar,... Leer más
+                                </td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td height="10p" colspan="2" style="border-bottom:1px solid #4382c3;vertical-align:top"></td>
+                           	          </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                          	      </table></td>
+                            	    <td width="13" style="border-right:1px solid #4382c3">&nbsp;</td>
+                            	    <td width="17">&nbsp;</td>
+                            	    <td><table width="160" border="0" style="mso-table-lspace:0px; mso-table-rspace:0px; border-collapse:collapse; border-spacing:0px">
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                            	      <tr>
+                            	        <td>&nbsp;</td>
+                          	        </tr>
+                          	      </table>
+                                        
+                                  </td>
+                          	    </tr>
+                           	  </table></td>
+               	  <td width="12" rowspan="5">&nbsp;</td>
+              </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr height="71px" >
+                    <td height="71px" colspan="3"
+                        style="background-color: #4382c3; vertical-align: middle; text-align: center; font-family: Helvetica; font-size: 14px; color: #FFF">
+                        2015 © Buen Viaje a Cuba
+                        <br/>
+                        Publicidad: <a style="color: #0000CC" href="mailto:publicidad@buenviajeacuba.com">publicidad@buenviajeacuba.com</a>&nbsp&nbsp
+                            Información: <a href="mailto:info@buenviajeacuba.com"><span style="color:#0000CC">info@buenviajeacuba.com</span></a>
+                            </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

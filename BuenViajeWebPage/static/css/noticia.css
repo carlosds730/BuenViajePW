@@ -1,0 +1,13 @@
+.comentario{
+    border-bottom: 1px solid grey;
+    display: none;
+}
+
+#see_more{
+
+}
+
+#see_more:hover{
+    cursor: pointer;
+}
+

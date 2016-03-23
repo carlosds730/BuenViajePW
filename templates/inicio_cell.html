@@ -1,0 +1,217 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/style_mobile.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'flex_images/jquery.flex-images.css' %}" type="text/css">
+    <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'flex_images/jquery.flex-images.js' %}"></script>
+    <title></title>
+</head>
+<body>
+<div class="menuBar">
+    <div class="menu-btn"><a style="position: relative;top: 13%">&#9776;</a></div>
+    <div id="search_form">
+        <input id="search_box" type="search" name="input" placeholder="Buscar">
+    </div>
+    <ul id="languages">
+        <li id="languages_a">
+            <a id="languages_a_a">Idioma</a>
+            <ul id="dropdown_languages">
+                <li>
+                    <a><img src="{% static 'img/UK.jpg' %}" width="30px" height="20px"><span>English</span></a>
+                </li>
+                <li>
+                    <a><img src="{% static 'img/spain.jpg' %}" width="30px" height="20px"><span>Español</span></a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div id="big_container">
+    <div id="head-contenedor">
+        <div id="cabezal">
+            <img src="{% static 'img/logo.png' %}">
+        </div>
+    </div>
+    <div id="content_contenedor">
+        <div id="images_content">
+            <h1>Últimas ediciones</h1>
+
+            <div class="image_content">
+                <img src="{% static 'img/portada.jpg' %}">
+            </div>
+            <div class="image_content_right">
+                <img src="{% static 'new/img/BV3 - 2014 Cubierta ESPAÑOL-1_smaller.jpg' %}">
+            </div>
+            <div class="image_content">
+                <a>Edición No.1 2015</a>
+            </div>
+            <div class="image_content_right">
+                <a>Edición No.3 2014</a>
+            </div>
+        </div>
+        <h1>Noticias</h1>
+
+        <div id="news_content">
+            <p class="noticia_titular">Vuelve Iberia a la Habana e inaugura vuelos a Cali y Medellín. <a href="#">+Ver más</a></p>
+
+            <p class="noticia_titular">Convocan a Cuba Golf 2015, en el Varadero Golf Club. <a href="#">+Ver más</a></p>
+
+            <p class="noticia_titular">Se prepara Remedios para celebrar su 500 Aniversario. <a href="#">+Ver más</a></p>
+        </div>
+        <h1>Eventos</h1>
+
+        <div id="events_content">
+            <p class="noticia_titular">VII Festival Internacional Varadero Gourmet 2015. <a href="#">+Ver más</a></p>
+
+            <p class="noticia_titular">Gran Torneo Cuba Golf 2015. <a href="#">+Ver más</a></p>
+
+            <p class="noticia_titular">FITCUBA 2015: Feria internacional de Turismo de Cuba. <a href="#">+Ver más</a></p>
+        </div>
+        <div id="enlaces">
+            <h1>Enlaces</h1>
+
+            <div id="demo1" class="flex-images">
+                <div class="item" data-w="120" data-h="60"><a href="#"><img src="{% static 'img/enlaces/pesca.jpg' %}"></a></div>
+                <div class="item" data-w="120" data-h="60"><a href="#"><img src="{% static 'img/enlaces/FITCUBA.gif' %}"></a></div>
+                <div class="item" data-w="120" data-h="60"><a href="#"><img src="{% static 'img/enlaces/BANNER-TORNEO-65---120-X-60-px.gif' %}"></a></div>
+                <div class="item" data-w="93" data-h="60"><a href="#"><img src="{% static 'img/enlaces/labiofam.jpg' %}"></a></div>
+                <div class="item" data-w="120" data-h="60"><a href="#"><img src="{% static 'img/enlaces/Banner-120x60-px-FOTOSUB-2015.gif' %}"></a></div>
+            </div>
+        </div>
+        <div id="big_menu">
+            <div class="member">
+                <div class="member-show-info">
+                    <a>La revista</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Descripción general</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Ediciones</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Distribución</a>
+                </div>
+            </div>
+            <div class="member">
+                <div class="member-show-info">
+                    <a>Buen Viaje por el mundo</a>
+                </div>
+            </div>
+            <div class="member">
+                <div class="member-show-info">
+                    <a>De Cuba</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Información general</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Información por destinos</a>
+                </div>
+            </div>
+            <div class="member">
+                <div class="member-show-info">
+                    <a>Tiempo Libre</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Destinos</a>
+                </div>
+            </div>
+            <div class="member">
+                <div class="member-show-info">
+                    <a>Eventos</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Calendario</a>
+                </div>
+            </div>
+            <div class="member">
+                <div class="member-show-info">
+                    <a>Blogs</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Fotos de Cuba</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Muévete en Cuba</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Sabores de Cuba</a>
+                </div>
+            </div>
+            <div class="member">
+                <div class="member-show-info">
+                    <a>Boletín Digital</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Ediciones anteriores</a>
+                </div>
+                <div class="member-extra-info">
+                    <a>Suscribirse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    window.onload = function () {
+        $(".member>.member-show-info").click(function () {
+            $(this).nextAll().slideToggle(200, "linear");
+        });
+    };
+    $('.flex-images').flexImages({rowHeight: 60});
+    document.getElementById("languages_a_a").onclick = function () {
+        $("#dropdown_languages").slideToggle("fast");
+    };
+    document.getElementById("big_container").onclick = function () {
+        $("#dropdown_languages").slideUp("fast");
+    };
+    {#DONE: Fix the clicking on the menu buttom when the manu is active#}
+    document.getElementsByClassName("menu-btn")[0].onclick = function () {
+
+        if (document.getElementById("big_div") != null) {
+            var big_menu = document.getElementById("big_menu");
+            var bg_dv = document.getElementById("big_div");
+            $("#big_div").fadeOut("slow");
+            document.getElementsByTagName("body")[0].appendChild(big_menu);
+            big_menu.style.display = "none";
+            document.getElementsByTagName("body")[0].removeChild(bg_dv);
+        }
+        else {
+
+            var big_div = document.createElement("div");
+            big_div.id = "big_div";
+
+            //This creates the shadow effect
+            var background_div = document.createElement("div");
+            background_div.id = "background_div";
+            var big_menu = document.getElementById("big_menu");
+            background_div.onclick = function () {
+                $("#big_div").fadeOut("slow", function () {
+                    var bg_dv = document.getElementById("big_div");
+                    document.getElementsByTagName("body")[0].appendChild(big_menu);
+                    big_menu.style.display = "none";
+                    document.getElementsByTagName("body")[0].removeChild(bg_dv);
+                });
+            };
+
+            big_menu.style.display = "block";
+
+            big_div.appendChild(background_div);
+            big_div.appendChild(big_menu);
+            document.getElementsByTagName("body")[0].appendChild(big_div);
+            $("#big_div").fadeIn("slow");
+        }
+    };
+</script>
+<script>
+
+</script>
+</html>

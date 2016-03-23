@@ -1,0 +1,84 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+{% block title %}
+    <title>Buen Viaje a Cuba - Eventos</title>
+{% endblock %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Inicio</a></li>
+            <li class="active">Eventos de {{ mes_actual.1 }}</li>
+        </ol>
+        <div class="title_containter">
+            <div class="dropdown dropdown_mine">
+                <button class="btn default-btn dropdown-toggle" data-toggle="dropdown">Seleccione mes
+                </button>
+                <ul class="dropdown-menu ">
+                    {% for value in months %}
+                        <li><a tabindex="-1" href="/eventos/{{ value.0 }}/#go_here">{{ value.1 }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h2 style="text-align: center; margin-bottom: 17px">Eventos del mes de {{ mes_actual.1 }}</h2>
+        </div>
+        <div class="eventos">
+            {% for x in eventos %}
+                <div class="evento" id="{{ x.pk }}">
+                    <h4>{{ x.titulo }}</h4>
+
+                    <p><strong>Fechas: </strong> {{ x.get_fecha_es }} </p>
+
+                    <p><strong>Provincia: </strong>{{ x.provincia }}</p>
+                    {% if x.sede %}
+                        <p><strong>Sede: </strong>{{ x.sede }}</p>
+                    {% endif %}
+                    {% if x.receptivo %}
+                        <p><strong>Receptivo: </strong>{{ x.receptivo }}</p>
+                    {% endif %}
+                    {% if x.comite %}
+                        <p><strong>Comité organizador: </strong>{{ x.comite }}</p>
+                    {% endif %}
+                    {#DONE: Lines shouldn't break numbers#}
+                    {% if x.telefono and x.fax %}
+                        <p><strong>Tel: </strong>{{ x.telefono }}, <strong>Fax: </strong>{{ x.fax }}</p>
+                    {% elif x.telefono and not x.fax %}
+                        <p><strong>Tel: </strong>{{ x.telefono }}</p>
+                    {% elif x.fax and not x.telefono %}
+                        <p><strong>Fax: </strong>{{ x.fax }}</p>
+                    {% endif %}
+                    {% if x.email %}
+                        <p><strong>Email: </strong>
+                            {% for correo in x.fix_comma_email %}
+                                {% if forloop.last %}
+                                    <a href="mailto:{{ correo }}">{{ correo }}</a>
+                                {% else %}
+                                    <a href="mailto:{{ correo }}">{{ correo }}</a>,
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if x.web %}
+                        <p><strong>Web: </strong>
+                            {% for web in x.fix_comma_web %}
+                                {% if forloop.last %}
+                                    <a href="http://{{ web }}" target="_blank">{{ web }}</a>
+                                {% else %}
+                                    <a href="http://{{ web }}" target="_blank">{{ web }}</a>,
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}

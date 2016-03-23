@@ -1,0 +1,34 @@
+{% extends 'noticia.html' %}
+{% load url from future %}{% load thumbnail %}
+{% load staticfiles %}
+
+{% block content_content %}
+    <div class="static_content">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">News</li>
+        </ol>
+
+
+        {% for x, y in news.items %}
+            <div class="eventos " style="border-bottom: 1px solid #ffffff">
+                <div class="title_containter">
+                    <h2>{{ x.2 }}</h2>
+                </div>
+                {% for e in y %}
+                    <div class="search_result">
+                        <h4><a href="/noticia/{{ e.slug }}/">{{ e.en_titulo }}</a></h4>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+{% block new_scripts %}
+    <script>
+        window.onload = function () {
+            uploadSomePics();
+        };
+    </script>
+{% endblock %}
