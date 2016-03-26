@@ -1,5 +1,6 @@
+# -*- coding: latin1 -*-
 __author__ = 'Roly'
-# -*- coding: utf8 -*-
+
 from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
 from django.utils.translation import ugettext
@@ -8,8 +9,14 @@ from forms import ImageForm, EventsForm
 import models
 
 
+class ExtraImagesInline(admin.StackedInline):
+    model = models.Extra_Images
+    extra = 1
+
+
 class KeywordInline(admin.StackedInline):
-    models = models.KeyWord
+    model = models.KeyWord
+    fields = ['keywords', 'description', 'facebook_msg', 'twitter_msg', 'facebook_img', 'twitter_img', 'is_index']
     extra = 1
 
 
@@ -50,7 +57,7 @@ class AdminPublicidades(AdminImageMixin, admin.ModelAdmin):
 
 
 class AdminSeccioLaRevista(admin.ModelAdmin):
-    inlines = [SeccionInlines]
+    inlines = [SeccionInlines, KeywordInline]
     list_display = ['id', 'numero_secciones']
 
     def numero_secciones(self, obj):
@@ -59,7 +66,7 @@ class AdminSeccioLaRevista(admin.ModelAdmin):
         else:
             return '<span>(None)</span>'
 
-    numero_secciones.short_description = 'NÃºmero de secciones'
+    numero_secciones.short_description = u'Número de secciones'
 
 
 class AdminSeccionDistribucion(AdminImageMixin, admin.ModelAdmin):
@@ -67,7 +74,7 @@ class AdminSeccionDistribucion(AdminImageMixin, admin.ModelAdmin):
 
 
 class AdminSeccionCubaInformacionGeneral(admin.ModelAdmin):
-    inlines = [SeccionCubaInformacionGeneralInline]
+    inlines = [SeccionCubaInformacionGeneralInline, KeywordInline]
     list_display = ['id', 'numero_secciones']
 
     def numero_secciones(self, obj):
@@ -76,10 +83,11 @@ class AdminSeccionCubaInformacionGeneral(admin.ModelAdmin):
         else:
             return '<span>(None)</span>'
 
-    numero_secciones.short_description = 'NÃºmero de secciones'
+    numero_secciones.short_description = u'Número de secciones'
 
 
 class AdminSeccionCubaInformaciondestinos(AdminImageMixin, admin.ModelAdmin):
+    inlines = [KeywordInline]
     list_display = ['nombre']
     search_fields = ['nombre']
 
@@ -103,18 +111,20 @@ class AdminSeccionImagen(AdminImageMixin, admin.ModelAdmin):
         else:
             return '<span>(None)</span>'
 
-    numero_coment.short_description = 'NÃºmero de comentarios'
+    numero_coment.short_description = u'Número de comentarios'
     admin_usuario.allow_tags = True
     admin_usuario.short_description = 'Usuario'
 
 
 class AdminSeccionTiempoLibre(AdminImageMixin, admin.ModelAdmin):
+    inlines = [KeywordInline]
     list_display = ['titulo']
     search_fields = ['titulo']
 
 
 # DONE: Fix this
 class AdminEventos(AdminImageMixin, admin.ModelAdmin):
+    inlines = [KeywordInline]
     form = EventsForm
     list_display = ['titulo', 'fecha_inicio', 'fecha_final']
     list_filter = ['fecha_inicio', 'fecha_final', 'presentacion']
@@ -128,10 +138,11 @@ class AdminRevista(AdminImageMixin, admin.ModelAdmin):
 
 
 class AdminNoticia(AdminImageMixin, admin.ModelAdmin):
-    inlines = [ComentarioNoticiasInline, KeywordInline]
+    inlines = [KeywordInline, ExtraImagesInline, ComentarioNoticiasInline]
     list_filter = ['blog', 'titulo', 'fecha_publicacion']
     list_display = ['titulo', 'fecha_publicacion', 'admin_blog', 'Numero_comentarios']
     search_fields = ['titulo', 'blog__nombre', 'fecha_publicacion']
+    filter_horizontal = ['related_news']
     prepopulated_fields = {'slug': ('titulo',)}
     date_hierarchy = 'fecha_publicacion'
 
@@ -147,7 +158,7 @@ class AdminNoticia(AdminImageMixin, admin.ModelAdmin):
         else:
             return '<span>(None)</span>'
 
-    Numero_comentarios.short_description = ugettext(u'NÃºmero de comentarios')
+    Numero_comentarios.short_description = ugettext(u'Número de comentarios')
     admin_blog.short_description = ugettext('blog')
     admin_blog.allow_tags = True
     admin_blog.admin_order_field = 'blog'
@@ -179,7 +190,6 @@ admin.site.register(models.Noticia, AdminNoticia)
 admin.site.register(models.Revista, AdminRevista)
 admin.site.register(models.Eventos, AdminEventos)
 admin.site.register(models.Seccion_Tiempo_Libre, AdminSeccionTiempoLibre)
-admin.site.register(models.Seccion_Imagenes_Imagen, AdminSeccionImagen)
 admin.site.register(models.Seccion_Cuba_Informacion_Destino, AdminSeccionCubaInformaciondestinos)
 admin.site.register(models.Seccion_Cuba_Informacion_General, AdminSeccionCubaInformacionGeneral)
 admin.site.register(models.Publicidades, AdminPublicidades)

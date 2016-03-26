@@ -9,8 +9,11 @@ from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 from tinymce import models as tinymce_models
 from django.conf import settings
-
 from date_utils import edit_fecha, edit_fecha_evento
+
+choices = [('principal', 'Principal'),
+           ('p_bloque', 'Primer Bloque'),
+           ('s_bloque', 'Segundo Bloque')]
 
 
 # DONE: Rewrite some save method's: Noticia, Eventos, Revista, Publicidad, Blogs
@@ -35,8 +38,34 @@ class KeyWord(models.Model):
 
     twitter_img = ImageField(verbose_name='Foto de twitter', upload_to='/twitter', blank=True, null=True)
 
-    news = models.ForeignKey('Noticia', verbose_name='Noticia', related_name='keyword', blank=True,
-                             null=True)
+    noticia = models.ForeignKey(to='Noticia', verbose_name='Noticia', related_name='keywords',
+                                help_text='Palabras claves usadas para las redes sociales', blank=True, null=True)
+
+    evento = models.ForeignKey(to='Eventos', verbose_name='Evento', related_name='keywords',
+                               help_text='Palabras claves usadas para las redes sociales', blank=True, null=True)
+
+    seccion_tiempo_libre = models.ForeignKey(to='Seccion_Tiempo_Libre', verbose_name='Tiempo Libre',
+                                             related_name='keywords',
+                                             help_text='Palabras claves usadas para las redes sociales', blank=True,
+                                             null=True)
+
+    seccion_cuba_informacion_destinos = models.ForeignKey(to='Seccion_Cuba_Informacion_Destino',
+                                                          verbose_name=u'Seccion Cuba Información Destino',
+                                                          related_name='keywords',
+                                                          help_text='Palabras claves usadas para las redes sociales',
+                                                          blank=True, null=True)
+
+    seccion_cuba_informacion_general = models.ForeignKey(to='Seccion_Cuba_Informacion_General',
+                                                         verbose_name=u'Seccion Cuba Información General',
+                                                         related_name='keywords',
+                                                         help_text='Palabras claves usadas para las redes sociales',
+                                                         blank=True, null=True)
+
+    seccion_la_revista = models.ForeignKey(to='Seccion_La_Revista',
+                                           verbose_name=u'Seccion La Revista',
+                                           related_name='keywords',
+                                           help_text='Palabras claves usadas para las redes sociales', blank=True,
+                                           null=True)
 
     # DONE: Redefine the save so there is only one keyword with is_index=True
     def save(self, *args, **kwargs):
@@ -93,6 +122,9 @@ class Publicidades(models.Model):
     show = models.NullBooleanField(verbose_name='Mostrar', default=True,
                                    help_text='Indica si una publicidad es mostrada o no', blank=True, null=True)
 
+    position = models.CharField(verbose_name=u'Posición', choices=choices, max_length=20,
+                                help_text=u'Define la posición en que será mostrada en la página principal')
+
     def get_small_thumbnail(self):
         return get_thumbnail(self.imagen, "250x64", upscale=False).url
 
@@ -110,17 +142,17 @@ class Seccion_La_Revista(models.Model):
         verbose_name = 'Seccion La Revista'
         verbose_name_plural = 'Seccion La Revista'
 
-    encabezado_revista = models.TextField(verbose_name="Encabezado de Seccion Revista",
-                                          help_text='Este es el encabezado de la seccion revista')
+    encabezado_revista = tinymce_models.HTMLField(verbose_name="Encabezado de Seccion Revista",
+                                                  help_text='Este es el encabezado de la seccion revista')
 
-    en_encabezado_revista = models.TextField(verbose_name="Encabezado de Seccion Revista en Ingles",
-                                             help_text='Este es el encabezado de la seccion revista en ingles')
+    en_encabezado_revista = tinymce_models.HTMLField(verbose_name="Encabezado de Seccion Revista en Ingles",
+                                                     help_text='Este es el encabezado de la seccion revista en ingles')
 
-    encabezado_seccion = models.TextField(verbose_name='Encabezado de seccion',
-                                          help_text='Este es el encabezado de la seccion de la seccion de revista')
+    encabezado_seccion = tinymce_models.HTMLField(verbose_name='Encabezado de seccion',
+                                                  help_text='Este es el encabezado de la seccion de la seccion de revista')
 
-    en_encabezado_seccion = models.TextField(verbose_name='Encabezado de seccion en ingles',
-                                             help_text='Este es el encabezado de la seccion de la seccion de revista en ingles')
+    en_encabezado_seccion = tinymce_models.HTMLField(verbose_name='Encabezado de seccion en ingles',
+                                                     help_text='Este es el encabezado de la seccion de la seccion de revista en ingles')
 
     def __str__(self):
         return str(self.id)
@@ -136,10 +168,12 @@ class Seccion(models.Model):
     en_titulo = models.CharField(verbose_name='Titulo en Ingles', max_length=50,
                                  help_text='El titulo de las secciones en ingles')
 
-    descripcion = models.TextField(verbose_name='Descripcion', help_text='Una descripcion de la seccion')
+    descripcion = tinymce_models.HTMLField(verbose_name='Descripcion', help_text='Una descripcion de la seccion')
 
-    en_descripcion = models.TextField(verbose_name='Descripcion en Ingles',
+    en_descripcion = tinymce_models.HTMLField(verbose_name='Descripcion en Ingles',
                                       help_text='Una descripcion de la seccion en ingles')
+
+    image = ImageField(verbose_name='Foto', upload_to='own', help_text='Foto de la sección')
 
     seccion_la_revista = models.ForeignKey('Seccion_La_Revista', verbose_name='seccion_la_revista',
                                            related_name='secciones', help_text='Seccion asociada a la Seccion Revista')
@@ -196,9 +230,9 @@ class Secciones_Informacion_General(models.Model):
     en_titulo = models.CharField(verbose_name='Titulo en ingles', max_length=100,
                                  help_text='Titulo de la seccion en ingles')
 
-    texto = models.TextField(verbose_name='Texto', help_text='Cuerpo de la seccion')
+    texto = tinymce_models.HTMLField(verbose_name='Texto', help_text='Cuerpo de la seccion')
 
-    en_texto = models.TextField(verbose_name='Texto en ingles', help_text='Cuerpo de la seccion en ingles')
+    en_texto = tinymce_models.HTMLField(verbose_name='Texto en ingles', help_text='Cuerpo de la seccion en ingles')
 
     informacion_general = models.ForeignKey('Seccion_Cuba_Informacion_General', verbose_name='Informacion General',
                                             related_name='secciones')
@@ -372,6 +406,7 @@ class Eventos(models.Model):
     class Meta:
         verbose_name = 'Evento'
         verbose_name_plural = 'Eventos'
+        ordering = ['fecha_inicio', 'fecha_final']
 
     titulo = models.CharField(verbose_name='Titulo', max_length=200, help_text='Titulo del evento')
 
@@ -521,21 +556,22 @@ class Noticia(models.Model):
     class Meta:
         verbose_name_plural = 'Noticias'
         verbose_name = 'Noticia'
+        ordering = ['fecha_publicacion']
 
-    titulo = models.CharField(verbose_name='Titulo', max_length=100, help_text='Titulo de la noticia')
+    titulo = models.CharField(verbose_name='Título', max_length=100, help_text='Título de la noticia')
 
-    en_titulo = models.CharField(verbose_name='Titulo en Ingles', max_length=100,
-                                 help_text='Titulo de la noticia en Ingles')
+    en_titulo = models.CharField(verbose_name='Título en Ingles', max_length=100,
+                                 help_text='Título de la noticia en Ingles')
 
     slug = models.SlugField(verbose_name='Slug', max_length=200, help_text='Este campo no se edita')
 
     imagen = ImageField(verbose_name='Foto', upload_to='own', help_text='Foto de la noticia', null=True, blank=True)
 
-    short_text = models.TextField(verbose_name='Descripcion corta', max_length=200,
-                                  help_text='Breve descripcion de la noticia')
+    short_text = tinymce_models.HTMLField(verbose_name='Descripcion corta', max_length=200,
+                                          help_text='Breve descripcion de la noticia')
 
-    en_short_text = models.TextField(verbose_name='Descripcion corta en Ingles', max_length=200,
-                                     help_text='Breve descripcion de la noticia en Ingles')
+    en_short_text = tinymce_models.HTMLField(verbose_name='Descripcion corta en Ingles', max_length=200,
+                                             help_text='Breve descripcion de la noticia en Ingles')
 
     texto = tinymce_models.HTMLField(verbose_name='Descripcion', help_text='Descripcion de la noticia')
 
@@ -553,10 +589,18 @@ class Noticia(models.Model):
 
     allow_comments = models.BooleanField(verbose_name='Permitir Comentarios', default=True,
                                          help_text='Si una noticia puede ser comentada')
+
+    position = models.CharField(verbose_name=u'Posición', choices=choices, max_length=20,
+                                help_text=u'Define la posición en que será mostrada en la página principal')
+
+    show = models.BooleanField(verbose_name=u'Mostrar', default=True,
+                               help_text=u'Define si una noticia será mostrada')
     # DONE: Descomentar esto
     sort_order = models.IntegerField(verbose_name='Valor para ordenar',
                                      help_text='Valor utilizado para ordenar las noticias del mismo dia', blank=True,
                                      null=True)
+    related_news = models.ManyToManyField(to='Noticia', verbose_name='Noticias relacionadas', related_name='news',
+                                          help_text='Escoger las noticias relacionadas', blank=True, null=True)
 
     def get_small_thumbnail(self, sizes):
         return get_thumbnail(self.imagen, sizes, upscale=False)
@@ -612,3 +656,22 @@ class Comentarios(models.Model):
 
     def __unicode__(self):
         return unicode(self.usuario.nombre)
+
+
+class Extra_Images(models.Model):
+    class Meta:
+        verbose_name = u'Imágen Extra'
+        verbose_name_plural = u'Imágenes Extras'
+        ordering = ['sort_order']
+
+    imagen = ImageField(verbose_name='Foto', upload_to='own', help_text='Foto extras de la noticia', null=True,
+                        blank=True)
+
+    alt = models.CharField(verbose_name='Descripción de la foto', max_length=100, help_text='Descripción de la foto',
+                           null=True, blank=True)
+
+    sort_order = models.IntegerField(verbose_name='Valor para ordenar',
+                                     help_text='Valor utilizado para ordenar las fotos', blank=True,
+                                     null=True)
+
+    new = models.ForeignKey(to='Noticia', verbose_name='Noticia', related_name='extra_images')

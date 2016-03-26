@@ -139,11 +139,11 @@ def home_data_english():
     }
 
 
-data = calculate_all_data()
+# data = calculate_all_data()
 
-news_data_es = home_data_spanish()
+# news_data_es = home_data_spanish()
 
-news_data_en = home_data_english()
+# news_data_en = home_data_english()
 
 
 def recalculate_all_data():
@@ -177,8 +177,13 @@ def inicio(request):
         else:
             banner = [(x.en_title, x.get_small_thumbnail("590x311").url, x.id) for x in
                       models.Banner.objects.order_by("-pk")[0:4]]
+            try:
+                keyword = models.KeyWord.objects.get(is_index=True)
+            except models.KeyWord.DoesNotExist:
+                keyword = None
             a = {'language': 'en',
                  'banners': banner,
+                 'keyword': keyword,
                  'pics': pics
                  }
             a.update(data)
@@ -211,40 +216,56 @@ def la_revista(request):
     if request.method == 'GET':
         revistas = models.Seccion_La_Revista.objects.all()
         revista = revistas[len(revistas) - 1]
+        n = now()
         try:
-            if request.COOKIES['language'] == 'es':
-                secciones = [(x.titulo, x.descripcion, x.pk) for x in revista.secciones.all()]
+            dist = models.Seccion_Distribucion.objects.get(anho=n.year)
+        except models.Seccion_Distribucion.DoesNotExist:
+            dist = models.Seccion_Distribucion.objects.get(anho=2015)
+        try:
+            if request.GET['language'] == 'es':
+                secciones = [(x.titulo, x.descripcion, x.pk, x.image) for x in revista.secciones.all()]
                 d = {
                     'language': 'es',
                     'encabezado': revista.encabezado_revista,
                     'encabezado_seccion': revista.encabezado_seccion,
+                    'encabezado_distribucion': dist.encabezado,
+                    'anho': dist.anho,
+                    'imagen': dist.imagen.url,
+                    'texto': dist.texto,
                     'secciones': secciones,
                 }
                 d.update(data)
                 return render(request, 'seccion_la_revista.html',
                               d)
             else:
-                secciones = [(x.en_titulo, x.en_descripcion, x.pk) for x in revista.secciones.all()]
+                secciones = [(x.en_titulo, x.en_descripcion, x.pk, x.image) for x in revista.secciones.all()]
                 d = {
                     'language': 'en',
                     'encabezado': revista.en_encabezado_revista,
                     'encabezado_seccion': revista.en_encabezado_seccion,
+                    'encabezado_distribucion': dist.en_encabezado,
+                    'anho': dist.anho,
+                    'imagen': dist.imagen.url,
+                    'texto': dist.en_texto,
                     'secciones': secciones
                 }
                 d.update(data)
                 return render(request, 'seccion_la_revista_en.html',
                               d)
         except KeyError:
-            secciones = [(x.titulo, x.descripcion, x.pk) for x in revista.secciones.all()]
+            secciones = [(x.titulo, x.descripcion, x.pk, x.image) for x in revista.secciones.all()]
             d = {
                 'language': 'es',
                 'encabezado': revista.encabezado_revista,
                 'encabezado_seccion': revista.encabezado_seccion,
-                'secciones': secciones
+                'encabezado_distribucion': dist.encabezado,
+                'anho': dist.anho,
+                'imagen': dist.imagen.url,
+                'texto': dist.texto,
+                'secciones': secciones,
             }
             d.update(data)
-            return render(request, 'seccion_la_revista.html',
-                          d)
+            return render(request, 'seccion_la_revista.html', d)
 
 
 def distribucion(request):
@@ -308,6 +329,7 @@ def informacion_general(request):
                 d = {
                     'language': 'es',
                     'titulo': info.texto,
+                    'keyword': get_keyword(info),
                     'secciones': secciones
                 }
                 d.update(data)
@@ -318,6 +340,7 @@ def informacion_general(request):
                 d = {
                     'language': 'en',
                     'titulo': info.en_texto,
+                    'keyword': get_keyword(info),
                     'secciones': secciones
                 }
                 d.update(data)
@@ -326,6 +349,7 @@ def informacion_general(request):
             secciones = [(x.titulo, x.texto, x.pk) for x in info.secciones.all()]
             d = {
                 'language': 'es',
+                'keyword': get_keyword(info),
                 'titulo': info.texto,
                 'secciones': secciones
             }
@@ -346,6 +370,7 @@ def informacion_destinos(request):
                     in models.Seccion_Cuba_Informacion_Destino.objects.all()]
                 d = {
                     'language': 'es',
+                    'keyword': get_keywords(models.Seccion_Cuba_Informacion_Destino.objects.all()),
                     'destinos': destinos
                 }
                 d.update(data)
@@ -355,6 +380,7 @@ def informacion_destinos(request):
                              x.get_big_thumbnail()) for x in models.Seccion_Cuba_Informacion_Destino.objects.all()]
                 d = {
                     'language': 'en',
+                    'keyword': get_keywords(models.Seccion_Cuba_Informacion_Destino.objects.all()),
                     'destinos': destinos
                 }
                 d.update(data)
@@ -364,6 +390,7 @@ def informacion_destinos(request):
                         models.Seccion_Cuba_Informacion_Destino.objects.all()]
             d = {
                 'language': 'es',
+                'keyword': get_keywords(models.Seccion_Cuba_Informacion_Destino.objects.all()),
                 'destinos': destinos
             }
             d.update(data)
@@ -643,6 +670,7 @@ def tiempo_libre(request):
                 tl = models.Seccion_Tiempo_Libre.objects.order_by('-pk').all()
                 d = {
                     'language': 'es',
+                    'keyword': get_keywords(tl),
                     'actividades': tl
                 }
                 d.update(data)
@@ -651,6 +679,7 @@ def tiempo_libre(request):
                 tl = models.Seccion_Tiempo_Libre.objects.order_by('-pk').all()
                 d = {
                     'language': 'en',
+                    'keyword': get_keywords(tl),
                     'actividades': tl
                 }
                 d.update(data)
@@ -659,6 +688,7 @@ def tiempo_libre(request):
             tl = models.Seccion_Tiempo_Libre.objects.order_by('-pk').all()
             d = {
                 'language': 'es',
+                'keyword': get_keywords(tl),
                 'actividades': tl
             }
             d.update(data)
@@ -681,6 +711,7 @@ def eventos_month(request, month):
         events = models.Eventos.objects.filter(fecha_inicio__month=month, fecha_inicio__year=t.year)
         years = models.Eventos.objects.filter(fecha_inicio__year=t.year)
         months = []
+
         for x in years:
             if x.fecha_inicio.month not in months and 2 >= x.fecha_inicio.month - t.month > -1:
                 months.append(x.fecha_inicio.month)
@@ -689,6 +720,7 @@ def eventos_month(request, month):
                 d = {
                     'mes_actual': fix_month(month),
                     'language': 'es',
+                    'keyword': get_keywords(events),
                     'eventos': events,
                     'months': fix_months(months)
                 }
@@ -699,6 +731,7 @@ def eventos_month(request, month):
                 d = {
                     'mes_actual': fix_month(month),
                     'language': 'en',
+                    'keyword': get_keywords(events),
                     'eventos': events,
                     'months': fix_months(months)
                 }
@@ -708,6 +741,7 @@ def eventos_month(request, month):
             d = {
                 'mes_actual': fix_month(month),
                 'language': 'es',
+                'keyword': get_keywords(events),
                 'eventos': events,
                 'months': fix_months(months)
             }
@@ -737,6 +771,24 @@ def proximo_anho(request):
             return render(request, 'proximo_anho.html', d)
 
 
+def get_keyword(item):
+    if item.keywords.count():
+        keyword = item.keywords.all()[0]
+    else:
+        keyword = None
+    return keyword
+
+
+def get_keywords(list_items):
+    keyword = [x.keywords.all()[0] if x.keywords.count() else None for x in list_items]
+    res = []
+    for x in keyword:
+        if x:
+            for y in x.split(','):
+                res.append(y.strip())
+    return res
+
+
 def noticia(request, slug):
     if request.method == 'GET':
         if settings.NEED_TO_RECALCULATE:
@@ -748,6 +800,7 @@ def noticia(request, slug):
         a = {
             'noticia': news,
             'id': news.id,
+            'keyword': get_keyword(news),
             'number_comentarios': len(news.comentarios.all()),
             'comentarios': news.comentarios.all(),
             'allow_comments': news.allow_comments,
@@ -1422,7 +1475,7 @@ def search(request):
             'language': language,
             'news': news,
             'events': events,
-            'magazines': magazines,
+            'magazines': magazines.sort(key=lambda x: x.anho),
             'free_time': free_time,
             'la_revista_secciones': secciones_rev,
             'distribuciones': dist,

@@ -5,7 +5,7 @@
 {% block content_content %}
     <div class="static_content">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/?language=en">Home</a></li>
             <li class="active">Search</li>
         </ol>
         {% if total == -1 %}
@@ -25,7 +25,7 @@
             <div class="eventos" style="border-bottom: 1px solid white">
                 {% for x in events %}
                     <div class="search_result">
-                        <h4><a href="/eventos/{{ x.fecha_inicio.month }}/#{{ x.pk }}">{{ x.en_titulo }}</a></h4>
+                        <h4><a href="/eventos/{{ x.fecha_inicio.month }}/?language=en#{{ x.pk }}">{{ x.en_titulo }}</a></h4>
                     </div>
                 {% endfor %}
             </div>
@@ -37,7 +37,7 @@
             <div class="eventos" style="border-bottom: 1px solid white">
                 {% for x in news %}
                     <div class="search_result">
-                        <h4><a href="/noticia/{{ x.slug }}/#go_here">{{ x.en_titulo }}</a></h4>
+                        <h4><a href="/noticia/{{ x.pk }}/?language=en#go_here">{{ x.en_titulo }}</a></h4>
                     </div>
                 {% endfor %}
             </div>
@@ -61,7 +61,7 @@
             <div class="eventos" style="border-bottom: 1px solid white">
                 {% for x in free_time %}
                     <div class="search_result">
-                        <h4><a href="/tiempo-libre/#go_here">{{ x.en_titulo }}</a></h4>
+                        <h4><a href="/tiempo_libre/?language=en#go_here">{{ x.en_titulo }}</a></h4>
                     </div>
 
                 {% endfor %}
@@ -75,7 +75,7 @@
             <div class="eventos" style="border-bottom: 1px solid white">
                 {% for x in la_revista_secciones %}
                     <div class="search_result">
-                        <h4><a href="/la_revista/#secciones_{{ x.pk }}">{{ x.en_titulo }}</a></h4>
+                        <h4><a href="/la_revista/?language=en#secciones_{{ x.pk }}">{{ x.en_titulo }}</a></h4>
                     </div>
                 {% endfor %}
             </div>
@@ -87,7 +87,7 @@
             <div class="eventos" style="border-bottom: 1px solid white">
                 {% for x in distribuciones %}
                     <div class="search_result">
-                        <h4><a href="/distribucion/">Distribution</a></h4>
+                        <h4><a href="/distribucion/?language=en">Distribution</a></h4>
                     </div>
 
                 {% endfor %}
@@ -102,14 +102,14 @@
                 {% if informacion_general_cuba %}
                     {% for x in informacion_general_cuba %}
                         <div class="search_result">
-                            <h4><a href="/informacion-general/">General Information</a></h4>
+                            <h4><a href="/informacion_general/?language=en">General Information</a></h4>
                         </div>
                     {% endfor %}
                 {% endif %}
                 {% if informacion_general_cuba_secciones %}
                     {% for x in informacion_general_cuba_secciones %}
                         <div class="search_result">
-                            <h4><a href="/informacion-general/#secciones_{{ x.pk }}">{{ x.en_titulo }}</a></h4>
+                            <h4><a href="/informacion_general/?language=en#secciones_{{ x.pk }}">{{ x.en_titulo }}</a></h4>
                         </div>
                     {% endfor %}
 
@@ -124,7 +124,7 @@
             <div class="eventos" style="border-bottom: 1px solid white">
                 {% for x in informacion_destinos %}
                     <div class="search_result">
-                        <h4><a href="/informacion-destinos/">{{ x.en_nombre }}</a></h4>
+                        <h4><a href="/informacion_destinos/?language=en">{{ x.en_nombre }}</a></h4>
                     </div>
                 {% endfor %}
             </div>

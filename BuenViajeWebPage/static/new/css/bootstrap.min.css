@@ -3402,6 +3402,10 @@ tbody.collapse.in {
     position: relative
 }
 
+.dropdown:hover {
+    cursor: default;
+}
+
 .dropdown-toggle:focus {
     outline: 0
 }
@@ -5912,7 +5916,7 @@ button.close {
     padding: 15px
 }
 
-.modal-body p{
+.modal-body p {
     text-align: justify;
 }
 

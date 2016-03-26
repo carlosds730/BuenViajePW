@@ -17,7 +17,7 @@
 {% block content_content %}
     <div class="static_content">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/?language=en">Home</a></li>
             <li class="active">Pictures</li>
         </ol>
         <div class="order_filter_container">
@@ -58,7 +58,7 @@
                     <div class="item" data-w="{{ image.0.width }}" data-h="{{ image.0.height }}" data-id="{{ image.1 }}" data-width_big="{{ image.2.1 }}" data-height_big="{{ image.2.2 }}" data-src_big="{{ image.2.0 }}" data-usuario="{{ image.3 }}" data-description="{{ image.4 }}" rel="tooltip" data-trigger="hover" data-original-title="<p>{{ image.4 }}</p><p>Uploaded by: {{ image.3 }}</p> <p
                     >{{ image.5 }}
                     comments</p>"
-                         data-html="True"><a href="/imagen/{{ image.1 }}/#img_container_big"><img src={{ image.0.url }}></a></div>
+                         data-html="True"><a href="/imagen/{{ image.1 }}/?language=en#img_container_big"><img src={{ image.0.url }}></a></div>
                 {% endfor %}
             </div>
         </div>

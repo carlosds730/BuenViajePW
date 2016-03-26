@@ -133,10 +133,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.webdesign',
     'newsletter',
     'sorl.thumbnail',
     'django_extensions',
-    'taggit',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -153,7 +153,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')  # change this to a proper location
 
-# NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
+NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
 
 # TODO: This must be changed to the real doamin
 # SESSION_COOKIE_DOMAIN = "buenviajeacuba.es"

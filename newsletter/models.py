@@ -21,6 +21,7 @@ from django.core.mail import get_connection
 
 from django.contrib.sites.models import Site
 from django.contrib.sites.managers import CurrentSiteManager
+from tinymce import models as t_models
 
 from django.conf import settings
 
@@ -28,7 +29,7 @@ from sorl.thumbnail import ImageField
 
 from .utils import (
     make_activation_code, get_default_sites, ACTIONS, get_user_model
-    )
+)
 
 User = get_user_model()
 
@@ -69,7 +70,7 @@ class Newsletter(models.Model):
         template.
         """
 
-        assert action in ACTIONS + ('message', ), 'Unknown action: %s' % action
+        assert action in ACTIONS + ('message',), 'Unknown action: %s' % action
 
         # Common substitutions for filenames
         tpl_subst = {
@@ -301,8 +302,6 @@ class Subscription(models.Model):
             elif self.unsubscribed:
                 self._unsubscribe()
 
-
-
         super(Subscription, self).save(*args, **kwargs)
 
     ip = models.IPAddressField(_("IP address"), blank=True, null=True)
@@ -345,8 +344,8 @@ class Subscription(models.Model):
                 'newsletter': self.newsletter
             }
 
-    #ESTE METODO ES NUEVO
-    #def __str__(self):
+    # ESTE METODO ES NUEVO
+    # def __str__(self):
     #    if self.name:
     #        return _(u"%(name)s <%(email)s> to %(newsletter)s") % {
     #            'name': self.name,
@@ -472,7 +471,7 @@ class Article(models.Model):
     )
 
     title = models.CharField(max_length=200, verbose_name=_('title'))
-    text = models.TextField(verbose_name=_('text'))
+    text = t_models.HTMLField(verbose_name=_('text'))
 
     url = models.URLField(
         verbose_name=_('link'), blank=False, null=False
@@ -554,10 +553,9 @@ class Publicity(models.Model):
     def __unicode__(self):
         return self.title
 
-
     def get_width_top(self, width, height):
         sizes = width.__str__() + 'x' + height.__str__()
-        #print(sizes)
+        # print(sizes)
         new_image = sorl.thumbnail.get_thumbnail(self.image, sizes)
         return (new_image, (width - new_image.width) / 2, (height - new_image.height) / 2, self.url)
 
@@ -607,7 +605,7 @@ class Message(models.Model):
     def get_default_id(cls):
         try:
             objs = cls.objects.all().order_by('-date_create')
-            #print(objs)
+            # print(objs)
             if not objs.count() == 0:
                 return objs[0].id
         except:
@@ -648,7 +646,7 @@ class Submission(models.Model):
             (subject_template, text_template, html_template) = \
                 self.message.newsletter.get_templates('message')
 
-            #I'm doing this to open just one connection
+            # I'm doing this to open just one connection
             try:
                 connection = get_connection()
                 connection.open()
@@ -668,7 +666,6 @@ class Submission(models.Model):
                 except:
                     news_pict = False
 
-
                 same_variable_dict = {
                     'site': Site.objects.get_current(),
                     'issue': self.message.get_default_id(),
@@ -676,7 +673,7 @@ class Submission(models.Model):
                     'message': self.message,
                     'newsletter': self.newsletter,
                     'date': self.publish_date,
-                    'simple' : simple,
+                    'simple': simple,
                     'newspict': news_pict,
                     'STATIC_URL': settings.STATIC_URL,
                     'MEDIA_URL': settings.MEDIA_URL,
@@ -716,7 +713,7 @@ class Submission(models.Model):
                             ugettext(u'Submitting message to: %s.'),
                             subscription
                         )
-                        #print('correo enviado')
+                        # print('correo enviado')
                         message.send()
                         print('correo enviado a ' + subscription.get_recipient())
 

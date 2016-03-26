@@ -8,7 +8,7 @@
 {% block content_content %}
     <div class="static_content">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/?language=en">Home</a></li>
             <li class="active">{{ mes_actual.2 }}</li>
         </ol>
         <div class="title_containter">
@@ -17,7 +17,7 @@
                 </button>
                 <ul class="dropdown-menu ">
                     {% for value in months %}
-                        <li><a tabindex="-1" href="/eventos/{{ value.0 }}/#go_here">{{ value.2 }}</a></li>
+                        <li><a tabindex="-1" href="/eventos/{{ value.0 }}/?language=en#go_here">{{ value.2 }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

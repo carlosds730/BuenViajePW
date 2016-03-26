@@ -20,8 +20,8 @@
             {% block content_content %}
                 <div id="content_to_container">
                     <ol class="breadcrumb">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/imagenes/">Pictures Gallery</a></li>
+                        <li><a href="/?language=en">Home</a></li>
+                        <li><a href="/imagenes/?language=en">Pictures Gallery</a></li>
                     </ol>
 
                     <div class="post_commentbox" id="img_container_big">
@@ -77,7 +77,7 @@
             <img src="{{ last_revista.get_small_thumbnail }}" alt="img">
         </a>
         <strong><a href="{{ last_revista.url.url }}"><p>Number {{ last_revista.numero }} Year {{ last_revista.anho }}</p></a></strong>
-        <a href="/old_revistas/#go_here">Latest editions</a>
+        <a href="/old_revistas/?language=en#go_here">Latest editions</a>
     </div>
 
 

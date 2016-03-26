@@ -76,7 +76,7 @@
                                 <i class="fa fa-search search_button" id="search_button" style="float: left"></i>
                                 <input type="hidden" name="language" value="en">
                             </form>
-                            <a href="{% url 'change_language' %}" id="languages_menu"><img src="{% static 'img/spain.jpg' %}"> ver esta página en Español</a>
+                            <a href="/change_language/?language=es" id="languages_menu"><img src="{% static 'img/spain.jpg' %}"> ver esta página en Español</a>
                         </div>
                     </div>
                 </div>
@@ -99,43 +99,43 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav main_nav">
-                        <li class="active"><a href="/"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+                        <li class="active"><a href="/?language=en"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">The Magazine</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/la_revista/#go_here">Magazine</a></li>
-                                <li><a href="/distribucion/#go_here">Distribution</a></li>
+                                <li><a href="/la_revista/?language=en#go_here">Magazine</a></li>
+                                <li><a href="/distribucion/?language=en#go_here">Distribution</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About Cuba</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/informacion-general/#go_here">General Information</a></li>
-                                <li><a href="/informacion-destinos/#go_here">Information according to Destination</a></li>
+                                <li><a href="/informacion_general/?language=en#go_here">General Information</a></li>
+                                <li><a href="/informacion_destinos/?language=en#go_here">Information according to Destination</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Images</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/imagenes/#go_here">Photo Gallery</a></li>
+                                <li><a href="/imagenes/?language=en#go_here">Photo Gallery</a></li>
                             </ul>
                         </li>
 
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Free Time</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/tiempo-libre/#go_here">Excursions</a></li>
+                                <li><a href="/tiempo_libre/?language=en#go_here">Excursions</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Events</a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="/eventos/#go_here">Calendar</a></li>
+                                <li><a href="/eventos/?language=en#go_here">Calendar</a></li>
                                 {#  DONE: Do that! Show events of next year#}
-                                <li><a href="/proximo-anho/#go_here">Next Year</a></li>
+                                <li><a href="/proximo_anho/?language=en#go_here">Next Year</a></li>
                             </ul>
                         </li>
-                        <li><a href="/contactenos/#go_here">Contact US</a></li>
+                        <li><a href="/contactenos/?language=en#go_here">Contact US</a></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Newsletter</a>
                             <ul class="dropdown-menu" role="menu">
@@ -159,7 +159,7 @@
                         <span>Latest News</span>
                         <ul id="ticker01" class="news_sticker">
                             {% for new in noticias %}
-                                <li><a href="{{ new.3 }}#go_here"><img src="{{ new.2 }}" alt="{{ new.1 }}">{{ new.1 }}</a></li>
+                                <li><a href="{{ new.3 }}?language={{ language }}#go_here"><img src="{{ new.2 }}" alt="{{ new.1 }}">{{ new.1 }}</a></li>
                             {% endfor %}
                         </ul>
                         <div class="social_area">
@@ -216,7 +216,7 @@
                             <img src="{{ last_revista.get_small_thumbnail }}" alt="Buen Viaje a Cuba Front Page">
                         </a>
                         <strong><a href="{{ last_revista.url.url }}"><p>Issue {{ last_revista.numero }} Year {{ last_revista.anho }}</p></a></strong>
-                        <a href="/old_revistas/#go_here">Previous Editions</a>
+                        <a href="/old_revistas/?language=en#go_here">Previous Editions</a>
                     </div>
                 </div>
             </div>
@@ -239,14 +239,14 @@
                                 <ul class="business_catgnav  wow fadeInDown">
                                     <li>
                                         <figure class="bsbig_fig">
-                                            <a href="{{ noticia_principal.3 }}#go_here" class="featured_img">
-                                                <img alt="{{ noticia_principal.0 }}" src="{{ noticia_principal.2 }}#go_here">
+                                            <a href="{{ noticia_principal.3 }}?language=en#go_here" class="featured_img">
+                                                <img alt="{{ noticia_principal.0 }}" src="{{ noticia_principal.2 }}?language=en#go_here">
                                                 <span class="overlay"></span>
                                             </a>
                                             <figcaption>
-                                                <a href="{{ noticia_principal.3 }}#go_here">{{ noticia_principal.0 }}</a>
+                                                <a href="{{ noticia_principal.3 }}?language=en#go_here">{{ noticia_principal.0 }}</a>
                                             </figcaption>
-                                            <p>{{ noticia_principal.1 }}...<a href="{{ noticia_principal.3 }}#go_here"> + See more</a></p>
+                                            <p>{{ noticia_principal.1 }}...<a href="{{ noticia_principal.3 }}?language=en#go_here"> + See more</a></p>
                                         </figure>
                                     </li>
                                 </ul>
@@ -256,12 +256,12 @@
                                     {% for x in otras_noticias %}
                                         <li>
                                             <div class="media wow fadeInDown noticias">
-                                                <a href="{{ x.2 }}#go_here" class="media-left">
+                                                <a href="{{ x.2 }}?language=en#go_here" class="media-left">
                                                     <img alt="{{ x.0 }}" src="{{ x.1 }}">
                                                 </a>
 
                                                 <div class="media-body">
-                                                    <a href="{{ x.2 }}#go_here" class="catg_title">{{ x.0 }}</a>
+                                                    <a href="{{ x.2 }}?language=en#go_here" class="catg_title">{{ x.0 }}</a>
                                                 </div>
                                             </div>
                                         </li>
@@ -288,7 +288,7 @@
                                             </figure>
                                         </li>
                                     </ul>
-                                    <h4><a href="/eventos/{{ mes.0 }}/#go_here"> See {{ mes.2 }} events</a></h4>
+                                    <h4><a href="/eventos/{{ mes.0 }}/?language=en#go_here"> See {{ mes.2 }} events</a></h4>
                                 </div>
                             </div>
                             <div class="technology">
@@ -297,14 +297,14 @@
                                     <ul class="business_catgnav">
                                         <li>
                                             <figure class="bsbig_fig wow fadeInDown">
-                                                <a href="{{ buen_viaj_mundo.4 }}#content_to_container" class="featured_img">
+                                                <a href="{{ buen_viaj_mundo.4 }}?language=en#content_to_container" class="featured_img">
                                                     <img src="{{ buen_viaj_mundo.3.url }}" alt="{{ buen_viaj_mundo.0 }}">
                                                     <span class="overlay"></span>
                                                 </a>
                                                 <figcaption>
-                                                    <a href="{{ buen_viaj_mundo.4 }}#content_to_container">{{ buen_viaj_mundo.0 }}</a>
+                                                    <a href="{{ buen_viaj_mundo.4 }}?language=en#content_to_container">{{ buen_viaj_mundo.0 }}</a>
                                                 </figcaption>
-                                                <p>{{ buen_viaj_mundo.1 }}...<a href="{{ buen_viaj_mundo.4 }}#content_to_container"> + See more</a></p>
+                                                <p>{{ buen_viaj_mundo.1 }}...<a href="{{ buen_viaj_mundo.4 }}?language=en#content_to_container"> + See more</a></p>
                                             </figure>
                                         </li>
                                     </ul>
@@ -364,7 +364,7 @@
                                                     </a>
 
                                                     <div class="media-body">
-                                                        <a href="{{ blog_0_noticia_url }}" class="catg_title">{{ blog_0_noticia.en_titulo }}</a>
+                                                        <a href="{{ blog_0_noticia_url }}?language=en" class="catg_title">{{ blog_0_noticia.en_titulo }}</a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -379,7 +379,7 @@
                                                     </a>
 
                                                     <div class="media-body">
-                                                        <a href="{{ blog_1_noticia_url }}" class="catg_title">{{ blog_1_noticia.en_titulo }}</a>
+                                                        <a href="{{ blog_1_noticia_url }}?language=en" class="catg_title">{{ blog_1_noticia.en_titulo }}</a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -409,13 +409,13 @@
                             <div class="item" data-w="{{ image.0.width }}" data-h="{{ image.0.height }}" data-id="{{ image.1 }}" data-width_big="{{ image.2.1 }}" data-height_big="{{ image.2.2 }}" data-src_big="{{ image.2.0 }}" data-usuario="{{ image.3 }}" data-description="{{ image.4 }}" rel="tooltip" data-trigger="hover" data-original-title="<p>{{ image.4 }}</p><p>Uploaded by {{ image.3 }}</p> <p
                     >{{ image.5 }}
                     comments</p>"
-                                 data-html="True"><a href="/imagen/{{ image.1 }}/#img_container_big"><img id="foto_de_cuba{{ image.1 }}" src=""></a></div>
+                                 data-html="True"><a href="/imagen/{{ image.1 }}/?language=en#img_container_big"><img id="foto_de_cuba{{ image.1 }}" src=""></a></div>
                         {% endfor %}
                     </div>
                     <div>
                         <button class="btn default-btn" id="send_photo_modal_trigger" data-toggle="modal" data-target="#uploadphotomodal">Click here to send us your Cuba pic
                         </button>
-                        <a href="/imagenes/#go_here">
+                        <a href="/imagenes/?language=en#go_here">
                             <button class="btn default-btn" id="see_all_photo" style="float: right">See complete gallery
                             </button>
                         </a>
@@ -555,8 +555,8 @@
                         <div class="footer_widget wow fadeInLeftBig">
                             <h2>The Magazine</h2>
                             <ul class="tag_nav">
-                                <li><a href="/la_revista/#go_here">The Magazine</a></li>
-                                <li><a href="/distribucion/#go_here">Distribution</a></li>
+                                <li><a href="/la_revista/?language=en#go_here">The Magazine</a></li>
+                                <li><a href="/distribucion/?language=en#go_here">Distribution</a></li>
                             </ul>
                         </div>
                     </div>
@@ -564,8 +564,8 @@
                         <div class="footer_widget wow fadeInLeftBig">
                             <h2>Cuba</h2>
                             <ul class="tag_nav">
-                                <li><a href="/informacion-general/#go_here">General Information</a></li>
-                                <li><a href="/informacion-destinos/#go_here">Information according to Destination</a></li>
+                                <li><a href="/informacion_general/?language=en#go_here">General Information</a></li>
+                                <li><a href="/informacion_destinos/?language=en#go_here">Information according to Destination</a></li>
                             </ul>
                         </div>
                     </div>
@@ -573,7 +573,7 @@
                         <div class="footer_widget wow fadeInDown">
                             <h2>Images</h2>
                             <ul class="tag_nav">
-                                <li><a href="/imagenes/#go_here">Photo Gallery</a></li>
+                                <li><a href="/imagenes/?language=en#go_here">Photo Gallery</a></li>
                             </ul>
                         </div>
                     </div>
@@ -581,7 +581,7 @@
                         <div class="footer_widget wow fadeInDown">
                             <h2>Free Time</h2>
                             <ul class="tag_nav">
-                                <li><a href="/tiempo-libre/#go_here">Excursions</a></li>
+                                <li><a href="/tiempo_libre/?language=en#go_here">Excursions</a></li>
                             </ul>
                         </div>
                     </div>
@@ -589,8 +589,8 @@
                         <div class="footer_widget wow fadeInRightBig">
                             <h2>Events</h2>
                             <ul class="tag_nav">
-                                <li><a href="/eventos/#go_here">Calendar</a></li>
-                                <li><a href="/proximo-anho/#go_here">Next Year</a></li>
+                                <li><a href="/eventos/?language=en#go_here">Calendar</a></li>
+                                <li><a href="/proximo_anho/?language=en#go_here">Next Year</a></li>
                             </ul>
                         </div>
                     </div>

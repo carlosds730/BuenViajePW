@@ -15,7 +15,19 @@
             <h2>La Revista</h2>
         </div>
         <div class="text_containter">
-            {{ encabezado|safe }}
+            <p>{{ encabezado|safe }}</p>
+        </div>
+        <div class="title_containter">
+            <h2>Distribución en Ferias {{ anho }}</h2>
+        </div>
+        <div class="media wow fadeInDown single_page_content">
+            <img class="img-center" src="{{ imagen }}" alt="img">
+        </div>
+        <div class="text_containter">
+            {{ encabezado_distribucion|safe }}
+        </div>
+        <div class="text_containter">
+            {{ texto|safe }}
         </div>
         <div class="title_containter">
             <h2>Secciones</h2>

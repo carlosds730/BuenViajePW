@@ -20,8 +20,8 @@
             {% block content_content %}
                 <div id="content_to_container">
                     <ol class="breadcrumb">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/noticias/">News</a></li>
+                        <li><a href="/?language=en">Home</a></li>
+                        <li><a href="/noticias/?language=en">News</a></li>
                         <li class="active">{{ noticia.en_titulo }}</li>
                     </ol>
                     <h1>{{ noticia.en_titulo }}</h1>
@@ -58,11 +58,11 @@
                                 </div>
                             {% endfor %}
                         </div>
-{#                        {% if more %}#}
-{#                            <a class="btn default-btn" id="see_more">Previous comments</a>#}
-{#                        {% else %}#}
-{#                            <a href="/noticia/1/#comment_form" id="see_more" style="display: none">Previous comments</a>#}
-{#                        {% endif %}#}
+                        {% if more %}
+                            <a class="btn default-btn" id="see_more">Previous comments</a>
+                        {% else %}
+                            <a href="/noticia/1/#comment_form" id="see_more" style="display: none">Previous comments</a>
+                        {% endif %}
 
                         <form name="comment_form" id="comment_form" class="form-inline commentarios_form" action="/">
                             <textarea id="textarea" name="textarea" class="textarea form-control" rows="3" cols="50" placeholder="Write a comment"></textarea>
@@ -88,7 +88,7 @@
             <img src="{{ last_revista.get_small_thumbnail }}" alt="img">
         </a>
         <strong><a href="{{ last_revista.url.url }}"><p>Issue {{ last_revista.numero }} Year {{ last_revista.anho }}</p></a></strong>
-        <a href="/old_revistas/#go_here">Latest editions</a>
+        <a href="/old_revistas/?language=en#go_here">Latest editions</a>
     </div>
 
 

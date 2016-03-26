@@ -54,9 +54,9 @@
 
                         <p style="margin-right: 10px; margin-left: 10px; font-style: italic">"{{ comentario }}"</p>
                         {% if language == "es" %}
-                            <p><a href="{{ site }}{{ publicacion.get_absolute_url }}#go_here">Ver publicación</a></p>
+                            <p><a href="{{ site }}{{ publicacion.get_absolute_url }}?language={{ language }}#go_here">Ver publicación</a></p>
                         {% else %}
-                            <p><a href="{{ site }}{{ publicacion.get_absolute_url }}#go_here">See publication</a></p>
+                            <p><a href="{{ site }}{{ publicacion.get_absolute_url }}?language={{ language }}#go_here">See publication</a></p>
                         {% endif %}
                     </td>
                     <td width="50">

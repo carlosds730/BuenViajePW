@@ -5,7 +5,7 @@
 {% block content_content %}
     <div class="static_content">
         <ol class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="/?language=en">Home</a></li>
             <li class="active">News</li>
         </ol>
 
@@ -17,7 +17,7 @@
                 </div>
                 {% for e in y %}
                     <div class="search_result">
-                        <h4><a href="/noticia/{{ e.slug }}/">{{ e.en_titulo }}</a></h4>
+                        <h4><a href="/noticia/{{ e.pk }}/?language=en">{{ e.en_titulo }}</a></h4>
                     </div>
                 {% endfor %}
             </div>
