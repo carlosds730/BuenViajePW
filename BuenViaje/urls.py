@@ -22,7 +22,8 @@ urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + pa
                                                                                            views.de_cuba),
                                                                                        url(r'^unsubscribe/?$',
                                                                                            views.unsubscribe),
-                                                                                       url(r'^noticia/(?P<id>\d+)/?$',
+                                                                                       url(
+                                                                                           r'^noticia/(?P<slug>[-\w]+)/?$',
                                                                                            views.noticia),
                                                                                        url(r'^noticias/?$',
                                                                                            views.noticias),
@@ -47,7 +48,7 @@ urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + pa
                                                                                        url(r'^propuestas/?$',
                                                                                            views.tiempo_libre),
                                                                                        url(
-                                                                                           r'^eventos/(?P<month>\d+)/?$',
+                                                                                           r'^eventos/(?P<month>[-\w]+)/?$',
                                                                                            views.eventos_month),
                                                                                        url(r'^eventos/?$',
                                                                                            views.eventos),

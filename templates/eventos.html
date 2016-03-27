@@ -4,6 +4,29 @@
 {% block title %}
     <title>Buen Viaje a Cuba - Eventos</title>
 {% endblock %}
+{% block metadata %}
+    {#    TODO: What goes here?#}
+    <link rel="canonical" href="http://www.buenviajeacuba.com/">
+    <meta name="keywords" content="{{ keyword|join:", " }}"/>
+    {% with mes_actual=mes_actual.1 %}
+        <meta name="description" content="Eventos de {{ mes_actual }}">
+
+        <!-- for Facebook -->
+        <meta property="og:title" content="Eventos de {{ mes_actual }}">
+        <meta property="og:site_name" content="Buen Viaje a Cuba">
+        <meta property="og:url" content="http://www.buenviajeacuba.com/">
+        <meta property="og:description" content="Eventos de {{ mes_actual }}">
+        <meta property="og:type" content="website">
+
+        <!-- for Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@buenviajeacuba">
+        <meta name="twitter:creator" content="@buenviajeacuba">
+        <meta name="twitter:title" content="Eventos de {{ mes_actual }}">
+        <meta name="twitter:description"
+              content="Eventos de {{ mes_actual }}">
+    {% endwith %}
+{% endblock %}
 
 {% block content_content %}
     <div class="static_content">
@@ -17,7 +40,7 @@
                 </button>
                 <ul class="dropdown-menu ">
                     {% for value in months %}
-                        <li><a tabindex="-1" href="/eventos/{{ value.0 }}/?language=es#go_here">{{ value.1 }}</a></li>
+                        <li><a tabindex="-1" href="/eventos/{{ value.1 }}/#go_here">{{ value.1 }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

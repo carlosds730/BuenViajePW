@@ -37,7 +37,7 @@
         </div>
         {% for x in secciones %}
             <h3 id="secciones_{{ x.2 }}">{{ x.0 }}</h3>
-            <p>{{ x.1 }}</p>
+            <p>{{ x.1|safe }}</p>
         {% endfor %}
     </div>
 {% endblock %}

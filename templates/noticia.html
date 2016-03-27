@@ -6,6 +6,35 @@
 {% block title %}
     <title>Buen Viaje a Cuba - {{ noticia.titulo }}</title>
 {% endblock %}
+{% block metadata %}
+    {#    TODO: What goes here?#}
+    <link rel="canonical" href="http://www.buenviajeacuba.com/">
+    <meta name="keywords" content="{{ keyword.keywords }}"/>
+    <meta name="description" content="{{ keyword.description|safe }}">
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="{{ noticia.titulo }}">
+    <meta property="og:site_name" content="Buen Viaje a Cuba">
+    <meta property="og:url" content="http://www.buenviajeacuba.com{{ noticia.get_absolute_url }}">
+    <meta property="og:description" content="{{ keyword.facebook_msg }}">
+    {% if keyword.facebook_img %}
+        <meta property="og:image" content="http://www.buenviajeacuba.com{{ keyword.facebook_img.url }}">
+    {% endif %}
+    <meta property="og:type" content="website">
+
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@buenviajeacuba">
+    <meta name="twitter:creator" content="@buenviajeacuba">
+    <meta name="twitter:title" content="{{ noticia.titulo }}">
+    <meta name="twitter:description"
+          content="{{ keyword.twitter_msg }}">
+    {% if keyword.twitter_img %}
+        <meta name="twitter:image"
+              content="http://www.buenviajeacuba.com{{ keyword.twitter_img.url }}">
+    {% endif %}
+{% endblock %}
+
 {% block new_links %}
     <link rel="stylesheet" href="{% static 'css/noticia.css' %}" type="text/css"/>
     {#    <script src="{% static 'new/js/jquery-1.10.2.min.js' %}"></script>#}
@@ -88,7 +117,7 @@
         </a>
         <strong><a href="{{ last_revista.url.url }}"><p>Numero {{ last_revista.numero }} año {{ last_revista.anho }}</p>
         </a></strong>
-        <a href="/old_revistas/?language={{ language }}#go_here">Ver ediciones anteriores</a>
+        <a href="/old_revistas/#go_here">Ver ediciones anteriores</a>
     </div>
 
 

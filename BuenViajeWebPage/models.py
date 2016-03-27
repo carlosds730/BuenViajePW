@@ -1,6 +1,5 @@
 # -*- coding: utf8 -*-
 import os
-
 from django.db import models
 from sorl.thumbnail import ImageField
 from sorl.thumbnail import get_thumbnail
@@ -31,12 +30,12 @@ class KeyWord(models.Model):
                                     help_text='Lo que va en og:title metadata', blank=True, null=True)
     twitter_msg = models.CharField(max_length=300, verbose_name='Mensaje para twitter',
                                    help_text='Lo que va en twitter:title metadata', blank=True, null=True)
-    facebook_img = ImageField(verbose_name='Foto de facebook', upload_to='/facebook', blank=True, null=True)
+    facebook_img = ImageField(verbose_name='Foto de facebook', upload_to='facebook', blank=True, null=True)
 
     is_index = models.BooleanField(default=False, verbose_name='Es principal?',
                                    help_text=u'Marcar si las palabras claves van en la página principal')
 
-    twitter_img = ImageField(verbose_name='Foto de twitter', upload_to='/twitter', blank=True, null=True)
+    twitter_img = ImageField(verbose_name='Foto de twitter', upload_to='twitter', blank=True, null=True)
 
     noticia = models.ForeignKey(to='Noticia', verbose_name='Noticia', related_name='keywords',
                                 help_text='Palabras claves usadas para las redes sociales', blank=True, null=True)
@@ -69,7 +68,7 @@ class KeyWord(models.Model):
 
     # DONE: Redefine the save so there is only one keyword with is_index=True
     def save(self, *args, **kwargs):
-        if self.is_index and self.news:
+        if self.is_index and self.noticia:
             raise ValidationError(
                 u'Una palabra clave debe estar asociada a una noticia o a una página principal, pero no a las dos')
         if self.is_index:

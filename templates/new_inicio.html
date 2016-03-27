@@ -11,6 +11,39 @@
         <title>Buen Viaje a Cuba</title>
     {% endblock %}
 
+    {% block metadata %}
+        <link rel="canonical" href="http://www.buenviajeacuba.com/">
+        <meta name="keywords" content="{{ keyword.keywords }}"/>
+        <meta name="description" content="{{ keyword.description|safe }}">
+
+        <!-- for Facebook -->
+        <meta property="og:title" content="Buen Viaje a Cuba">
+        <meta property="og:site_name" content="Buen Viaje a Cuba">
+        <meta property="og:url" content="http://www.buenviajeacuba.com/">
+        <meta property="og:description" content="{{ keyword.facebook_msg }}">
+        {% if keyword.facebook_img %}
+            <meta property="og:image" content="http://www.buenviajeacuba.com{{ keyword.facebook_img.url }}">
+        {% endif %}
+        <meta property="og:type" content="website">
+
+        <!-- for Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@buenviajeacuba">
+        <meta name="twitter:creator" content="@buenviajeacuba">
+        <meta name="twitter:title" content="Buen Viaje a Cuba">
+        <meta name="twitter:description"
+              content="{{ keyword.twitter_msg }}">
+        {% if keyword.twitter_img %}
+            <meta name="twitter:image"
+                  content="http://www.buenviajeacuba.com{{ keyword.twitter_img.url }}">
+        {% endif %}
+    {% endblock %}
+    <!--CSS-->
+    <link rel="stylesheet" href="{% static 'css/styles.scss87ea.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-light.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
     <!-- Bootstrap -->
     <link href="{% static 'new/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- for fontawesome icon css file -->
@@ -73,7 +106,7 @@
                         </div>
 
                         <div class="right_thing">
-                            {% with publicidad=publicidades.1 %}
+                            {% with publicidad=main.0 %}
                                 {#TODO: Here goes the Main publicity#}
                                 <div class="publicidad_top_holder">
                                     {% if  publicidad.url %}
@@ -81,7 +114,7 @@
                                                 id="publicidad_top_{{ publicidad.id }}"
                                                 alt="{{ publicidad.nombre }}" src=""></a>
                                     {% else %}
-                                        <img id="publicidad{{ publicidad.id }}"
+                                        <img id="publicidad_top_{{ publicidad.id }}"
                                              alt="{{ publicidad.nombre }}" src="">
                                     {% endif %}
                                 </div>
@@ -182,7 +215,7 @@
                         <ul id="ticker01" class="news_sticker">
                             {% for new in noticias %}
                                 <li><a href="{{ new.3 }}#go_here"><img src="{{ new.2 }}"
-                                                                                               alt="{{ new.1 }}">{{ new.0 }}
+                                                                       alt="{{ new.1 }}">{{ new.0 }}
                                 </a></li>
                             {% endfor %}
                         </ul>
@@ -214,25 +247,16 @@
                 <div class="col-lg-8 col-md-8 col-sm-8 foto_slider">
                     <!-- Set up your HTML -->
                     <div class="slick_slider">
-                        {% for x in banners %}
-                            {% if forloop.first %}
-                                <div class="single_iteam">
-                                    <a><img id="banner{{ x.2 }}" src="{{ x.1 }}" alt="{{ x.0 }}"></a>
-                                    {#                                <a><img src="{{ x.1 }}" alt="{{ x.0 }}"></a>#}
-                                    <div class="slider_article">
-                                        <h2><a class="slider_tittle">{{ x.0 }}</a></h2>
-                                        {% lorem 1 p %}
-                                    </div>
+                        {% for x in noticias_principales %}
+                            <div class="single_iteam">
+                                <a href="{{ x.3 }}"><img id="noticia_principal_{{ x.4 }}" src="" alt="{{ x.0 }}"></a>
+
+                                <div class="slider_article">
+                                    <h2><a class="slider_tittle">{{ x.0 }}</a></h2>
+
+                                    {{ x.1|safe }}
                                 </div>
-                            {% else %}
-                                <div class="single_iteam">
-                                    <a><img id="banner{{ x.2 }}" src="" alt="{{ x.0 }}"></a>
-                                    {#                                <a><img src="{{ x.1 }}" alt="{{ x.0 }}"></a>#}
-                                    <div class="slider_article">
-                                        <h2><a class="slider_tittle">{{ x.0 }}</a></h2>
-                                    </div>
-                                </div>
-                            {% endif %}
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -268,18 +292,18 @@
                                 <ul class="business_catgnav  wow fadeInDown">
                                     <li>
                                         <figure class="bsbig_fig">
-                                            <a href="{{ noticia_principal.3 }}#go_here"
+                                            <a href="{{ primer_bloque.0.3 }}#go_here"
                                                class="featured_img">
-                                                <img alt="{{ noticia_principal.0 }}"
-                                                     src="{{ noticia_principal.2 }}#go_here">
+                                                <img alt="{{ primer_bloque.0.0 }}"
+                                                     src="{{ primer_bloque.0.2 }}#go_here">
                                                 <span class="overlay"></span>
                                             </a>
                                             <figcaption>
-                                                <a href="{{ noticia_principal.3 }}#go_here">{{ noticia_principal.0 }}</a>
+                                                <a href="{{ primer_bloque.0.3 }}#go_here">{{ primer_bloque.0.0 }}</a>
                                             </figcaption>
-                                            <p>{{ noticia_principal.1 }}...<a
-                                                    href="{{ noticia_principal.3 }}#go_here"> +
-                                                Ver más</a></p>
+                                            {{ primer_bloque.0.1|safe }}<a
+                                                href="{{ primer_bloque.0.3 }}#go_here">... +
+                                            Ver más</a>
                                         </figure>
                                     </li>
                                 </ul>
@@ -288,18 +312,18 @@
                                 <ul class="business_catgnav  wow fadeInDown">
                                     <li>
                                         <figure class="bsbig_fig">
-                                            <a href="{{ noticia_principal.3 }}#go_here"
+                                            <a href="{{ primer_bloque.1.3 }}#go_here"
                                                class="featured_img">
-                                                <img alt="{{ noticia_principal.0 }}"
-                                                     src="{{ noticia_principal.2 }}#go_here">
+                                                <img alt="{{ primer_bloque.1.0 }}"
+                                                     src="{{ primer_bloque.1.2 }}#go_here">
                                                 <span class="overlay"></span>
                                             </a>
                                             <figcaption>
-                                                <a href="{{ noticia_principal.3 }}#go_here">{{ noticia_principal.0 }}</a>
+                                                <a href="{{ primer_bloque.1.3 }}#go_here">{{ primer_bloque.1.0 }}</a>
                                             </figcaption>
-                                            <p>{{ noticia_principal.1 }}...<a
-                                                    href="{{ noticia_principal.3 }}#go_here"> +
-                                                Ver más</a></p>
+                                            {{ primer_bloque.1.1|safe }}<a
+                                                href="{{ primer_bloque.1.3 }}#go_here">... +
+                                            Ver más</a>
                                         </figure>
                                     </li>
                                 </ul>
@@ -311,7 +335,7 @@
 
                             <div class="single_post_content_left">
                                 <ul class="spost_nav">
-                                    {% for x in otras_noticias %}
+                                    {% for x in segundo_bloque_1 %}
                                         <li>
                                             <div class="media wow fadeInDown noticias">
                                                 <a href="{{ x.2 }}#go_here" class="media-left">
@@ -329,7 +353,7 @@
                             </div>
                             <div class="single_post_content_right">
                                 <ul class="spost_nav">
-                                    {% for x in otras_noticias %}
+                                    {% for x in segundo_bloque_2 %}
                                         <li>
                                             <div class="media wow fadeInDown noticias">
                                                 <a href="{{ x.2 }}#go_here" class="media-left">
@@ -389,9 +413,9 @@
                                                 <figcaption>
                                                     <a href="{{ buen_viaj_mundo.4 }}#content_to_container">{{ buen_viaj_mundo.0 }}</a>
                                                 </figcaption>
-                                                <p>{{ buen_viaj_mundo.1 }}...<a
-                                                        href="{{ buen_viaj_mundo.4 }}#content_to_container">
-                                                    + Ver más</a></p>
+                                                {{ buen_viaj_mundo.1|safe }}<a
+                                                    href="{{ buen_viaj_mundo.4 }}#content_to_container">... + Ver
+                                                más</a>
                                             </figure>
                                         </li>
                                     </ul>
@@ -411,7 +435,7 @@
                                 <h2><span>Publicidad</span></h2>
                                 <ul class="spost_nav">
                                     {#DONE: This images should be loaded after the page is loaded#}
-                                    {% for publicidad in publicidades %}
+                                    {% for publicidad in first %}
                                         <li>
                                             <div class="media wow fadeInDown enlaces">
                                                 {% if  publicidad.url %}
@@ -425,15 +449,15 @@
                                             </div>
                                         </li>
                                     {% endfor %}
-                                    {% for publicidad in publicidades %}
+                                    {% for publicidad in second %}
                                         <li>
                                             <div class="media wow fadeInDown enlaces">
                                                 {% if  publicidad.url %}
                                                     <a href="{{ publicidad.url }}" target="_blank"><img
-                                                            id="publicidad_{{ publicidad.id }}"
+                                                            id="publicidad{{ publicidad.id }}"
                                                             alt="{{ publicidad.nombre }}" src=""></a>
                                                 {% else %}
-                                                    <img id="publicidad_{{ publicidad.id }}"
+                                                    <img id="publicidad{{ publicidad.id }}"
                                                          alt="{{ publicidad.nombre }}" src="">
                                                 {% endif %}
                                             </div>
@@ -524,117 +548,117 @@
                 </div>
             {% endblock %}
             {% block fotos_de_cuba %}
-{#                <div class="single_post_content" style="margin-bottom: 1%">#}
-{#                    <h2><span>Fotos de Cuba</span></h2>#}
-{##}
-{#                    <div id="demo1" class="flex-images">#}
-{#                        {% for image in pics %}#}
-{#                            <div class="item" data-w="{{ image.0.width }}" data-h="{{ image.0.height }}"#}
-{#                                 data-id="{{ image.1 }}" data-width_big="{{ image.2.1 }}"#}
-{#                                 data-height_big="{{ image.2.2 }}" data-src_big="{{ image.2.0 }}"#}
-{#                                 data-usuario="{{ image.3 }}" data-description="{{ image.4 }}" rel="tooltip"#}
-{#                                 data-trigger="hover"#}
-{#                                 data-original-title="<p>{{ image.4 }}</p><p>Subida por {{ image.3 }}</p> <p#}
-{#                    >{{ image.5 }}#}
-{#                    comentarios</p>"#}
-{#                                 data-html="True"><a#}
-{#                                    href="/imagen/{{ image.1 }}/#img_container_big"><img#}
-{#                                    id="foto_de_cuba{{ image.1 }}" src=""></a></div>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <button class="btn default-btn" id="send_photo_modal_trigger" data-toggle="modal"#}
-{#                                data-target="#uploadphotomodal">Click para enviar una foto#}
-{#                        </button>#}
-{#                        <a href="/imagenes/#go_here">#}
-{#                            <button class="btn default-btn" id="see_all_photo" style="float: right">Ver galería completa#}
-{#                            </button>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div class="modal fade modal_destinos" id="uploadphotomodal">#}
-{#                        <div class="modal-dialog newsletter_modal">#}
-{#                            <div class="modal-content">#}
-{#                                <div class="modal-header">#}
-{#                                    <button type="button" class="close" data-dismiss="modal"#}
-{#                                            aria-hidden="true">&times;</button>#}
-{#                                    <h3 class="modal-title" id="photo_titulo">Enviar una foto</h3>#}
-{##}
-{#                                    <h4 id="photo_satisfactorio" style="display: none">Su imagen ha sido procesada#}
-{#                                        satisfactoriamente</h4>#}
-{#                                </div>#}
-{#                                <div class="modal-body" id="modal_body_content_photo">#}
-{#                                    <div class="form-group" id="image_upload_content">#}
-                                        {#DONE: I'm not completly satisfied with how this looks like#}
-{#                                        <form name="send_photo_form" id="uploadForm" action="/ajax_photo/" method="post"#}
-{#                                              enctype="multipart/form-data" class="form-inline commentarios_form">#}
-{#                                            {% csrf_token %}#}
-{#                                            <a id="tooltip_message_text" rel="tooltip" data-trigger="manual"#}
-{#                                               data-original-title="La descripción no puede estar en blanco."><textarea#}
-{#                                                    style="width: 100%" id="photo_description"#}
-{#                                                    class="textarea form-control newsletter" rows="3" cols="50"#}
-{#                                                    name="pic_description"#}
-{#                                                    placeholder="Descripción de la imagen"></textarea></a>#}
-{#                                            <input id="fileInput" class="input-file" name="upload" type="file"#}
-{#                                                   accept=".jpg" value="Imagen" style="display: none;">#}
-{#                                            <a id="tooltip_message_file" rel="tooltip" data-trigger="manual"#}
-{#                                               data-original-title="Debe seleccionar alguna foto."><input#}
-{#                                                    id="imagebutton" rel="tooltip" data-trigger="hover"#}
-{#                                                    data-original-title="La imagen debe ser menor de 2MB" type="button"#}
-{#                                                    class="btn default-btn newsletter"#}
-{#                                                    value="Click para seleccionar imagen"></a>#}
-{##}
-{#                                            <div>#}
-{#                                                <a id="tooltip_message_name" rel="tooltip" data-trigger="manual"#}
-{#                                                   data-original-title="Debe insertar un nombre"><input id="image_name"#}
-{#                                                                                                        class="input_container_left form-control newsletter"#}
-{#                                                                                                        type="text"#}
-{#                                                                                                        name="name"#}
-{#                                                                                                        placeholder="Nombre"></a>#}
-{##}
-{#                                                <div class="image_email_holder"><a id="tooltip_message_email"#}
-{#                                                                                   rel="tooltip" data-trigger="manual"#}
-{#                                                                                   data-original-title="Debe insertar un correo"#}
-{#                                                                                   data-placement="top"><input#}
-{#                                                        id="image_email"#}
-{#                                                        class="input_container_right form-control newsletter"#}
-{#                                                        type="email" name="email" placeholder="Email"></a></div>#}
-{#                                            </div>#}
-{#                                            <div class="notifications_content input_container_left">#}
-{#                                                <input type="checkbox" class="form-control checkbox" id="image_checkbox"#}
-{#                                                       name="notifications" placeholder="Recibir notificaciones">#}
-{#                                                <a>Recibir notificaciones</a>#}
-{#                                            </div>#}
-{#                                            <input id="submit_photo" type="submit" value="Enviar foto"#}
-{#                                                   class="form-control btn default-btn"/>#}
-{#                                        </form>#}
-{#                                    </div>#}
-{#                                </div>#}
-{#                                <div style="display: none" class="image_upload_content_uploading">#}
-{#                                    <h4>Su imagen está siendo procesada</h4>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <form name="comment_form " id="comment_form" class="form-inline commentarios_form" action="/"#}
-{#                      style="display: none; margin-bottom: 0px">#}
-{#                    <textarea id="textarea" name="textarea" class="textarea form-control" rel="tooltip"#}
-{#                              data-trigger="manual" data-original-title="El comentario no puede estar en blanco"#}
-{#                              rows="2" cols="50" placeholder="Escriba su comentario"></textarea>#}
-{#                    <input id="POST-name" class="form-control img_form_element" rel="tooltip" data-trigger="manual"#}
-{#                           data-original-title="Debe insertar un nombre o un correo" type="text" name="name"#}
-{#                           placeholder="Nombre">#}
-{#                    <input id="POST-email" class="form-control img_form_element" rel="tooltip" data-trigger="manual"#}
-{#                           data-original-title="Debe insertar un email válido" type="email" name="email"#}
-{#                           placeholder="Correo">#}
-                    {#        <input type="submit" class="form-control btn default-btn img_form_element" id="submit" value="Comentar">#}
-{#                    <input type="checkbox" class="form-control checkbox" id="checkbox" rel="tooltip"#}
-{#                           data-trigger="manual"#}
-{#                           data-original-title="Para recibir notificaciones debe insertar un correo"#}
-{#                           placeholder="Recibir notificaciones">#}
-{#                    <a>Recibir notificaciones</a>#}
-                    {#        <a id="message"></a>#}
-{#                </form>#}
+                {#                <div class="single_post_content" style="margin-bottom: 1%">#}
+                {#                    <h2><span>Fotos de Cuba</span></h2>#}
+                {##}
+                {#                    <div id="demo1" class="flex-images">#}
+                {#                        {% for image in pics %}#}
+                {#                            <div class="item" data-w="{{ image.0.width }}" data-h="{{ image.0.height }}"#}
+                {#                                 data-id="{{ image.1 }}" data-width_big="{{ image.2.1 }}"#}
+                {#                                 data-height_big="{{ image.2.2 }}" data-src_big="{{ image.2.0 }}"#}
+                {#                                 data-usuario="{{ image.3 }}" data-description="{{ image.4 }}" rel="tooltip"#}
+                {#                                 data-trigger="hover"#}
+                {#                                 data-original-title="<p>{{ image.4 }}</p><p>Subida por {{ image.3 }}</p> <p#}
+                {#                    >{{ image.5 }}#}
+                {#                    comentarios</p>"#}
+                {#                                 data-html="True"><a#}
+                {#                                    href="/imagen/{{ image.1 }}/#img_container_big"><img#}
+                {#                                    id="foto_de_cuba{{ image.1 }}" src=""></a></div>#}
+                {#                        {% endfor %}#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <button class="btn default-btn" id="send_photo_modal_trigger" data-toggle="modal"#}
+                {#                                data-target="#uploadphotomodal">Click para enviar una foto#}
+                {#                        </button>#}
+                {#                        <a href="/imagenes/#go_here">#}
+                {#                            <button class="btn default-btn" id="see_all_photo" style="float: right">Ver galería completa#}
+                {#                            </button>#}
+                {#                        </a>#}
+                {#                    </div>#}
+                {#                    <div class="modal fade modal_destinos" id="uploadphotomodal">#}
+                {#                        <div class="modal-dialog newsletter_modal">#}
+                {#                            <div class="modal-content">#}
+                {#                                <div class="modal-header">#}
+                {#                                    <button type="button" class="close" data-dismiss="modal"#}
+                {#                                            aria-hidden="true">&times;</button>#}
+                {#                                    <h3 class="modal-title" id="photo_titulo">Enviar una foto</h3>#}
+                {##}
+                {#                                    <h4 id="photo_satisfactorio" style="display: none">Su imagen ha sido procesada#}
+                {#                                        satisfactoriamente</h4>#}
+                {#                                </div>#}
+                {#                                <div class="modal-body" id="modal_body_content_photo">#}
+                {#                                    <div class="form-group" id="image_upload_content">#}
+                {#DONE: I'm not completly satisfied with how this looks like#}
+                {#                                        <form name="send_photo_form" id="uploadForm" action="/ajax_photo/" method="post"#}
+                {#                                              enctype="multipart/form-data" class="form-inline commentarios_form">#}
+                {#                                            {% csrf_token %}#}
+                {#                                            <a id="tooltip_message_text" rel="tooltip" data-trigger="manual"#}
+                {#                                               data-original-title="La descripción no puede estar en blanco."><textarea#}
+                {#                                                    style="width: 100%" id="photo_description"#}
+                {#                                                    class="textarea form-control newsletter" rows="3" cols="50"#}
+                {#                                                    name="pic_description"#}
+                {#                                                    placeholder="Descripción de la imagen"></textarea></a>#}
+                {#                                            <input id="fileInput" class="input-file" name="upload" type="file"#}
+                {#                                                   accept=".jpg" value="Imagen" style="display: none;">#}
+                {#                                            <a id="tooltip_message_file" rel="tooltip" data-trigger="manual"#}
+                {#                                               data-original-title="Debe seleccionar alguna foto."><input#}
+                {#                                                    id="imagebutton" rel="tooltip" data-trigger="hover"#}
+                {#                                                    data-original-title="La imagen debe ser menor de 2MB" type="button"#}
+                {#                                                    class="btn default-btn newsletter"#}
+                {#                                                    value="Click para seleccionar imagen"></a>#}
+                {##}
+                {#                                            <div>#}
+                {#                                                <a id="tooltip_message_name" rel="tooltip" data-trigger="manual"#}
+                {#                                                   data-original-title="Debe insertar un nombre"><input id="image_name"#}
+                {#                                                                                                        class="input_container_left form-control newsletter"#}
+                {#                                                                                                        type="text"#}
+                {#                                                                                                        name="name"#}
+                {#                                                                                                        placeholder="Nombre"></a>#}
+                {##}
+                {#                                                <div class="image_email_holder"><a id="tooltip_message_email"#}
+                {#                                                                                   rel="tooltip" data-trigger="manual"#}
+                {#                                                                                   data-original-title="Debe insertar un correo"#}
+                {#                                                                                   data-placement="top"><input#}
+                {#                                                        id="image_email"#}
+                {#                                                        class="input_container_right form-control newsletter"#}
+                {#                                                        type="email" name="email" placeholder="Email"></a></div>#}
+                {#                                            </div>#}
+                {#                                            <div class="notifications_content input_container_left">#}
+                {#                                                <input type="checkbox" class="form-control checkbox" id="image_checkbox"#}
+                {#                                                       name="notifications" placeholder="Recibir notificaciones">#}
+                {#                                                <a>Recibir notificaciones</a>#}
+                {#                                            </div>#}
+                {#                                            <input id="submit_photo" type="submit" value="Enviar foto"#}
+                {#                                                   class="form-control btn default-btn"/>#}
+                {#                                        </form>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                                <div style="display: none" class="image_upload_content_uploading">#}
+                {#                                    <h4>Su imagen está siendo procesada</h4>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <form name="comment_form " id="comment_form" class="form-inline commentarios_form" action="/"#}
+                {#                      style="display: none; margin-bottom: 0px">#}
+                {#                    <textarea id="textarea" name="textarea" class="textarea form-control" rel="tooltip"#}
+                {#                              data-trigger="manual" data-original-title="El comentario no puede estar en blanco"#}
+                {#                              rows="2" cols="50" placeholder="Escriba su comentario"></textarea>#}
+                {#                    <input id="POST-name" class="form-control img_form_element" rel="tooltip" data-trigger="manual"#}
+                {#                           data-original-title="Debe insertar un nombre o un correo" type="text" name="name"#}
+                {#                           placeholder="Nombre">#}
+                {#                    <input id="POST-email" class="form-control img_form_element" rel="tooltip" data-trigger="manual"#}
+                {#                           data-original-title="Debe insertar un email válido" type="email" name="email"#}
+                {#                           placeholder="Correo">#}
+                {#        <input type="submit" class="form-control btn default-btn img_form_element" id="submit" value="Comentar">#}
+                {#                    <input type="checkbox" class="form-control checkbox" id="checkbox" rel="tooltip"#}
+                {#                           data-trigger="manual"#}
+                {#                           data-original-title="Para recibir notificaciones debe insertar un correo"#}
+                {#                           placeholder="Recibir notificaciones">#}
+                {#                    <a>Recibir notificaciones</a>#}
+                {#        <a id="message"></a>#}
+                {#                </form>#}
             {% endblock %}
         </div>
     </section>
@@ -909,63 +933,64 @@
 </script>
 <script>
     function uploadSomePics() {
-        {% for x in banners %}
-            {% if forloop.first %}
-            {% else %}
-                document.getElementById("banner{{ x.2 }}").src = "{{ x.1 }}";
-            {% endif %}
-        {% endfor %}
-        {% for publicidad in publicidades %}
-            document.getElementById("publicidad{{ publicidad.id }}").src = "{{ publicidad.get_small_thumbnail }}";
-            document.getElementById("publicidad_{{ publicidad.id }}").src = "{{ publicidad.get_small_thumbnail }}";
-            if (document.getElementById("publicidad_top_{{ publicidad.id }}")) {
-                document.getElementById("publicidad_top_{{ publicidad.id }}").src = "{{ publicidad.get_small_thumbnail }}";
-            }
+        {% if noticias_principales %}
+            {% for x in noticias_principales %}
+                document.getElementById("noticia_principal_{{ x.4 }}").src = "{{ x.2 }}";
+            {% endfor %}
+        {% endif %}
+        {% with publicidad=main.0 %}
+            document.getElementById("publicidad_top_{{ publicidad.id }}").src = "{{ publicidad.get_small_thumbnail }}";
+        {% endwith %}
 
+        {% for publicidad in first %}
+            document.getElementById("publicidad{{ publicidad.id }}").src = "{{ publicidad.get_small_thumbnail }}";
+        {% endfor %}
+        {% for publicidad in second %}
+            document.getElementById("publicidad{{ publicidad.id }}").src = "{{ publicidad.get_small_thumbnail }}";
         {% endfor %}
         {#        document.getElementById("directorio_eventos").src = "/static/img/Directorio Eventos2015_esp.jpg";#}
-{#        {% for image in pics %}#}
-{#            document.getElementById("foto_de_cuba{{ image.1 }}").src = "{{ image.0.url }}";#}
-{#        {% endfor %}#}
+        {#        {% for image in pics %}#}
+        {#            document.getElementById("foto_de_cuba{{ image.1 }}").src = "{{ image.0.url }}";#}
+        {#        {% endfor %}#}
     }
 
 
 </script>
 
 {% block new_scripts %}
-{#    <script type="text/javascript" src="{% static 'flex_images/jquery.flex-images.js' %}"></script>#}
-{##}
-{#    <script>$('.flex-images').flexImages({rowHeight: 270, truncate: 1});</script>#}
+    {#    <script type="text/javascript" src="{% static 'flex_images/jquery.flex-images.js' %}"></script>#}
+    {##}
+    {#    <script>$('.flex-images').flexImages({rowHeight: 270, truncate: 1});</script>#}
 
     <script>
         window.onload = function () {
-{#            $("#image_email").keyup(function () {#}
-{#                emailValidationOnTheFly($(this)[0]);#}
-{##}
-{#            }).change(function () {#}
-{#                emailValidationOnTheFly($(this)[0]);#}
-{#            });#}
+            {#            $("#image_email").keyup(function () {#}
+            {#                emailValidationOnTheFly($(this)[0]);#}
+            {##}
+            {#            }).change(function () {#}
+            {#                emailValidationOnTheFly($(this)[0]);#}
+            {#            });#}
             uploadSomePics();
 
         };
 
-{#        $(".item>a").click(function () {#}
-{#            var node = $(this).parent()[0];#}
-{#            var img_id = node.getAttribute("data-id");#}
-{#            var img_width = node.getAttribute("data-width_big");#}
-{#            var img_heigth = node.getAttribute("data-height_big");#}
-{#            var img_src = node.getAttribute("data-src_big");#}
-{#            var img_usuer = node.getAttribute("data-usuario");#}
-{#            var img_descr = node.getAttribute("data-description");#}
-{#            if (parseInt(img_width, 10) + 80 + 520 < getWidth()) {#}
-{#                var height_modal = getHeight() - ( parseInt(img_heigth, 10) + 144);#}
-{#                if (height_modal > 20) {#}
-{#                    prep_img_modal(img_id, img_width, img_heigth, img_src, img_usuer, img_descr, "{{ language }}", height_modal);#}
-{#                    return false;#}
-{#                }#}
-{#            }#}
-{#            $(this)[0].href = "/imagen/" + img_id + "/?languague=es" + "&width=" + getWidth() + "&height=" + getHeight() + "#img_container_big";#}
-{#        });#}
+        {#        $(".item>a").click(function () {#}
+        {#            var node = $(this).parent()[0];#}
+        {#            var img_id = node.getAttribute("data-id");#}
+        {#            var img_width = node.getAttribute("data-width_big");#}
+        {#            var img_heigth = node.getAttribute("data-height_big");#}
+        {#            var img_src = node.getAttribute("data-src_big");#}
+        {#            var img_usuer = node.getAttribute("data-usuario");#}
+        {#            var img_descr = node.getAttribute("data-description");#}
+        {#            if (parseInt(img_width, 10) + 80 + 520 < getWidth()) {#}
+        {#                var height_modal = getHeight() - ( parseInt(img_heigth, 10) + 144);#}
+        {#                if (height_modal > 20) {#}
+        {#                    prep_img_modal(img_id, img_width, img_heigth, img_src, img_usuer, img_descr, "{{ language }}", height_modal);#}
+        {#                    return false;#}
+        {#                }#}
+        {#            }#}
+        {#            $(this)[0].href = "/imagen/" + img_id + "/?languague=es" + "&width=" + getWidth() + "&height=" + getHeight() + "#img_container_big";#}
+        {#        });#}
     </script>
 {% endblock %}
 
@@ -975,94 +1000,94 @@
 </script>
 {#This script upload the pictures#}
 {% block upload_pictures_script %}
-{#    <script type="text/javascript" src="{% static 'js/jquery.form.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/jquery.form.js' %}"></script>#}
     {# DONE: Recieve the validation messages, image validation is done server side. Validate here that description, name and email don't be empty. Notification messages should be tooltips.#}
-{#    <script>#}
-{#        $("#send_photo_modal_trigger").click(function () {#}
-{#            $("#photo_titulo").show();#}
-{#            $("#photo_satisfactorio").hide();#}
-{#            $("#modal_body_content_photo").show();#}
-{#            $("#photo_description").val("");#}
-{#        });#}
-{##}
-{#        var message = '';#}
-{#        var options = {#}
-{#            url: '/ajax_photo/',#}
-{#            error: function (response) {#}
-{#                document.getElementById("image_name").value = "";#}
-{#                document.getElementById("image_email").value = "";#}
-{##}
-{#                $("#photo_titulo").text("Enviar foto");#}
-{#                $("#modal_body_content_photo").fadeIn('fast');#}
-{#                $('#fileInput').val('');#}
-{#                var tooltipo_file_bad = $("#tooltip_message_file");#}
-{#                tooltipo_file_bad[0].setAttribute("data-original-title", "Su archivo tiene problemas, ¿está seguro de que es una imagen menor de 2MB?");#}
-{##}
-{#                tooltipo_file_bad.tooltip('show');#}
-{#                hideTooltip(tooltipo_file_bad);#}
-{#                tooltipo_file_bad[0].setAttribute("data-original-title", "Debe seleccionar alguna foto.");#}
-{##}
-                {#                alert(response['result']);#}
-{##}
-{#            },#}
-{#            success: function (response) {#}
-{#                if (response['status'] == 'success') {#}
-{#                    document.getElementById("photo_description").value = "";#}
-{##}
-{#                    $("#photo_titulo").fadeOut('fast');#}
-{#                    $("#photo_titulo").text("Enviar foto");#}
-{##}
-{#                    $("#photo_satisfactorio").fadeIn('slow');#}
-{#                    $("#modal_body_content_photo").slideUp('fast');#}
-{##}
-{#                    $('#fileInput').val('');#}
-{##}
-{#                }#}
-{#                else {#}
-{#                    $("#photo_titulo").text("Enviar foto");#}
-{#                    $("#modal_body_content_photo").fadeIn('fast');#}
-{#                    $('#fileInput').val('');#}
-{#                    var tooltipo_file_bad = $("#tooltip_message_file");#}
-{#                    tooltipo_file_bad[0].setAttribute("data-original-title", "Su archivo tiene problemas, ¿está seguro de que es una imagen menor de 2MB?");#}
-{##}
-{#                    tooltipo_file_bad.tooltip('show');#}
-{#                    hideTooltip(tooltipo_file_bad);#}
-{#                    tooltipo_file_bad[0].setAttribute("data-original-title", "Debe seleccionar alguna foto.");#}
-{#                }#}
-{##}
-{#            }#}
-{#        };#}
-{#        $("#submit_photo").click(function () {#}
-{#            var trext = document.getElementById("photo_description").value;#}
-{#            var nombre = document.getElementById("image_name").value;#}
-{#            var email = document.getElementById("image_email").value;#}
-{##}
-{#            if (trext == "" || nombre == "" || email == "" || $('#fileInput').val() == "") {#}
-{#                if (trext == "") {#}
-{#                    $("#tooltip_message_text").tooltip('show');#}
-{#                    hideTooltip($("#tooltip_message_text"));#}
-{#                }#}
-{#                if (nombre == "") {#}
-{#                    $("#tooltip_message_name").tooltip('show');#}
-{#                    hideTooltip($("#tooltip_message_name"));#}
-{#                }#}
-{#                if (email == "") {#}
-{#                    $("#tooltip_message_email").tooltip('show');#}
-{#                    hideTooltip($("#tooltip_message_email"));#}
-{#                }#}
-{#                if ($('#fileInput').val() == "") {#}
-{#                    $("#tooltip_message_file").tooltip('show');#}
-{#                    hideTooltip($("#tooltip_message_file"));#}
-{#                }#}
-{#                return false;#}
-{#            }#}
-{#            $("#modal_body_content_photo").fadeOut('fast');#}
-{#            $("#photo_titulo").text("Su imagen está siendo procesada");#}
-{#            $('#uploadForm').ajaxSubmit(options);#}
-{##}
-{#            return false;#}
-{#        });#}
-{#    </script>#}
+    {#    <script>#}
+    {#        $("#send_photo_modal_trigger").click(function () {#}
+    {#            $("#photo_titulo").show();#}
+    {#            $("#photo_satisfactorio").hide();#}
+    {#            $("#modal_body_content_photo").show();#}
+    {#            $("#photo_description").val("");#}
+    {#        });#}
+    {##}
+    {#        var message = '';#}
+    {#        var options = {#}
+    {#            url: '/ajax_photo/',#}
+    {#            error: function (response) {#}
+    {#                document.getElementById("image_name").value = "";#}
+    {#                document.getElementById("image_email").value = "";#}
+    {##}
+    {#                $("#photo_titulo").text("Enviar foto");#}
+    {#                $("#modal_body_content_photo").fadeIn('fast');#}
+    {#                $('#fileInput').val('');#}
+    {#                var tooltipo_file_bad = $("#tooltip_message_file");#}
+    {#                tooltipo_file_bad[0].setAttribute("data-original-title", "Su archivo tiene problemas, ¿está seguro de que es una imagen menor de 2MB?");#}
+    {##}
+    {#                tooltipo_file_bad.tooltip('show');#}
+    {#                hideTooltip(tooltipo_file_bad);#}
+    {#                tooltipo_file_bad[0].setAttribute("data-original-title", "Debe seleccionar alguna foto.");#}
+    {##}
+    {#                alert(response['result']);#}
+    {##}
+    {#            },#}
+    {#            success: function (response) {#}
+    {#                if (response['status'] == 'success') {#}
+    {#                    document.getElementById("photo_description").value = "";#}
+    {##}
+    {#                    $("#photo_titulo").fadeOut('fast');#}
+    {#                    $("#photo_titulo").text("Enviar foto");#}
+    {##}
+    {#                    $("#photo_satisfactorio").fadeIn('slow');#}
+    {#                    $("#modal_body_content_photo").slideUp('fast');#}
+    {##}
+    {#                    $('#fileInput').val('');#}
+    {##}
+    {#                }#}
+    {#                else {#}
+    {#                    $("#photo_titulo").text("Enviar foto");#}
+    {#                    $("#modal_body_content_photo").fadeIn('fast');#}
+    {#                    $('#fileInput').val('');#}
+    {#                    var tooltipo_file_bad = $("#tooltip_message_file");#}
+    {#                    tooltipo_file_bad[0].setAttribute("data-original-title", "Su archivo tiene problemas, ¿está seguro de que es una imagen menor de 2MB?");#}
+    {##}
+    {#                    tooltipo_file_bad.tooltip('show');#}
+    {#                    hideTooltip(tooltipo_file_bad);#}
+    {#                    tooltipo_file_bad[0].setAttribute("data-original-title", "Debe seleccionar alguna foto.");#}
+    {#                }#}
+    {##}
+    {#            }#}
+    {#        };#}
+    {#        $("#submit_photo").click(function () {#}
+    {#            var trext = document.getElementById("photo_description").value;#}
+    {#            var nombre = document.getElementById("image_name").value;#}
+    {#            var email = document.getElementById("image_email").value;#}
+    {##}
+    {#            if (trext == "" || nombre == "" || email == "" || $('#fileInput').val() == "") {#}
+    {#                if (trext == "") {#}
+    {#                    $("#tooltip_message_text").tooltip('show');#}
+    {#                    hideTooltip($("#tooltip_message_text"));#}
+    {#                }#}
+    {#                if (nombre == "") {#}
+    {#                    $("#tooltip_message_name").tooltip('show');#}
+    {#                    hideTooltip($("#tooltip_message_name"));#}
+    {#                }#}
+    {#                if (email == "") {#}
+    {#                    $("#tooltip_message_email").tooltip('show');#}
+    {#                    hideTooltip($("#tooltip_message_email"));#}
+    {#                }#}
+    {#                if ($('#fileInput').val() == "") {#}
+    {#                    $("#tooltip_message_file").tooltip('show');#}
+    {#                    hideTooltip($("#tooltip_message_file"));#}
+    {#                }#}
+    {#                return false;#}
+    {#            }#}
+    {#            $("#modal_body_content_photo").fadeOut('fast');#}
+    {#            $("#photo_titulo").text("Su imagen está siendo procesada");#}
+    {#            $('#uploadForm').ajaxSubmit(options);#}
+    {##}
+    {#            return false;#}
+    {#        });#}
+    {#    </script>#}
 {% endblock %}
 
 

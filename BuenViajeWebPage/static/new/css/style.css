@@ -2611,6 +2611,11 @@ figure.effect-layla:hover img {
     color: #0072BC;
 }
 
+.search_result span {
+    font-size: small;
+    color: #211F1F;
+}
+
 .search_result a:hover {
     color: #133782;
 }

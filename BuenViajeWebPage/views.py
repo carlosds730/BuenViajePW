@@ -25,7 +25,32 @@ def fix_coma(value):
     return [x.strip() for x in value.strip().split(',')]
 
 
-def fix_month(x):
+def fix_month(x, trigger=False):
+    if trigger:
+        if x.lower() == 'enero':
+            return 1, 'Enero', 'January'
+        elif x.lower() == 'febrero':
+            return 2, 'Febrero', 'February'
+        elif x.lower() == 'marzo':
+            return 3, 'Marzo', 'March'
+        elif x.lower() == 'abril':
+            return 4, 'Abril', 'April'
+        elif x.lower() == 'mayo':
+            return 5, 'Mayo', 'May'
+        elif x.lower() == 'junio':
+            return 6, 'Junio', 'June'
+        elif x.lower() == 'julio':
+            return 7, 'Julio', 'July'
+        elif x.lower() == 'agosto':
+            return 8, 'Agosto', 'August'
+        elif x.lower() == 'septiembre':
+            return 9, 'Septiembre', 'September'
+        elif x.lower() == 'octubre':
+            return 10, 'Octubre', 'October'
+        elif x.lower() == 'noviembre':
+            return 11, 'Noviembre', 'November'
+        else:
+            return 12, 'Diciembre', 'December'
     if x == 1:
         return 1, 'Enero', 'January'
     elif x == 2:
@@ -70,7 +95,9 @@ def calculate_all_data():
     blog_1 = blogs[1]
     blog_1_noticia = blog_1.noticias.order_by("-fecha_publicacion")[0]
 
-    publicities = models.Publicidades.objects.filter(show=True).order_by("sort_order")
+    main = models.Publicidades.objects.filter(show=True, position='principal').order_by("sort_order")
+    first = models.Publicidades.objects.filter(show=True, position='p_bloque').order_by("sort_order")
+    second = models.Publicidades.objects.filter(show=True, position='s_bloque').order_by("sort_order")
 
     noticias = [(x.titulo, x.en_titulo, x.get_small_thumbnail("25x20").url, x.get_absolute_url()) for x in
                 models.Noticia.objects.filter(blog=None).order_by("-fecha_publicacion")[0:5]]
@@ -85,7 +112,9 @@ def calculate_all_data():
         'blog_1_noticia': blog_1_noticia,
         'blog_1_noticia_url': blog_1_noticia.get_absolute_url(),
         'blog_1_noticia_small_img': blog_1_noticia.get_small_thumbnail("90x72").url,
-        'publicidades': publicities,
+        'main': main,
+        'first': first,
+        'second': second,
         'last_revista': models.Revista.objects.order_by('-anho', '-numero')[0],
         'noticias': noticias,
         'mes': fix_month((now() + datetime.timedelta(days=7)).month),
@@ -93,13 +122,17 @@ def calculate_all_data():
 
 
 def home_data_spanish():
-    news_to_publish = models.Noticia.objects.filter(blog=None).order_by("-fecha_publicacion", "sort_order")
-    main_news = news_to_publish[0]
-    main_news = (
-        main_news.titulo, main_news.short_text, main_news.get_small_thumbnail("264x185").url,
-        main_news.get_absolute_url())
+    news_to_publish = models.Noticia.objects.filter(blog=None, position='principal').order_by("-fecha_publicacion",
+                                                                                              "sort_order")
+    main_news = [(main_news.titulo, main_news.short_text, main_news.get_small_thumbnail("264x185").url,
+                  main_news.get_absolute_url(), main_news.id) for main_news in news_to_publish]
 
-    other_news = [(x.titulo, x.get_small_thumbnail("120x90").url, x.get_absolute_url()) for x in news_to_publish[1:5]]
+    first = [(x.titulo, x.short_text, x.get_small_thumbnail("120x90").url, x.get_absolute_url(), x.id) for x in
+             models.Noticia.objects.filter(blog=None, position='p_bloque').order_by("-fecha_publicacion",
+                                                                                    "sort_order")]
+    second = [(x.titulo, x.get_small_thumbnail("120x90").url, x.get_absolute_url(), x.id) for x in
+              models.Noticia.objects.filter(blog=None, position='s_bloque', show=True).order_by("-fecha_publicacion",
+                                                                                                "sort_order")]
     main_event = models.Eventos.objects.get(presentacion=True)
     main_event = (
         main_event.titulo, main_event.short_texto, main_event.texto, main_event.get_small_thumbnail(), main_event.id)
@@ -109,20 +142,27 @@ def home_data_spanish():
         bvatw.titulo, bvatw.short_text, bvatw.texto, bvatw.get_small_thumbnail("277x185"), bvatw.get_absolute_url())
 
     return {
-        'noticia_principal': main_news,
-        'otras_noticias': other_news,
+        'noticias_principales': main_news,
+        'primer_bloque': first,
+        'segundo_bloque_1': second[:3],
+        'segundo_bloque_2': second[3:6],
         'evento_principal': main_event,
         'buen_viaj_mundo': bvatw
     }
 
 
 def home_data_english():
-    news_to_publish = models.Noticia.objects.filter(blog=None).order_by("-fecha_publicacion", "sort_order")
-    main_news = news_to_publish[0]
-    main_news = (main_news.en_titulo, main_news.en_short_text, main_news.get_small_thumbnail("264x185").url,
-                 main_news.get_absolute_url())
-    other_news = [(x.en_titulo, x.get_small_thumbnail("120x90").url, x.get_absolute_url()) for x in
-                  news_to_publish[1:5]]
+    news_to_publish = models.Noticia.objects.filter(blog=None, position='principal').order_by("-fecha_publicacion",
+                                                                                              "sort_order")
+    main_news = [(main_news.en_titulo, main_news.en_short_text, main_news.get_small_thumbnail("264x185").url,
+                  main_news.get_absolute_url(), main_news.id) for main_news in news_to_publish]
+    first = [(x.en_titulo, x.en_short_text, x.get_small_thumbnail("120x90").url, x.get_absolute_url(), x.id) for x in
+             models.Noticia.objects.filter(blog=None, position='p_bloque').order_by("-fecha_publicacion",
+                                                                                    "sort_order")]
+
+    second = [(x.en_titulo, x.get_small_thumbnail("120x90").url, x.get_absolute_url(), x.id) for x in
+              models.Noticia.objects.filter(blog=None, position='s_bloque', show=True).order_by("-fecha_publicacion",
+                                                                                                "sort_order")]
     main_event = models.Eventos.objects.get(presentacion=True)
     main_event = (
         main_event.en_titulo, main_event.en_short_texto, main_event.en_texto, main_event.get_small_thumbnail())
@@ -132,18 +172,20 @@ def home_data_english():
              bvatw.get_absolute_url())
 
     return {
-        'noticia_principal': main_news,
-        'otras_noticias': other_news,
+        'noticias_principales': main_news,
+        'primer_bloque': first,
+        'segundo_bloque_1': second[:3],
+        'segundo_bloque_2': second[3:6],
         'evento_principal': main_event,
         'buen_viaj_mundo': bvatw,
     }
 
 
-#data = calculate_all_data()
+# data = calculate_all_data()
 
-#news_data_es = home_data_spanish()
+# news_data_es = home_data_spanish()
 
-#news_data_en = home_data_english()
+# news_data_en = home_data_english()
 
 
 def recalculate_all_data():
@@ -163,11 +205,13 @@ def inicio(request):
             in models.Seccion_Imagenes_Imagen.objects.annotate(num_com=Count('comentarios')).order_by('-num_com')[0:4]]
     try:
         if request.COOKIES['language'] == 'es':
-            banner = [(x.titulo, x.get_small_thumbnail("590x311").url, x.id) for x in
-                      models.Banner.objects.order_by("-pk")[0:4]]
+            try:
+                keyword = models.KeyWord.objects.get(is_index=True)
+            except models.KeyWord.DoesNotExist:
+                keyword = None
 
             a = {'language': 'es',
-                 'banners': banner,
+                 'keyword': keyword,
                  'pics': pics
                  }
             a.update(data)
@@ -175,14 +219,11 @@ def inicio(request):
 
             return render(request, 'new_inicio.html', a)
         else:
-            banner = [(x.en_title, x.get_small_thumbnail("590x311").url, x.id) for x in
-                      models.Banner.objects.order_by("-pk")[0:4]]
             try:
                 keyword = models.KeyWord.objects.get(is_index=True)
             except models.KeyWord.DoesNotExist:
                 keyword = None
             a = {'language': 'en',
-                 'banners': banner,
                  'keyword': keyword,
                  'pics': pics
                  }
@@ -193,10 +234,13 @@ def inicio(request):
             HttpResponse.set_cookie(to_return, key="buenviaje_idioma", value="en")
             return to_return
     except KeyError:
-        banner = [(x.titulo, x.get_small_thumbnail("590x311").url, x.id) for x in
-                  models.Banner.objects.order_by("-pk")[0:4]]
+        try:
+            keyword = models.KeyWord.objects.get(is_index=True)
+        except models.KeyWord.DoesNotExist:
+            keyword = None
+
         a = {'language': 'es',
-             'banners': banner,
+             'keyword': keyword,
              'pics': pics
              }
         a.update(data)
@@ -235,8 +279,7 @@ def la_revista(request):
                     'secciones': secciones,
                 }
                 d.update(data)
-                return render(request, 'seccion_la_revista.html',
-                              d)
+                return render(request, 'seccion_la_revista.html', d)
             else:
                 secciones = [(x.en_titulo, x.en_descripcion, x.pk, x.image) for x in revista.secciones.all()]
                 d = {
@@ -706,9 +749,12 @@ def eventos_month(request, month):
             recalculate_all_data()
             settings.NEED_TO_RECALCULATE = False
 
-        month = int(month)
+        try:
+            month = fix_month(month, True)
+        except:
+            month = fix_month(month)
         t = now()
-        events = models.Eventos.objects.filter(fecha_inicio__month=month, fecha_inicio__year=t.year)
+        events = models.Eventos.objects.filter(fecha_inicio__month=month[0], fecha_inicio__year=t.year)
         years = models.Eventos.objects.filter(fecha_inicio__year=t.year)
         months = []
 
@@ -718,7 +764,7 @@ def eventos_month(request, month):
         try:
             if request.COOKIES['language'] == 'es':
                 d = {
-                    'mes_actual': fix_month(month),
+                    'mes_actual': month,
                     'language': 'es',
                     'keyword': get_keywords(events),
                     'eventos': events,
@@ -729,7 +775,7 @@ def eventos_month(request, month):
             else:
                 # events = [(x.en_titulo, x.imagen, x.fecha_inicio, x.fecha_final, x.en_comite, fix_coma(x.email), x.fax, x.provincia, x.en_receptivo, x.en_sede, x.telefono, fix_coma(x.web)) for x in models.Eventos.objects.all()]
                 d = {
-                    'mes_actual': fix_month(month),
+                    'mes_actual': month,
                     'language': 'en',
                     'keyword': get_keywords(events),
                     'eventos': events,
@@ -739,7 +785,7 @@ def eventos_month(request, month):
                 return render(request, 'eventos_en.html', d)
         except KeyError:
             d = {
-                'mes_actual': fix_month(month),
+                'mes_actual': month,
                 'language': 'es',
                 'keyword': get_keywords(events),
                 'eventos': events,
@@ -784,9 +830,9 @@ def get_keywords(list_items):
     res = []
     for x in keyword:
         if x:
-            for y in x.split(','):
+            for y in x.keywords.split(','):
                 res.append(y.strip())
-    return res
+    return set(res)
 
 
 def noticia(request, slug):

@@ -6,7 +6,7 @@
       <env name="DJANGO_SETTINGS_MODULE" value="BuenViaje.settings" />
       <env name="PYTHONUNBUFFERED" value="1" />
     </envs>
-    <option name="SDK_HOME" value="E:\Work\BuenViajePW\buenviaje27\Scripts\python.exe" />
+    <option name="SDK_HOME" value="C:\Users\Carlos\Envs\buenviaje27\Scripts\python.exe" />
     <option name="WORKING_DIRECTORY" value="" />
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -14,7 +14,7 @@
     <module name="BuenViaje" />
     <option name="launchJavascriptDebuger" value="false" />
     <option name="port" value="8000" />
-    <option name="host" value="192.168.234.1" />
+    <option name="host" value="" />
     <option name="additionalOptions" value="" />
     <option name="browserUrl" value="" />
     <option name="runTestServer" value="false" />
