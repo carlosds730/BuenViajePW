@@ -9,7 +9,7 @@ from django.db.models import Count
 from django.utils.timezone import now
 from django.utils.timezone import get_current_timezone
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context
 from django.template.loader import get_template
 from django.core.exceptions import ValidationError
@@ -18,6 +18,7 @@ from django.core.mail import get_connection
 from django.core.mail import send_mail
 from django.conf import settings
 from newsletter import models as md_newsletter
+
 import models
 
 
@@ -840,8 +841,10 @@ def noticia(request, slug):
         if settings.NEED_TO_RECALCULATE:
             recalculate_all_data()
             settings.NEED_TO_RECALCULATE = False
-
-        news = models.Noticia.objects.get(slug=slug)
+        try:
+            news = models.Noticia.objects.get(slug=slug)
+        except models.Noticia.DoesNotExist:
+            raise Http404("Esa noticia no existe")
 
         a = {
             'noticia': news,
@@ -1129,6 +1132,10 @@ def old_revistas(request):
 
     else:
         pass
+
+
+def error(request):
+    raise Http404(u'Esta página no existe')
 
 
 # DONE: Fix double uploading from /images/

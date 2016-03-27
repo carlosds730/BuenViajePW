@@ -2,6 +2,7 @@
 import os
 
 DEBUG = True
+
 TEMPLATE_DEBUG = DEBUG
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -52,7 +53,6 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
-
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -157,7 +157,7 @@ NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
 
 # TODO: This must be changed to the real doamin
 # SESSION_COOKIE_DOMAIN = "buenviajeacuba.es"
-#SESSION_COOKIE_DOMAIN = "192.168.56.1"
+# SESSION_COOKIE_DOMAIN = "192.168.56.1"
 
 SESSION_COOKIE_HTTPONLY = False
 
@@ -182,8 +182,6 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 NEED_TO_RECALCULATE = True
-
-
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
