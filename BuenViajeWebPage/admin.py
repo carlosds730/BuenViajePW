@@ -16,13 +16,18 @@ class ExtraImagesInline(admin.StackedInline):
 
 class KeywordInline(admin.StackedInline):
     model = models.KeyWord
-    fields = ['keywords', 'description', 'facebook_msg', 'twitter_msg', 'facebook_img', 'twitter_img', 'is_index']
+    fields = ['keywords', 'description', 'facebook_msg', 'twitter_msg', 'facebook_img', 'twitter_img']
     extra = 1
 
+
+class KeywordAdmin (admin.ModelAdmin):
+    fields = ['keywords', 'description', 'facebook_msg', 'twitter_msg', 'facebook_img', 'twitter_img', 'is_index']
+    list_display = ['__str__', 'is_index']
 
 class NoticiaInline(admin.StackedInline):
     model = models.Noticia
     extra = 1
+    prepopulated_fields = {'slug': ('titulo',)}
 
 
 class ComentarioNoticiasInline(admin.StackedInline):
@@ -189,6 +194,7 @@ admin.site.register(models.Blog, AdminBlog)
 admin.site.register(models.Noticia, AdminNoticia)
 admin.site.register(models.Revista, AdminRevista)
 admin.site.register(models.Eventos, AdminEventos)
+admin.site.register(models.KeyWord, KeywordAdmin)
 admin.site.register(models.Seccion_Tiempo_Libre, AdminSeccionTiempoLibre)
 admin.site.register(models.Seccion_Cuba_Informacion_Destino, AdminSeccionCubaInformaciondestinos)
 admin.site.register(models.Seccion_Cuba_Informacion_General, AdminSeccionCubaInformacionGeneral)

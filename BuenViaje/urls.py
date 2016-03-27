@@ -70,7 +70,6 @@ urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + pa
                                                                                         include('newsletter.urls')),
                                                                                        url(r'^ tinymce/',
                                                                                            include('tinymce.urls')),
-                                                                                       url(r'^main', views.main),
                                                                                        url(r'^', views.inicio)
                                                                                        )
 

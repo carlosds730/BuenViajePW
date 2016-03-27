@@ -139,11 +139,11 @@ def home_data_english():
     }
 
 
-# data = calculate_all_data()
+#data = calculate_all_data()
 
-# news_data_es = home_data_spanish()
+#news_data_es = home_data_spanish()
 
-# news_data_en = home_data_english()
+#news_data_en = home_data_english()
 
 
 def recalculate_all_data():

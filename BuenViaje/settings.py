@@ -157,7 +157,7 @@ NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
 
 # TODO: This must be changed to the real doamin
 # SESSION_COOKIE_DOMAIN = "buenviajeacuba.es"
-SESSION_COOKIE_DOMAIN = "127.0.0.1"
+#SESSION_COOKIE_DOMAIN = "192.168.56.1"
 
 SESSION_COOKIE_HTTPONLY = False
 

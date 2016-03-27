@@ -80,6 +80,9 @@ class KeyWord(models.Model):
             self.is_index = True
         super(KeyWord, self).save(args, kwargs)
 
+    def __str__(self):
+        return self.keywords
+
 
 class Banner(models.Model):
     class Meta:
@@ -171,7 +174,7 @@ class Seccion(models.Model):
     descripcion = tinymce_models.HTMLField(verbose_name='Descripcion', help_text='Una descripcion de la seccion')
 
     en_descripcion = tinymce_models.HTMLField(verbose_name='Descripcion en Ingles',
-                                      help_text='Una descripcion de la seccion en ingles')
+                                              help_text='Una descripcion de la seccion en ingles')
 
     image = ImageField(verbose_name='Foto', upload_to='own', help_text='Foto de la sección')
 
